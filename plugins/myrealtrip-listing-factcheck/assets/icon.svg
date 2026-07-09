@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="512"
+  height="512"
+  viewBox="0 0 512 512"
+  role="img"
+  aria-label="MyRealTrip listing factcheck icon">
+  <!--
+    Gallery icon for the MyRealTrip listing-factcheck plugin.
+    The mark is intentionally flat and compact: a location pin outline with a
+    verification check inside the pin head. The drawing avoids gradients,
+    shadows, bitmap textures, outlines around the icon field, and all text
+    elements so it renders consistently across plugin-gallery surfaces and
+    remains portable in strict preview environments.
+  -->
+  <rect
+    x="0"
+    y="0"
+    width="512"
+    height="512"
+    rx="115"
+    ry="115"
+    fill="#0E7490"/>
+  <path
+    d="
+      M 256 392
+      C 256 392 160 304 160 219
+      C 160 158 202 116 256 116
+      C 310 116 352 158 352 219
+      C 352 304 256 392 256 392
+      Z
+      M 214 220
+      L 246 252
+      L 303 190
+    "
+    fill="none"
+    stroke="#FFFFFF"
+    stroke-width="34"
+    stroke-linecap="round"
+    stroke-linejoin="round"/>
+</svg>

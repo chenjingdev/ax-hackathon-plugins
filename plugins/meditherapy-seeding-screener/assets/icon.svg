@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Meditherapy seeding screener icon">
+  <rect x="0" y="0" width="512" height="512" rx="115" ry="115" fill="#B8437A"/>
+  <path d="M244 118 C 196 196, 138 250, 138 334 A 106 106 0 0 0 350 334 C 350 250, 292 196, 244 118 Z"
+        fill="none" stroke="#FFFFFF" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M394 104 L406 146 L448 158 L406 170 L394 212 L382 170 L340 158 L382 146 Z" fill="#FFFFFF"/>
+</svg>

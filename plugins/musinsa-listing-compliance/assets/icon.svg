@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="512"
+  height="512"
+  viewBox="0 0 512 512"
+  role="img"
+  aria-label="Musinsa listing compliance icon">
+  <!--
+    Gallery icon for the Musinsa listing-compliance plugin.
+    The composition follows the plugin gallery constraints: a full-canvas
+    rounded square background, a white glyph, flat colors only, and no
+    font-backed text. The glyph uses a compact path plus one circle so the
+    clothing swing tag, tag hole, and verification check remain visually simple
+    at small sizes.
+  -->
+  <rect
+    x="0"
+    y="0"
+    width="512"
+    height="512"
+    rx="115"
+    ry="115"
+    fill="#111111"/>
+  <path
+    d="
+      M 146 154
+      H 302
+      Q 315 154 325 164
+      L 373 212
+      Q 382 221 382 236
+      V 354
+      Q 382 370 366 370
+      H 146
+      Q 130 370 130 354
+      V 170
+      Q 130 154 146 154
+      Z
+      M 206 275
+      L 244 313
+      L 319 236
+    "
+    transform="rotate(15 256 256)"
+    fill="none"
+    stroke="#FFFFFF"
+    stroke-width="32"
+    stroke-linecap="round"
+    stroke-linejoin="round"/>
+  <circle
+    cx="178"
+    cy="197"
+    r="13"
+    transform="rotate(15 256 256)"
+    fill="none"
+    stroke="#FFFFFF"
+    stroke-width="32"/>
+</svg>
