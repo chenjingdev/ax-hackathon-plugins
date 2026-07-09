@@ -1,6 +1,6 @@
 ---
 name: "musinsa-quickstart"
-description: "musinsa-listing-compliance 플러그인의 사용법·구조·샘플 시연 안내가 필요할 때(퀵스타트/quickstart/사용법/시작하기/온보딩/이 플러그인 뭐야/뭘 할 수 있어 등) 사용. 플러그인 루트 docs/quickstart.html을 브라우저로 열고 핵심 요약과 샘플 시연을 제안한다."
+description: "퀵스타트/quickstart/사용법/시작하기/온보딩/처음 써봐/이 플러그인 뭐야/뭘 할 수 있어 — 이런 요청이면 반드시 이 스킬 사용(설치 직후 첫 대화 포함). 소개 문서(docs/quickstart.html)를 브라우저로 열고 채팅에는 짧은 소개와 샘플 시연 제안만 남기는 온보딩 안내 스킬. 검수 실행 자체는 listing-compliance 스킬 담당."
 ---
 
 # musinsa-quickstart — 퀵스타트 온보딩 안내
