@@ -49,6 +49,7 @@ codex plugin add musinsa-listing-compliance@ax-hackathon-plugins</code></pre></l
 <pre><code>번들 샘플 sample/input.product.json으로 표시정보 컴플라이언스 검수를 시연해줘</code></pre></li>
 <li>안감 "캐시미어 30%" 주장이 성적서(아크릴 100%)와 불일치로 걸려 <span class="b">BLOCK</span> 리포트가 나오면 정상.</li>
 </ol>
+<p>실사용 입력은 JSON일 필요 없다 — <b>등록 화면 캡처를 첨부</b>하거나 텍스트를 붙여넣으면 스킬이 정규화한다(CLI는 <code>codex exec -i sample/input.product.png "이 등록 캡처를 검수해줘"</code>). 시험성적서만 구조화 JSON으로.</p>
 
 <h2>무엇을 하나</h2>
 <ul>
@@ -62,6 +63,7 @@ codex plugin add musinsa-listing-compliance@ax-hackathon-plugins</code></pre></l
 <div class="wrap"><table>
 <tr><th>파일</th><th>시나리오</th><th>기대 결과</th></tr>
 <tr><td><code>sample/input.product.json</code></td><td>안감 캐시미어 주장 vs 성적서 아크릴 100%</td><td><span class="b">BLOCK</span> — 위반 6건(GW·MX·TS)</td></tr>
+<tr><td><code>sample/input.product.png</code></td><td>같은 상품의 파트너센터 등록 화면 캡처 — 실사용 입력 데모(성적서 미첨부)</td><td><span class="b">BLOCK</span> — 그린워싱 표현 + 증빙 누락</td></tr>
 <tr><td><code>sample/input.pass.json</code></td><td>면 100%, 성적서 일치, 환경성 표현 없음</td><td><span class="p">PASS</span> — 오탐 0</td></tr>
 <tr><td><code>sample/input.rescan.json</code></td><td>그린워싱 룰 갱신 → 코퍼스 4건 소급 재스캔</td><td><span class="b">BLOCK 2</span> · <span class="p">PASS 1</span> · <span class="r">REVIEW 1</span> — 자사 PB 적발 포함</td></tr>
 <tr><td><code>sample/EXPECTED.md</code></td><td>위 세 시나리오의 기대 출력 원문(골든)</td><td>채점 기준</td></tr>
