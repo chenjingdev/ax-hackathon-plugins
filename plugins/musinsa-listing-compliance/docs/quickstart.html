@@ -24,11 +24,15 @@ ul,ol{padding-left:1.3em;margin:.4em 0}
 li{margin:.35em 0}
 .calc{background:#f6f6f6;border-left:3px solid #111;border-radius:0 8px 8px 0;padding:10px 14px;font-size:.9rem;margin:.6em 0}
 .note{font-size:.84rem;color:#777}
+figure{margin:.9em 0}
+figure img{display:block;max-width:min(420px,100%);border:1px solid #e2e2e2;border-radius:8px}
+figcaption{font-size:.82rem;color:#777;margin-top:.4em}
 footer{margin-top:3em;padding-top:1em;border-top:1px solid #e5e5e5;font-size:.85rem;color:#777}
 a{color:#0b62c4}
 @media (prefers-color-scheme:dark){
 body{background:#121212;color:#e6e6e6}
 pre,th,.calc{background:#1d1d1d}pre,th,td{border-color:#333}
+figure img{border-color:#333}figcaption{color:#888}
 .calc{border-left-color:#eee}
 h2,footer{border-color:#2a2a2a}
 .chip{background:#252525;color:#aaa}.co{background:#eee;color:#111}
@@ -62,7 +66,12 @@ codex plugin add musinsa-listing-compliance@ax-hackathon-plugins</code></pre></l
 <p class="note">시험성적서만은 이미지가 아니라 데이터(JSON)로 넣는다 — 혼용률 수치 판정을 OCR에 태우지 않기 위한 의도된 제한.</p>
 
 <h2>무슨 결과가 나오나</h2>
-<p>판정 리포트 한 장: <b>판정(BLOCK/WARN/PASS) + 위반 목록(규칙·근거 URL) + 정정안 + 반려 사유서·셀러 응대 초안</b>. 셀러에게 보낼 문서까지 초안이 나오므로 MD는 검토·확정만 한다. 번들 데모 3종의 기대 결과:</p>
+<p>판정 리포트 한 장: <b>판정(BLOCK/WARN/PASS) + 위반 목록(규칙·근거 URL) + 정정안 + 반려 사유서·셀러 응대 초안</b>. 셀러에게 보낼 문서까지 초안이 나오므로 MD는 검토·확정만 한다.</p>
+<figure>
+<img src="../sample/input.product.png" alt="번들 시연 상품의 등록 화면 캡처 — 친환경 에코레더 무스탕 자켓, 안감 캐시미어 30% 표기, 시험성적서 미첨부">
+<figcaption>번들 시연 상품 — '친환경 에코레더 무스탕 자켓'(690,000원) 등록 화면 캡처(<code>sample/input.product.png</code>). 안감을 '캐시미어 30%'라고 주장하는데 시험성적서가 없다. 기대 판정 <b>BLOCK</b>.</figcaption>
+</figure>
+<p>번들 데모 3종의 기대 결과:</p>
 <div class="wrap"><table>
 <tr><th>데모</th><th>기대 결과</th></tr>
 <tr><td>가짜 캐시미어 자켓 단건 검수 (<code>sample/input.product.json</code> · 등록 화면 캡처판 <code>input.product.png</code>)</td><td><span class="b">BLOCK</span> — 그린워싱 표현 + 안감 혼용률 성적서 불일치</td></tr>
