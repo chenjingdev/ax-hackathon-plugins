@@ -19,7 +19,7 @@ description: "무신사 입점·운영 상품의 표시정보(상품명·소재/
 **규칙 ID 바인딩(위조 금지·필수)**: 로드 후 `rules[].id` 집합(예: `GW-01`…`TS-02`)을 확정한다. 출력의 **모든 `rule_id`·「규칙 ID」·검증 푸터 `rule_ids_used`는 이 집합의 값만** 쓴다 — `LC-*`·`ENV-*` 같은 **즉석 ID를 새로 만들지 않는다**. ruleset을 읽지 못하면 규칙 ID를 지어내지 말고 리포트 §0에 "규칙셋 미로드 — 확정 판정 불가"로 명시하고 결정론 판정을 중단한다(에이전트 표면 후보만 상정 가능).
 
 ## 1. 입력 정규화 (§3)
-입력은 두 모드. 자유 텍스트로 와도 아래 스키마로 정규화한 뒤 심사한다.
+입력은 두 모드. 자유 텍스트로 와도 아래 스키마로 정규화한 뒤 심사한다. **폴백**: 검수 대상 입력이 주어지지 않으면(예: "이 상품 검수해줘"처럼 대상 없이 트리거된 경우) 플러그인 루트의 `sample/input.product.json`을 로드해 시연하고, 리포트 서두에 **번들 샘플 시연**임을 명시한다(실데이터 검수와 혼동 방지).
 - **단건(§3.2)**: `{product_id, product_name, brand, is_own_brand?, category, price_krw, origin?, style_no?, material_claims[{part,material,percent}], tags[]?, marketing_copy?, premium_material_claims[{brand,material}]?, test_certificates[]?}`. `mode:"single"`.
 - **재스캔(§3.4)**: `{mode:"rescan", policy_update{added_rules[{id,delta,basis,severity,effective_date}], note}, corpus[ <단건 객체 배열> ]}`. 갱신 룰을 전 코퍼스에 소급 적용한다.
 - **이종기관 성적서(§3.3)**: `test_certificates[]` = `{issuer, cert_no, product_ref?, issued_date, tested_part?, tested_composition[{material,percent}], issuer_fields_raw?}`. **기관마다 필드명·단위·소재명칭·포맷이 다르고 `product_ref`가 없을 수 있다** → 정규형으로 매핑(출처 `issuer_fields_raw` 추적)한 뒤 매칭한다.
