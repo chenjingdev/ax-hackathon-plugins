@@ -1,0 +1,134 @@
+{
+  "meta": {
+    "schema_ref": "SPEC.md §3.4 (명소 공식 운영사실 — 동결 스냅샷, 대조 기준 권위 사본)",
+    "counterpart_ruleset_file": "src/rules/ruleset.json",
+    "weekday_encoding": "0=월,1=화,2=수,3=목,4=금,5=토,6=일 — ruleset.json 과 공유하는 규약(오르세=[0], 루브르=[1]). 절대 변경 금지.",
+    "record_type_legend": {
+      "golden_fact_F1..F4": "SPEC §1.2 골든 팩트(OD-01/02/03, SC-01/02, AG-01/02 판정 근거)",
+      "pass_support_record": "골든 F 아님. M3 PASS 대조군(TOKYO-SKYTREE-OK)이 명소불명이 아니라 진짜 PASS가 되도록 지원하는 레코드"
+    },
+    "note": "라이브 API 아님 — 예선 재현성을 위한 큐레이션 동결 스냅샷. 모든 레코드는 source_url+as_of 보유.",
+    "as_of_default": "2026-07-07"
+  },
+  "places": [
+    {
+      "place_ref": "orsay",
+      "record_type": "golden_fact_F1",
+      "name": "오르세 미술관 (Musée d'Orsay)",
+      "city": "Paris",
+      "country": "France",
+      "closed_weekdays": [0],
+      "special_closures": [
+        { "date": "05-01", "recurring": true, "reason": "5/1 공휴일 휴관" },
+        { "date": "12-25", "recurring": true, "reason": "12/25 공휴일 휴관" }
+      ],
+      "closed_periods": [],
+      "hours": {
+        "open": "09:30",
+        "close": "18:00",
+        "weekday_exceptions": [
+          { "weekday": 3, "close": "21:45", "note": "목요일 야간 개장 21:45까지" }
+        ],
+        "note": "화~일 09:30–18:00(목 21:45까지). 월요일(0)은 정기 휴관."
+      },
+      "age_rules": [],
+      "reservation_required_from": "2026-03-10",
+      "special_note": "2026-03-10부터 시간지정 예약 의무",
+      "source_url": "https://www.musee-orsay.fr/en/visit",
+      "as_of": "2026-07-07"
+    },
+    {
+      "place_ref": "louvre",
+      "record_type": "golden_fact_F2",
+      "name": "루브르 박물관 (Musée du Louvre)",
+      "city": "Paris",
+      "country": "France",
+      "closed_weekdays": [1],
+      "special_closures": [
+        { "date": "01-01", "recurring": true, "reason": "1/1 공휴일 휴관" },
+        { "date": "05-01", "recurring": true, "reason": "5/1 공휴일 휴관" },
+        { "date": "12-25", "recurring": true, "reason": "12/25 공휴일 휴관" }
+      ],
+      "closed_periods": [],
+      "hours": {
+        "note": "SPEC §1.2 F2에 세부 개장/폐장 시각이 명시되지 않아 미기재(지어내지 않음). closed_weekdays(화요일 정기휴관, 연중 예외없음) 기준 OD-01 대조는 가능."
+      },
+      "age_rules": [],
+      "source_url": "https://www.louvre.fr/en/visit/hours-admission",
+      "as_of": "2026-07-07"
+    },
+    {
+      "place_ref": "similan",
+      "record_type": "golden_fact_F3",
+      "name": "시밀란 제도 국립공원 (Mu Ko Similan National Park)",
+      "city": "Phang Nga",
+      "country": "Thailand",
+      "closed_weekdays": [],
+      "special_closures": [],
+      "closed_periods": [
+        {
+          "start": "05-15",
+          "end": "10-15",
+          "recurring": false,
+          "source_year": 2026,
+          "as_of": "2026-07-07",
+          "reason": "우기 전면 폐쇄(태국 DNP 규정) — 2026 시즌 5/15~10/15",
+          "boundary_uncertainty": "±1일. DNP 공식 폐쇄일은 연도별로 드리프트하므로 recurring 아님(매년 고정 아님): 2025=05-16~10-14, 2026=05-15~10-15. 게다가 폐쇄종료일과 재개일 보도가 ±1일 상충한 이력이 있다(2025 공식 종료 10/14 vs 재개 보도 10/16). 따라서 경계일(±1일) 판매 리스팅은 결정론 하드 BLOCK보다 사람 확인을 권장하며, 이 fact의 소급 재스캔 가치는 연도별 facts 최신성에 의존한다(라이브 API 아님 — 매 시즌 재확인 필요).",
+          "source_url": "https://www.nationthailand.com/news/tourism/40066673",
+          "history": [
+            {
+              "source_year": 2025,
+              "start": "05-16",
+              "end": "10-14",
+              "source_url": "https://www.nationthailand.com/news/tourism/40050202",
+              "note": "2025 시즌 공식 폐쇄(재개 보도는 10/16 — 경계 ±1일 상충)"
+            }
+          ]
+        }
+      ],
+      "hours": {},
+      "age_rules": [],
+      "source_url": "https://www.nationthailand.com/news/tourism/40066673",
+      "as_of": "2026-07-07",
+      "note": "SC-01 대조는 closed_periods[].{start,end}(MM-DD)를 사용한다. 현재 값은 2026 시즌(5/15~10/15) 기준이며 연도별로 경계가 드리프트한다(boundary_uncertainty 참고) — 매 시즌 source_url로 재확인해 갱신할 것."
+    },
+    {
+      "place_ref": "sentosa_luge",
+      "record_type": "golden_fact_F4",
+      "name": "센토사 스카이라인 루지 (Skyline Luge Sentosa)",
+      "city": "Sentosa",
+      "country": "Singapore",
+      "closed_weekdays": [],
+      "special_closures": [],
+      "closed_periods": [],
+      "hours": {},
+      "age_rules": [
+        { "activity": "luge_solo", "age_min": 6, "height_min_cm": 110 },
+        {
+          "activity": "luge_tandem",
+          "age_min": 2,
+          "age_max": 6,
+          "height_range_cm": [85, 110],
+          "tandem_rule": "성인 동반탑승권 필수"
+        }
+      ],
+      "source_url": "https://sentosa.skylineluge.com/luge/safety-faq/",
+      "as_of": "2026-07-07"
+    },
+    {
+      "place_ref": "tokyo_skytree",
+      "record_type": "pass_support_record",
+      "name": "도쿄 스카이트리 (Tokyo Skytree)",
+      "city": "Tokyo",
+      "country": "Japan",
+      "closed_weekdays": [],
+      "special_closures": [],
+      "closed_periods": [],
+      "hours": {},
+      "age_rules": [],
+      "note": "골든 F1~F4 아님 — M3 PASS 대조군(TOKYO-SKYTREE-OK, 평일 성인권)이 명소불명이 아니라 진짜 PASS가 되도록 지원하는 레코드. 연중무휴(휴관요일·시즌폐쇄 없음), 성인 입장권에 연령/신장 제약 없음.",
+      "source_url": "https://www.tokyo-skytree.jp/en/",
+      "as_of": "2026-07-07"
+    }
+  ]
+}

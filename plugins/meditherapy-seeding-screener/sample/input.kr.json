@@ -1,0 +1,73 @@
+{
+  "_provenance": "헤드라인 양성 픽스처(SPEC §8.1). 검증된 한국 뷰티 생태계 아키타입에 기반: 메가 글램·라이프스타일(포니 894만급·화장하는 청담언니 600만급 YT/IG) vs 더마 마이크로(피부과 전문의 ~수천~1.1만 IG). 크리에이터 정체성·아키타입·표면지표 규모는 공개 검증(출처 URL은 README/EXPECTED 참조). **게시물 콘텐츠 텍스트(caption/transcript/comments)는 플랫폼 접근 제한으로 실스크랩 불가 → 공개 포지셔닝 기반 대표 재구성**(verbatim 스크랩 아님·실제 발언 아님·날조 방지 위해 익명 아키타입 핸들 사용). before/after 역전(§8.2) 데모용으로 표면지표↔구매유발 결을 의도적으로 반전.",
+  "mode": "pool",
+  "product": {
+    "name": "레티놀 세럼",
+    "category": "skincare",
+    "key_attributes": ["레티놀", "모공", "탄력", "나이아신아마이드", "세라마이드"]
+  },
+  "target_need": "모공·탄력 개선을 원하지만 초기 자극이 걱정되는 30대 스킨케어 소비자",
+  "brand_tone": "근거 있는 더마 신뢰",
+  "candidates": [
+    {
+      "creator_id": "mega_glam_lifestyle",
+      "platform": "instagram",
+      "surface_metrics": { "followers": 894000, "following": 410, "avg_likes": 95000, "avg_comments": 250, "post_cadence_days": 7, "ad_tag_ratio": 0.3 },
+      "contents": [
+        {
+          "type": "post",
+          "caption": "오늘의 데일리 글램 메이크업 💄 가을 무드 컬러로 화사하게! 다들 행복한 하루 보내세요",
+          "transcript": null,
+          "hashtags": ["#데일리메이크업", "#글램", "#가을무드", "#컬러"],
+          "comments_sample": ["언니 너무 예뻐요", "이 컬러 정보 좀 알려주세요", "오늘도 화사하다"],
+          "engagement": { "likes": 95000, "comments": 250, "shares": 120 }
+        }
+      ]
+    },
+    {
+      "creator_id": "mega_haul_unboxing",
+      "platform": "instagram",
+      "surface_metrics": { "followers": 600000, "following": 980, "avg_likes": 45000, "avg_comments": 300, "post_cadence_days": 9, "ad_tag_ratio": 0.9 },
+      "contents": [
+        {
+          "type": "reel",
+          "caption": "이번 달 화장품 하울 🛍️ 협찬 받은 신상 11개 언박싱! 대박 템 강추합니다 무조건 사세요 #광고",
+          "transcript": "자 오늘은 신상 하울이에요 이거 진짜 대박이고 저거도 강추 다음 제품도 완전 좋아요 링크는 프로필에",
+          "hashtags": ["#하울", "#언박싱", "#협찬", "#광고", "#신상"],
+          "comments_sample": ["우와 예뻐요", "다 갖고 싶다", "링크 어디예요"],
+          "engagement": { "likes": 45000, "comments": 300, "shares": 90 }
+        }
+      ]
+    },
+    {
+      "creator_id": "mid_review_creator",
+      "platform": "instagram",
+      "surface_metrics": { "followers": 82000, "following": 320, "avg_likes": 5400, "avg_comments": 210, "post_cadence_days": 6, "ad_tag_ratio": 0.25 },
+      "contents": [
+        {
+          "type": "reel",
+          "caption": "나이아신아마이드 세럼 한 달 사용 후기 — 모공이랑 잡티 변화 솔직하게 정리했어요",
+          "transcript": "안녕하세요 여러분 이 세럼 한 달 직접 써봤어요 나이아신아마이드 5% 들어있어서 모공이랑 피부톤 정리에 도움 됐어요 아침저녁으로 토너 다음에 발라줬는데 자극은 없었어요 다만 보습은 좀 약해서 크림 꼭 같이 쓰세요",
+          "hashtags": ["#세럼추천", "#나이아신아마이드", "#한달후기", "#성분"],
+          "comments_sample": ["저도 써봤는데 공감해요", "톤 정리 진짜 되나요 저도 사야겠다", "꿀팁 감사합니다"],
+          "engagement": { "likes": 5400, "comments": 210, "shares": 60 }
+        }
+      ]
+    },
+    {
+      "creator_id": "derma_micro_expert",
+      "platform": "youtube",
+      "surface_metrics": { "followers": 8600, "following": 75, "avg_likes": 720, "avg_comments": 130, "post_cadence_days": 4, "ad_tag_ratio": 0.1 },
+      "contents": [
+        {
+          "type": "video",
+          "caption": "레티놀 0.1% 세럼, 피부과 전문의가 2주 직접 써본 솔직 후기 (성분·사용법 정리)",
+          "transcript": "여러분 안녕하세요. 오늘은 레티놀 0.1% 세럼을 2주간 직접 써보고 말씀드릴게요. 레티놀은 피부 턴오버를 도와 모공과 탄력에 도움을 줘요. 다만 초반에는 장벽이 약해져 자극될 수 있어서, 저녁에 소량만 발라주고 아침에는 꼭 보습과 자외선차단을 하세요. 세라마이드가 함께 들어가 장벽 진정에 도움이 됐어요. 단점은 초반에 약간 건조함이 느껴질 수 있다는 점이에요. 두 달 꾸준히 쓰면서 피부결이 정돈됐어요.",
+          "hashtags": ["#성분리뷰", "#레티놀", "#피부과전문의", "#사용법"],
+          "comments_sample": ["저도 이거 샀어요 설명 듣고 믿음이 가네요", "성분 설명 진짜 자세해서 좋아요 감사합니다", "초반 자극 때문에 고민했는데 답글 보고 도움 됐어요"],
+          "engagement": { "likes": 720, "comments": 130, "shares": 45 }
+        }
+      ]
+    }
+  ]
+}

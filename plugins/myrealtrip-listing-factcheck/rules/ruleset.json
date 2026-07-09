@@ -1,0 +1,166 @@
+{
+  "meta": {
+    "schema_ref": "SPEC.md §4 (현지 운영사실 대조 룰셋 — facts-as-code, 권위 사본)",
+    "counterpart_facts_file": "src/rules/facts.json",
+    "weekday_encoding": "0=월,1=화,2=수,3=목,4=금,5=토,6=일 — facts.json.closed_weekdays 와 listing.visit_schedule.weekdays 가 공유하는 규약(오르세=[0], 루브르=[1]). 절대 변경 금지.",
+    "layers": ["factmatch", "preprocess"],
+    "severities": ["BLOCK", "WARN", "INFO"],
+    "rule_count": 9,
+    "as_of": "2026-07-07"
+  },
+  "params": {
+    "place_link": {
+      "min_confidence": 0.6,
+      "description": "listing.places[].place_ref 부재 시 (name+city+country) 퍼지매칭 신뢰도 임계(SPEC §3.5·§5.3). 미만이면 '명소불명' 상태로 review_candidates[]에 상정(하드 BLOCK 아님)."
+    },
+    "seasonal_keywords": [
+      "라벤더",
+      "벚꽃",
+      "단풍",
+      "설경",
+      "반딧불",
+      "오로라"
+    ]
+  },
+  "rules": [
+    {
+      "id": "OD-01",
+      "family": "OD",
+      "layer": "factmatch",
+      "basis": ["F1", "F2"],
+      "severity": "BLOCK",
+      "description": "visit_schedule.weekdays ∩ 명소 closed_weekdays ≠ ∅ (예: 월요일 방문 + 오르세 / 화요일 + 루브르)",
+      "condition": {
+        "check": "weekday_intersection",
+        "listing_field": "visit_schedule.weekdays",
+        "fact_field": "closed_weekdays",
+        "violation_if": "intersection(listing_field, fact_field) != []"
+      },
+      "spec_ref": "SPEC.md §4.1"
+    },
+    {
+      "id": "OD-02",
+      "family": "OD",
+      "layer": "factmatch",
+      "basis": ["F1"],
+      "severity": "BLOCK",
+      "description": "visit_schedule.dates 중 명소 special_closures(공휴일·임시 휴관)에 해당하는 날짜 존재",
+      "condition": {
+        "check": "date_in_closure_set",
+        "listing_field": "visit_schedule.dates",
+        "fact_field": "special_closures",
+        "match_rule": "special_closures[].recurring=true 이면 MM-DD로 매년 반복 대조, false면 명시된 date/period로 단일 대조",
+        "violation_if": "any(listing_date matches fact_field entry)"
+      },
+      "spec_ref": "SPEC.md §4.1"
+    },
+    {
+      "id": "OD-03",
+      "family": "OD",
+      "layer": "factmatch",
+      "basis": ["F1", "F2"],
+      "severity": "WARN",
+      "description": "visit_schedule.visit_time이 명소 hours 개장 전/폐장 후(해당 요일 운영시간 밖)",
+      "condition": {
+        "check": "time_outside_hours",
+        "listing_field": "visit_schedule.visit_time",
+        "weekday_field": "visit_schedule.weekdays",
+        "fact_field": "hours",
+        "violation_if": "visit_time < hours.open OR visit_time > hours.close (weekday_exceptions가 해당 요일에 있으면 그것을 우선 적용)"
+      },
+      "spec_ref": "SPEC.md §4.1"
+    },
+    {
+      "id": "SC-01",
+      "family": "SC",
+      "layer": "factmatch",
+      "basis": ["F3"],
+      "severity": "BLOCK",
+      "description": "visit_schedule(날짜·판매기간)이 명소 closed_periods(시즌 전면 폐쇄)와 겹침(예: 9월 시밀란)",
+      "condition": {
+        "check": "date_range_overlap",
+        "listing_field": ["visit_schedule.dates", "visit_schedule.sell_period"],
+        "fact_field": "closed_periods",
+        "violation_if": "overlap(listing_range(MM-DD, 연도 무관 매년 반복), fact_field[].{start,end}) == true",
+        "note": "매칭은 MM-DD(연도 무관)로 수행하되, closed_periods의 MM-DD '값'은 매년 고정이 아니라 현재 시즌 스냅샷이다(facts.json.closed_periods는 source_year·as_of·boundary_uncertainty로 per-year 표기, recurring=false). 경계일(±1일) 리스팅은 결정론 하드 BLOCK보다 사람 확인을 권장하며, 값은 매 시즌 source_url로 재확인·갱신한다."
+      },
+      "spec_ref": "SPEC.md §4.2"
+    },
+    {
+      "id": "SC-02",
+      "family": "SC",
+      "layer": "factmatch",
+      "basis": ["F3"],
+      "severity": "WARN",
+      "description": "계절성 볼거리(라벤더·벚꽃·설경 등) 명시 + 판매 시기가 해당 시즌 밖(경관 부재 리스크)",
+      "condition": {
+        "check": "seasonal_keyword_outside_window",
+        "listing_field": ["title", "body"],
+        "keyword_param": "params.seasonal_keywords",
+        "schedule_field": ["visit_schedule.dates", "visit_schedule.sell_period"],
+        "violation_if": "listing_field에 keyword_param 중 하나 이상 포함 AND 해당 시즌창 대비 schedule_field가 벗어남",
+        "note": "키워드→시즌창 매핑은 명소별 실측 facts.json 항목이 아님(예선 F1~F4에 미포함 — 지어내지 않기 위해 의도적으로 미정의). 결정론 바닥은 키워드 검출까지만 담당하고, 실제 시즌창 대조는 에이전트 표면(SPEC §5.3)이 명소·연도 맥락으로 판단한다. layer=factmatch이나 시즌창 데이터 부재로 실판정은 violations[]가 아니라 advisories[](에이전트 표면 자문)로 라우팅한다(SPEC §5.4·contract.json advisories 정의) — review_candidates[](명소불명 전용)와도 별개이며, violations[] 미포함이라 결정론 서명(verdict·rule_set)과 무관하다."
+      },
+      "spec_ref": "SPEC.md §4.2"
+    },
+    {
+      "id": "AG-01",
+      "family": "AG",
+      "layer": "factmatch",
+      "basis": ["F4"],
+      "severity": "BLOCK",
+      "description": "상품 age_terms의 아동요금 age_min/height_min_cm이 명소 age_rules보다 완화되어 현장 탑승/입장 거부 리스크(예: 루지 아동권 만4세인데 공식 단독탑승 만6세·110cm)",
+      "condition": {
+        "check": "age_or_height_more_lenient",
+        "listing_field": ["age_terms[].age_min", "age_terms[].height_min_cm"],
+        "fact_field": ["age_rules[].age_min", "age_rules[].height_min_cm"],
+        "match_by": "age_terms[].tier ~ age_rules[].activity (동일 액티비티 매칭, 명시 없으면 solo/기본 규정과 대조)",
+        "violation_if": "listing.age_min < fact.age_min OR listing.height_min_cm < fact.height_min_cm"
+      },
+      "spec_ref": "SPEC.md §4.3"
+    },
+    {
+      "id": "AG-02",
+      "family": "AG",
+      "layer": "factmatch",
+      "basis": ["F4"],
+      "severity": "WARN",
+      "description": "필수 증빙/동반 조건(tandem_rule·required_doc) 안내 누락(예: 만2~6세 동반탑승권·학생증·사전예약)",
+      "condition": {
+        "check": "missing_required_notice",
+        "listing_field": ["age_terms[].required_doc", "body"],
+        "fact_field": ["age_rules[].tandem_rule", "age_rules[].required_doc"],
+        "violation_if": "fact_field에 tandem_rule/required_doc 존재 AND listing_field에 대응 언급 없음"
+      },
+      "spec_ref": "SPEC.md §4.3"
+    },
+    {
+      "id": "PP-01",
+      "family": "PP",
+      "layer": "preprocess",
+      "basis": ["P1"],
+      "severity": "WARN",
+      "description": "places 또는 visit_schedule의 필수 축(명소·방문요일/시기) 누락 → 대조 불가, 필드 채움 요청",
+      "condition": {
+        "check": "missing_required_field",
+        "listing_field": ["places", "visit_schedule.weekdays", "visit_schedule.dates"],
+        "violation_if": "places 가 비어있음 OR (visit_schedule.weekdays 가 비어있음 AND visit_schedule.dates 가 비어있음)"
+      },
+      "spec_ref": "SPEC.md §4.4"
+    },
+    {
+      "id": "PP-02",
+      "family": "PP",
+      "layer": "preprocess",
+      "basis": ["P1"],
+      "severity": "WARN",
+      "description": "날짜/기간 파싱 불가·모순(sell_period.end < start, 존재하지 않는 날짜)",
+      "condition": {
+        "check": "date_range_invalid",
+        "listing_field": "visit_schedule.sell_period",
+        "violation_if": "sell_period.end < sell_period.start OR 날짜 파싱 실패(형식 오류/달력상 존재하지 않는 날짜)"
+      },
+      "spec_ref": "SPEC.md §3.5, §4.4"
+    }
+  ]
+}

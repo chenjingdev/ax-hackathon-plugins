@@ -1,0 +1,13 @@
+{
+  "doc_id": "TEMPLATE-test_lab",
+  "type": "test_lab_template",
+  "_template": true,
+  "_instructions": "KOLAS 인정시험기관 데이터 라이선스를 확보한 뒤, 이 스키마로 kb/labs/<기관>.json 을 만들고 type 을 'test_lab' 으로 바꿔 넣으면 check_test_lab 이 자동 서빙합니다(코드 변경 0). 본 파일은 템플릿이라 서빙되지 않습니다.",
+  "title": "<인정시험기관 정식명칭, 예: 한국의류시험연구원(KOTITI)>",
+  "body": "<인정 범위·유효기간 등>",
+  "source_org": "국가기술표준원 / KOLAS",
+  "provenance_url": "<공식 명부 항목 URL>",
+  "license": "<확보한 라이선스 명시, 예: KOLAS 공식 제공 협약>",
+  "keywords": ["KOTITI", "한국의류시험연구원", "섬유", "혼용률"],
+  "rule_refs": ["TC-01", "TC-02", "MX-01"]
+}

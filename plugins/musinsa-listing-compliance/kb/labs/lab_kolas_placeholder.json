@@ -1,0 +1,12 @@
+{
+  "doc_id": "POLICY-KOLAS-KIPRIS-비동봉",
+  "type": "policy_note",
+  "title": "비법률 검증데이터(KOLAS 명부·KIPRIS 상표) 비동봉 결정",
+  "body": "deep-research 라이선스 검증 결과, 시험성적서 발급기관 진위용 KOLAS 인정시험기관 '명부'와 KIPRIS 상표 데이터는 로컬DB로 동봉·재배포할 수 없다. (1) KOLAS 명부는 knab.go.kr에만 공개되며 'Copyright(C) KOLAS' 표시·공공누리 미부착·API/벌크다운로드 없음. data.go.kr의 '제한 없음' KOLAS 데이터셋(15054300 등)은 연간 통계일 뿐 명부가 아님. (2) KIPRIS 상표는 KIPRIS Plus 이용약관 제17조(저작권 유보)·제19조(재배포·복사·가공·DB화 금지)로 동봉 불가. 따라서 check_test_lab은 인정기관 '명칭' 화이트리스트(공개 사실)+공식 명부 인간검증 URL로, lookup_trademark는 KIPRIS 검색 URL 포인터(데이터 0)로 구현한다. 택갈이 1차 신호는 ruleset TS-02로 대체.",
+  "source_org": "내부 결정(라이선스 리서치 근거)",
+  "provenance_url": "https://www.knab.go.kr/usr/inf/srh/InfoTestInsttSearchList.do",
+  "license": "N/A — 비동봉 결정 문서(데이터 아님)",
+  "status": "DECIDED_NOT_BUNDLED",
+  "keywords": ["KOLAS", "KIPRIS", "비동봉", "라이선스", "인간검증", "화이트리스트"],
+  "rule_refs": ["TC-01", "TC-02", "TS-01", "TS-02"]
+}

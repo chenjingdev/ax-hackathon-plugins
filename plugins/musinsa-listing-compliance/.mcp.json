@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "compliance-kb": {
+      "command": "python3",
+      "args": ["mcp_server/compliance_kb_server.py", "--kb", "kb"],
+      "description": "로컬 컴플라이언스 지식베이스(법령·심사지침·공정위 의결례) — 오프라인·런타임 키 0. 위반 판정의 법적 근거를 출처와 함께 인출·교차검증한다."
+    }
+  }
+}

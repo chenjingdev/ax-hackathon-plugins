@@ -1,0 +1,172 @@
+{
+  "ruleset_version": "v0.1",
+  "identity": "구매의도 유발 콘텐츠 속성 5차원 온톨로지. 정체성 = 예언자가 아니라 정밀 계측기·설명기(SPEC §1.1). 가중치는 한국 동료심사 근거로 설정된 고정값이며 에이전트·루프 모두 변경 불가(SPEC §4.2). 핵심 산출은 각 차원 점수를 방어하는 원문 인용(설명)이고 점수·랭킹은 부산물.",
+  "guard": "purchase_intent_fit = 구매의도 적합 추정 · 매출귀인 아님 · 바이럴 아님 · 진위 확정판정 아님 (SPEC §1.4)",
+  "spec_sync": "SPEC §4 표 ↔ 이 파일 1:1. 출처 = SPEC §11.2 / research/korean-evidence.md(KCI 24편 검증, 환각 0). 차원·가중치 변경은 SPEC §4/§11.2와 양쪽 동기화 + ⚠ ESCALATE.",
+  "weighting_method": {
+    "method": "신뢰등급 기반 보수 캡 + Σweight=1.0 정규화 (효과크기 직접 환산 아님 — 공개 β 1건뿐이라 불가, SPEC §11.4-4 / PLAN 선결 #3·#5)",
+    "tier_base": { "strong": 1.0, "adjusted": 0.5, "auxiliary": 0.3 },
+    "normalization": "weight[D] = tier_base[confidence_tier(D)] / Σ_D tier_base, 소수 6자리 반올림. (base: D1=0.5, D2=D3=D4=1.0, D5=0.3 → Σbase=3.8)",
+    "published_beta_note": "공개 회귀계수(β)는 정가은(2022) D2 PSI→구매의도 β=.145 (access:full) 단 1건. 나머지 동료심사 출처는 abstract-only라 effect를 정성 기술하고 access:'abstract'로 보수 플래그 — β 날조 0 (SPEC §11.2, PLAN 선결 #3).",
+    "roadmap": "full-text 효과크기 확보 시 가중치 재calibration (SPEC §11.4-1)."
+  },
+  "blend": {
+    "deterministic_weight": 0.4,
+    "agentic_weight": 0.6,
+    "formula": "dimension_score[D] = clamp01(deterministic_weight × det_feature[D] + agentic_weight × agentic_fit[D])",
+    "frozen": true,
+    "note": "combine()의 결정론/에이전트 블렌드 비율 = 코드 고정 상수. 루프 자동패치 금지(가중치 backdoor 차단, SPEC §5.4). 변경은 ⚠ ESCALATE."
+  },
+  "aggregation": {
+    "formula": "purchase_intent_fit = round( Σ_D ( dimension_score[D] × weight[D] ) × 100 )  ∈ [0,100]",
+    "agent_total_forbidden": "에이전트가 넘긴 어떤 total/점수도 무시. 총점은 오직 src/scoring/aggregate.py 고정 공식이 산출(SPEC §5.4·§4.4, A6).",
+    "frozen": true
+  },
+  "dimensions": [
+    {
+      "id": "D1",
+      "name": "전문성/더마권위",
+      "meaning": "성분·기전·전문 지식, 피부과/전문가 권위",
+      "weight": 0.131579,
+      "weight_base": 0.5,
+      "confidence_tier": "adjusted",
+      "tier_rationale": "전문성→구매의도 직접효과가 한국 표본에서 비일관(조민서·김문영 2022 n=506·이제홍 2023 비유의) → 직접 가중 축소·매개 경로 재배분 (SPEC §4.1·§11.2).",
+      "direct_weight": 0.4,
+      "mediation_weight": 0.6,
+      "mediation_handling": "combine에서 D1 dimension_score에 direct_weight(0.4)를 곱해 직접효과를 보수 반영. mediation_weight(0.6)은 매개 경로(제품태도/동일시/브랜드진정성)로 작동하며 그 대리는 D2(준사회성)·D5(진정성)에서 별도 계측되므로 D1에 재계상하지 않는다(이중계상 방지, v0.1). 전액 매개 모델링은 로드맵.",
+      "evidence": [
+        { "source": "신경아·한미정(2019) 유튜브 인플루언서의 인도스먼트 영향력에 대한 탐색적 연구 — 홍보학연구 23(5)", "effect": "신뢰성+전문성+인지된 상업성이 구전·구매의도에 유의(대학생 n=315). 정성 기술(공개 β 없음).", "sample": "대학생 n=315", "access": "abstract", "peer_reviewed": true, "url": "https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002518260" },
+        { "source": "이맹탁·이준영·심성욱(2020) 유튜브 뷰티 인플루언서 속성이 콘텐츠/제품 태도·구전·구매의도에 미치는 영향 — 광고학연구 31(5)", "effect": "뷰티 인플루언서 속성(전문성 포함)이 콘텐츠태도·제품태도·구전의도·구매의도에 영향. 정성 기술(공개 β 없음).", "sample": "유튜브 뷰티 시청자(초록상 n 미명시)", "access": "abstract", "peer_reviewed": true, "url": "https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002609146" },
+        { "source": "김영준·정헌수(2022) 뷰티 유튜버 특성이 구매의도에 미치는 영향: 유튜버 동일시·브랜드 인지도 매개 — 상품학연구 40(5)", "effect": "전문성 등 유튜버 특성이 동일시 매개로 구매의도에 작동(직접보다 매개). 정성 기술(공개 β 없음).", "sample": "뷰티 유튜브 시청자(초록상 n 미명시)", "access": "abstract", "peer_reviewed": true, "url": "https://www.kci.go.kr/kciportal/landing/article.kci?arti_id=ART002896142" },
+        { "source": "[직접효과 비유의] 조민서·김문영(2022) 인스타그램 뷰티 인플루언서 속성이 제품태도·구매의도에 미치는 영향 — 복식문화연구 30(2)", "effect": "전문성의 구매의도 직접효과 비유의 → D1 직접 가중 축소 근거.", "sample": "n=506", "access": "abstract", "peer_reviewed": true, "url": "https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002837944" },
+        { "source": "[직접효과 비유의] 이제홍(2023) 인플루언서 제공 콘텐츠의 몰입과 제품 구매의도 — e-비즈니스연구 24(1)", "effect": "신뢰성→구매의도 비유의 → D1 직접 가중 축소·매개 재배분 근거.", "sample": "초록상 n 미명시", "access": "abstract", "peer_reviewed": true, "url": "https://www.kci.go.kr/kciportal/landing/article.kci?arti_id=ART002932426" }
+      ],
+      "detection": {
+        "deterministic": [
+          "성분명 사전 매칭 수 (제품 컨텍스트 key_attributes·도메인 성분 사전)",
+          "농도/% 언급 유무 (예: '0.1%', '5%', '함량')",
+          "기전 키워드 유무 (예: '장벽','진피','턴오버','콜라겐','자극','흡수')",
+          "전문 자격/더마 표지 (예: '피부과','전문의','더마','임상')"
+        ],
+        "agentic": [
+          "성분 설명이 실질적 기전 이해를 보여주는가 vs 이름만 나열인가 (0~1)",
+          "전문가/더마 권위가 콘텐츠에 실재하는가 vs 표방·차용인가 (0~1)"
+        ]
+      }
+    },
+    {
+      "id": "D2",
+      "name": "준사회성/반복소통",
+      "meaning": "직접 호명·댓글 응답·루틴 반복·친밀",
+      "weight": 0.263158,
+      "weight_base": 1.0,
+      "confidence_tier": "strong",
+      "tier_rationale": "한국 뷰티 표본에서 PSI→구매의도 방향성 일관 정(+), 근거 가장 두터움 (SPEC §11.2).",
+      "evidence": [
+        { "source": "정가은(2022) 1인 미디어 뷰티채널 이용 동기와 제품 태도·구매의도(준사회적 상호작용) — 사회과학연구 33(4)", "effect": "PSI→구매의도 β=.145 (p<.05), PSI→제품태도 β=.095 (p<.05). 회귀표 전문 공개.", "sample": "유튜브 뷰티채널 시청자 n=182", "access": "full", "peer_reviewed": true, "url": "https://jsscnu.re.kr/_PR/view/?aidx=34637&bidx=3109" },
+        { "source": "이해수·이모란(2023) 인플루언서 유형에 따른 소비자 태도와 준사회적 상호작용의 매개 — 정보사회와 미디어 24(1)", "effect": "PSI가 인플루언서유형→브랜드태도·구매의도를 완전매개. 정성 기술(공개 β 없음).", "sample": "뷰티 관심 여성 n=164", "access": "abstract", "peer_reviewed": true, "url": "https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE11404411" },
+        { "source": "이진균(2021) 1인 미디어 방송에서 의사사회적 상호작용이 브랜드 관여·구매의도에 미치는 영향 — 한국심리학회지: 소비자·광고 22(2)", "effect": "PSI→브랜드관여·구매의도 직접 + 사회적 실재감 매개. 정성 기술(공개 β 없음).", "sample": "n=247", "access": "abstract", "peer_reviewed": true, "url": "https://www.kci.go.kr/kciportal/landing/article.kci?arti_id=ART002720068" },
+        { "source": "이은선(2021) 소셜미디어 인플루언서의 준사회적 상호작용·관계가 브랜드 태도·구매의도에 미치는 영향 — 한국콘텐츠학회논문지 21(3)", "effect": "PSI/PSR→구매의도 정(+) 일관. 정성 기술(공개 β 없음).", "sample": "초록상 n 미명시", "access": "abstract", "peer_reviewed": true, "url": "https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002697280" }
+      ],
+      "detection": {
+        "deterministic": [
+          "직접 호명/2인칭 표지 빈도 (예: '여러분','구독자님','우리')",
+          "게시 주기 규칙성 (surface_metrics.post_cadence_days)",
+          "댓글:좋아요 비 (avg_comments / avg_likes — 상호작용 밀도)",
+          "댓글 표본 내 크리에이터 응답/호혜 표지"
+        ],
+        "agentic": [
+          "시청자와 친밀한 반복 관계를 형성하는가 vs 일방 방송인가 (0~1)",
+          "댓글 소통이 실질적 호혜인가 vs 형식적 인사인가 (0~1)"
+        ]
+      }
+    },
+    {
+      "id": "D3",
+      "name": "정보성/성분설명",
+      "meaning": "성분 설명·사용법·정보 전달 밀도",
+      "weight": 0.263158,
+      "weight_base": 1.0,
+      "confidence_tier": "strong",
+      "tier_rationale": "화장품/뷰티 SNS 특화 한국 표본 풍부, 정보성→태도→구매의도 SEM 일관 (SPEC §11.2).",
+      "evidence": [
+        { "source": "서현겸·유태순(2017) 화장품 인스타그램의 정보성·유용성·소비자태도·구매의도 간 구조적 관계 — 한국디자인포럼 55호", "effect": "정보성→유용성→소비자태도→구매의도 SEM, 태도 핵심 매개. 정성 기술(공개 β 없음).", "sample": "20대 여성 n=444", "access": "abstract", "peer_reviewed": true, "url": "https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE11296816" },
+        { "source": "옥여원·김종무(2018) 인스타그램 브랜드 화장품 정보 제공 유형별 콘텐츠 정보 속성과 이용자 태도(이니스프리) — 디지털융복합연구 16(10)", "effect": "신뢰성·유희성이 구매의도에 유의, 유희성이 태도의 핵심요인. 정성 기술(공개 β 없음).", "sample": "여성 n=311", "access": "abstract", "peer_reviewed": true, "url": "https://www.kci.go.kr/kciportal/landing/article.kci?arti_id=ART002396225" },
+        { "source": "박하은·김성남(2020) SNS 콘텐츠 광고속성이 광고태도·행동의도에 미치는 영향(SNS 뷰티서비스) — 한국디자인문화학회지 26(4)", "effect": "정보성·유희성·신뢰성→인지/감정반응→행동의도. 정성 기술(공개 β 없음).", "sample": "n=300", "access": "abstract", "peer_reviewed": true, "url": "https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002662651" }
+      ],
+      "detection": {
+        "deterministic": [
+          "정보 밀도 (성분/사용법 토큰 비중 대비 전체 길이)",
+          "사용법/단계 언급 (예: '아침','저녁','순서','바른다','발라')",
+          "해시태그 카테고리 (정보성 vs 단순 홍보성 비율)"
+        ],
+        "agentic": [
+          "성분·사용법 설명이 실질 정보 전달인가 vs 광고 카피·이름 나열인가 (0~1)",
+          "정보가 구매 의사결정에 유용한 깊이인가 (0~1)"
+        ]
+      }
+    },
+    {
+      "id": "D4",
+      "name": "후기/eWOM·커뮤니티신뢰",
+      "meaning": "직접 사용 후기·경험 공유·커뮤니티 동조",
+      "weight": 0.263158,
+      "weight_base": 1.0,
+      "confidence_tier": "strong",
+      "tier_rationale": "화장품 특화 한국 표본 4건, 후기신뢰도→구매의도 직접효과 큼(박지혜 2017 직접>간접) (SPEC §11.2).",
+      "evidence": [
+        { "source": "박지혜·김미숙·황춘섭(2017) 기능성 화장품 온라인 사용 후기 신뢰도가 브랜드 선호도·광고 신뢰도·구매의도에 미치는 영향(자외선차단제) — 복식문화연구 25(6)", "effect": "후기신뢰도→구매의도 직접 정(+) + 브랜드선호도·광고신뢰도 매개(직접>간접). 정성 기술(공개 β 없음).", "sample": "자외선차단제 소비자(초록상 n 미명시)", "access": "abstract", "peer_reviewed": true, "url": "https://www.kci.go.kr/kciportal/landing/article.kci?arti_id=ART002306444" },
+        { "source": "이지용·김용선(2018) 화장품 쇼핑성향별 온라인 리뷰 신뢰도·구매만족·구전행동 관계 — 한국미용학회지 24(2)", "effect": "리뷰 전문성→구매만족→구전, 적극 쇼핑성향 집단에서 효과 최대. 정성 기술(공개 β 없음).", "sample": "n=396", "access": "abstract", "peer_reviewed": true, "url": "https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002339354" },
+        { "source": "Altheyab·최철재·민대규(2022) 고급화장품 브랜드 WOM/eWOM이 브랜드구매의도에 미치는 영향(브랜드신뢰 매개) — 브랜드디자인학연구 20(1)", "effect": "WOM/eWOM→브랜드신뢰→구매의도 부분매개, 브랜드이미지 조절. 정성 기술(공개 β 없음).", "sample": "고급화장품 소비자(초록상 n 미명시)", "access": "abstract", "peer_reviewed": true, "url": "https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002822507" },
+        { "source": "손지연·어숙희(2008) 화장품 온라인 구전 정보의 방향성이 구매의도에 미치는 영향 — 한국미용학회지 14(3)", "effect": "온라인 구전 방향성에서 부정성효과(부정후기>중립). 정성 기술(공개 β 없음).", "sample": "n 미명시", "access": "abstract", "peer_reviewed": true, "url": "https://www.kci.go.kr/kciportal/landing/article.kci?arti_id=ART001282818" }
+      ],
+      "detection": {
+        "deterministic": [
+          "후기 표현 (예: '써봤다','사용','발라보니','직접')",
+          "사용 기간 언급 (예: '2주','한 달','꾸준히')",
+          "UGC/경험 표지 + 댓글 동조 표본(comments_sample 공감·구매 표지)"
+        ],
+        "agentic": [
+          "직접 사용한 진짜 경험 후기인가 vs 스크립트/협찬 문구인가 (0~1)",
+          "커뮤니티 동조·신뢰가 실재하는가 (0~1)"
+        ]
+      }
+    },
+    {
+      "id": "D5",
+      "name": "진정성",
+      "meaning": "진실성·균형(단점 언급)·비광고적 (주의: §1.4-1 '진위/계정 가짜 여부'와 다른 개념 — 콘텐츠 진실성)",
+      "weight": 0.078947,
+      "weight_base": 0.3,
+      "confidence_tier": "auxiliary",
+      "auxiliary": true,
+      "tier_rationale": "한국 근거 2건으로 얇고 둘 다 화장품 비특화·초록상 n 미명시 → 보조 가중·저신뢰 플래그 (SPEC §11.2, korean-evidence 갭).",
+      "evidence": [
+        { "source": "유현주·김헌(2020) 1인 미디어 콘텐츠 인플루언서 요인이 구매의도에 미치는 영향: 브랜드 진정성 매개 — 한국콘텐츠학회논문지 20(1)", "effect": "전문성+콘텐츠진정성→브랜드진정성→구매의도, 브랜드진정성 매개. 화장품 비특화·초록상 n 미명시. 정성 기술(공개 β 없음).", "sample": "초록상 n 미명시", "access": "abstract", "peer_reviewed": true, "url": "https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002554672" },
+        { "source": "박민숙(2023) SNS에서 인플루언서의 진정성이 준사회적 상호작용·관계·구매의도에 미치는 영향 — APJCRI 9(9)", "effect": "진정성 4차원(진실성·공감성·신뢰성·개방성)→PSI/PSR→구매의도 SEM. 화장품 비특화·초록상 n 미명시. 정성 기술(공개 β 없음).", "sample": "초록상 n 미명시", "access": "abstract", "peer_reviewed": true, "url": "https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003001381" }
+      ],
+      "detection": {
+        "deterministic": [
+          "균형 표지 (단점/주의 언급 — 예: '단점','아쉬','맞지 않을 수','자극될 수')",
+          "광고 표기 비율 (surface_metrics.ad_tag_ratio — 과도한 협찬 표지는 비광고적 진정성↓)",
+          "비광고적 표지 (과장 형용사 밀도 역신호)"
+        ],
+        "agentic": [
+          "장단점을 균형있게 진실하게 말하는가 vs 일방 호평인가 (0~1)",
+          "비광고적 진정성이 느껴지는가 vs 스폰서 스크립트인가 (0~1)"
+        ]
+      }
+    }
+  ],
+  "supplementary_non_peer_reviewed": {
+    "note": "비동료심사 보조 근거 — 정식 교체분과 분리 표기(SPEC §11.2). 가중치 산정에 직접 반영하지 않고 보조 맥락으로만 사용. peer_reviewed:false.",
+    "sources": [
+      { "source": "우향미(2022) 뷰티 유튜브 콘텐츠 특성과 화장품 구매의도 — 서경대 미용예술대학원 석사논문", "related_dimension": "D3", "effect": "정보성 β=.281→구매의도(석사논문 보고치), 뷰티관리행동 관여도 매개. 비동료심사라 가중치 미반영.", "sample": "n=402", "access": "full", "peer_reviewed": false, "url": "https://www.dbpia.co.kr/journal/detail?nodeId=T16148535" },
+      { "source": "여수민(2025) 화장품 성분에 대한 소비자 인식과 구매행동 — 성신여대 뷰티융합대학원 석사논문", "related_dimension": "D3", "effect": "성분 정보 인식이 구매행동에 영향(석사논문). 비동료심사라 가중치 미반영.", "sample": "n=400", "access": "full", "peer_reviewed": false, "url": "https://repository.sungshin.ac.kr/handle/2025.oak/7321" },
+      { "source": "Oh & Lee(2025) Exploring the Impact of Parasocial Interaction on Consumer Purchase Intentions — SSRN 워킹페이퍼", "related_dimension": "D1", "effect": "PSI→구매의도 정(+), 단 전문성→지각가치 비유의(반대방향 주의). peer-review 미확인, 가중치 미반영.", "sample": "한국인 n=500", "access": "abstract", "peer_reviewed": false, "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5093199" }
+    ]
+  },
+  "auxiliary_sanity_signals": {
+    "engagement_anomaly": "인게이지먼트 이상치·급증은 부차 sanity 플래그만 — 점수 강등·헤드라인·진위 확정판정 금지(SPEC §1.4-1·§4.3). 비목표(진위감사)와 구분."
+  }
+}

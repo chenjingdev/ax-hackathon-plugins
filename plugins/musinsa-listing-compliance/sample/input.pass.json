@@ -1,0 +1,29 @@
+{
+  "mode": "single",
+  "product_id": "PASS-DEMO-0001",
+  "product_name": "베이직 코튼 반팔 티셔츠",
+  "brand": "DEMO BASIC",
+  "is_own_brand": false,
+  "category": "상의/티셔츠",
+  "price_krw": 19000,
+  "origin": "대한민국",
+  "style_no": "DB-TS-PASS-01",
+  "material_claims": [
+    {"part": "몸판", "material": "면", "percent": 100}
+  ],
+  "tags": [],
+  "marketing_copy": "데일리로 입기 좋은 베이직 코튼 반팔 티셔츠입니다.",
+  "premium_material_claims": [],
+  "test_certificates": [
+    {"issuer": "KOTITI", "cert_no": "K26-DB-PASS-01", "product_ref": "PASS-DEMO-0001",
+     "issued_date": "2026-01-15", "tested_part": "몸판",
+     "tested_composition": [{"material": "면", "percent": 100}],
+     "issuer_fields_raw": {"시료명": "몸판 원단", "조성": "Cotton 100%"}}
+  ],
+  "_expected_signature": {
+    "_spec_ref": "SPEC §8.4 (음성/PASS, 오탐 방지). 하네스가 채점(M4).",
+    "verdict": "PASS",
+    "rule_set": [],
+    "match_status_by_part": {"몸판": "정상"}
+  }
+}

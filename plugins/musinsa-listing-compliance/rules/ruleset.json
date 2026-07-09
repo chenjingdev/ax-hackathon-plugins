@@ -1,0 +1,228 @@
+{
+  "ruleset_version": "0.2.0",
+  "spec_ref": "SPEC §4 (권위 사본). 사람용 표는 SPEC §4, 출처 매핑은 rules/sources.md.",
+  "note": "이 파일이 규칙 권위 사본이다. SPEC §4 표와 1:1(15룰). 규칙 추가/변경은 ruleset↔SPEC §4 양쪽 동기화. 각 규칙은 {id,family,layer,basis,condition,severity}+mode를 갖는다.",
+
+  "evidence": {
+    "E1": {
+      "fact": "공정위, 무신사 스탠다드(자사 PB) 인조가죽 제품의 '#에코레더' 친환경 표현 광고(2021~2024.8.19)를 표시광고법 위반으로 경고(패션업계 친환경 표시광고 첫 제재).",
+      "url": "https://www.intn.co.kr/news/articleView.html?idxno=2043500"
+    },
+    "E2": {
+      "fact": "무신사 자체 전수조사: 다운·캐시미어 상품 7,968개 중 약 8.5%(677개) 혼용률 등 표기 기준 미달(2025-03-25 발표).",
+      "url": "https://www.sedaily.com/NewsView/2GQDT2GBT7"
+    },
+    "E3": {
+      "fact": "마르진(MARZIN) '택갈이' — 중국산 10만원대 구두를 미국 호윈(Horween) 가죽으로 홍보, 60~70만원대 판매(마크업 약 600~700%). 브랜드명(마르진/MARZIN)은 bizwatch 보도로 확인(url); 마크업·중국원가 상세는 판매자를 'A사'로 익명화한 reportera 보도(url_markup).",
+      "url": "https://news.bizwatch.co.kr/article/consumer/2026/03/13/0029",
+      "url_markup": "https://www.reportera.co.kr/news/musinsa-tag-switching-fraud-china-shoes-scandal/"
+    },
+    "E4": {
+      "fact": "전수조사·시험성적서 의무화 약속 1년 내 패딩 충전재 오표기 재발 — 사전 자동검증 부재로 사후 적발 의존 구조 확인.",
+      "url": "https://alphabiz.co.kr/news/view/1065615419880479"
+    },
+    "E5": {
+      "fact": "표시·광고의 공정화에 관한 법률 제3조(거짓·과장/기만/부당비교/비방 광고 금지) 및 공정위 환경성 표시·광고 심사지침(공개 법령·지침).",
+      "url": "표시광고법 §3 / 공정거래위원회 환경성 표시·광고 심사지침 (공개 법령·지침)"
+    },
+    "E6": {
+      "fact": "무신사, 입점 브랜드용 그린워싱(친환경 표시) 가이드 자체 발간·품질/표시 교육 운영(발간일·URL은 SPEC §11.4#1 열린 질문).",
+      "url": "무신사 공식 발표(공개) — 정확한 발간일·URL은 SPEC §11.4#1"
+    }
+  },
+
+  "parameters": {
+    "TS-02": {
+      "price_threshold_krw": 300000,
+      "_note": "고가 임계(튜닝 파라미터, 공개 수치 단정 아님). 택갈이 위험 가중 기준."
+    },
+    "MX-04": {
+      "tolerance_pp": 5,
+      "_note": "충전재(다운/솜털) 함량 허용오차 ±%p. SPEC §4.1 기본 ±5%p."
+    },
+    "fuzzy_link": {
+      "min_confidence": 0.7,
+      "match_keys": ["brand", "style_no", "material", "part"],
+      "_note": "성적서↔상품 (브랜드+품번+소재+부위) 퍼지매칭 신뢰도 임계. 미만이면 match_status=외래키불명(에이전트 표면 상정)."
+    },
+    "certifier_whitelist": ["KOTITI", "FITI", "KATRI", "KCL", "KTR", "KTL"],
+    "low_cost_origin_countries": ["중국", "China", "베트남", "Vietnam", "방글라데시", "Bangladesh", "인도네시아", "Indonesia"]
+  },
+
+  "lexicons": {
+    "eco_terms": ["에코", "친환경", "eco", "green", "sustainable", "지속가능", "리사이클", "recycle", "바이오", "bio", "비건", "vegan", "탄소중립", "생분해"],
+    "synthetic_materials": ["인조가죽", "합성피혁", "인조피혁", "합성가죽", "폴리", "폴리우레탄", "폴리에스터", "PU", "PVC", "나일론", "아크릴", "합성"],
+    "greenwashing_compounds": ["에코레더", "eco-leather", "ecoleather", "비건레더", "vegan leather", "ECO VEGAN LEATHER"],
+    "_greenwashing_compounds_note": "여기에 등재된 표현만 GW-02 결정론 BLOCK. 친환경 인상을 주는 미등재 신조어는 의도적으로 등재하지 않는다 — SKILL §5.3 에이전트 표면이 변형후보로 surfacing(§4.1·§8.2). 등재하면 하드 BLOCK 오승격(결정론 게이트 오염).",
+    "vague_eco_claims": ["지구를 생각한", "환경을 위한", "친환경 공정", "자연을 닮은", "착한 소재"],
+    "premium_material_brands": ["Horween", "호윈", "고어텍스", "GORE-TEX", "Gore-Tex", "쿠프로", "Bemberg"],
+    "premium_materials": ["캐시미어", "cashmere", "구스다운", "goose down", "거위털", "실크", "silk", "울", "wool", "머메이드", "프리미엄"],
+    "origin_association_terms": {
+      "이탈리안 레더": "이탈리아",
+      "italian leather": "이탈리아",
+      "made in italy": "이탈리아",
+      "프렌치": "프랑스",
+      "이탈리아산 원단": "이탈리아"
+    }
+  },
+
+  "match_status_taxonomy": {
+    "정상": {"key": "match", "def": "클레임=성적서 조성 일치·연결 정합", "layer": "deterministic_floor"},
+    "부분커버": {"key": "partial", "def": "일부 부위·소재만 성적서 커버(미커버 부위 보완 요청)", "layer": "deterministic_floor"},
+    "불일치": {"key": "mismatch", "def": "클레임≠성적서(=MX-01 허위기재)", "layer": "deterministic_floor"},
+    "외래키불명": {"key": "unlinked", "def": "product_ref 없음·퍼지매칭 신뢰도 fuzzy_link.min_confidence 미만(경계건 사람 상정)", "layer": "agent_surface"}
+  },
+
+  "rules": [
+    {
+      "id": "GW-01",
+      "family": "GW",
+      "layer": "pillar_a",
+      "mode": ["deterministic_floor", "agent_surface"],
+      "basis": ["E1", "E5", "E6"],
+      "condition": "tags/product_name/marketing_copy에 환경성 표현(lexicons.eco_terms) 사용 + 이를 입증할 첨부 시험자료·공인 인증 없음. 알려진 표현=결정론 바닥 BLOCK, 미등재 변형 신조어=에이전트 표면 review_candidate.",
+      "severity": "BLOCK",
+      "params_ref": ["lexicons.eco_terms"]
+    },
+    {
+      "id": "GW-02",
+      "family": "GW",
+      "layer": "pillar_a",
+      "mode": ["deterministic_floor", "agent_surface"],
+      "basis": ["E1"],
+      "condition": "합성/인조 소재(lexicons.synthetic_materials)에 친환경 인상을 주는 합성어(lexicons.greenwashing_compounds: 에코레더/eco-leather/비건레더/ECO VEGAN LEATHER 등) — #에코레더 제재 동일 패턴. ruleset 등재 표현=결정론 바닥 BLOCK, 미등재 변형=에이전트 표면.",
+      "severity": "BLOCK",
+      "params_ref": ["lexicons.synthetic_materials", "lexicons.greenwashing_compounds"]
+    },
+    {
+      "id": "GW-03",
+      "family": "GW",
+      "layer": "pillar_a",
+      "mode": ["deterministic_floor", "agent_surface"],
+      "basis": ["E5", "E6"],
+      "condition": "구체 근거 없는 포괄·모호 환경성 주장(lexicons.vague_eco_claims: '지구를 생각한','환경을 위한','친환경 공정' 등).",
+      "severity": "WARN",
+      "params_ref": ["lexicons.vague_eco_claims"]
+    },
+    {
+      "id": "GW-04",
+      "family": "GW",
+      "layer": "pillar_a",
+      "mode": ["deterministic_floor"],
+      "basis": ["E1"],
+      "condition": "원단 단순 매입(자체 친환경 공정 없음)인데 친환경 인증 문구/마크 표기.",
+      "severity": "BLOCK",
+      "params_ref": []
+    },
+    {
+      "id": "MX-01",
+      "family": "MX",
+      "layer": "pillar_b",
+      "mode": ["deterministic_floor"],
+      "basis": ["E2"],
+      "condition": "material_claims(부위별)와 매칭되는 성적서 tested_composition의 조성/혼용률 불일치(주장 소재가 성적서에 없거나 함량 편차가 허용오차 초과) = 정합성 '불일치'.",
+      "severity": "BLOCK",
+      "params_ref": ["match_status_taxonomy.불일치"]
+    },
+    {
+      "id": "MX-02",
+      "family": "MX",
+      "layer": "preprocess",
+      "mode": ["deterministic_floor"],
+      "basis": ["E2"],
+      "condition": "동일 part 내 혼용률 합계 ≠ 100%(if문/구조검사·전처리 강등).",
+      "severity": "WARN",
+      "params_ref": []
+    },
+    {
+      "id": "MX-03",
+      "family": "MX",
+      "layer": "pillar_b",
+      "mode": ["deterministic_floor", "agent_surface"],
+      "basis": ["E2", "E4"],
+      "condition": "고급 소재(lexicons.premium_materials: 캐시미어/구스다운/실크/울/호윈/프리미엄 등) 함량 주장 + 이를 뒷받침하는 해당 부위 성적서 미첨부/스코프 밖 = '부분커버/외래키불명'. 퍼지매칭 경계건은 에이전트 표면.",
+      "severity": "BLOCK",
+      "params_ref": ["lexicons.premium_materials", "fuzzy_link.min_confidence", "match_status_taxonomy.부분커버"]
+    },
+    {
+      "id": "MX-04",
+      "family": "MX",
+      "layer": "pillar_b",
+      "mode": ["deterministic_floor"],
+      "basis": ["E2", "E4"],
+      "condition": "충전재(다운/솜털) 표기 함량 vs 성적서 함량 편차가 허용오차(parameters.MX-04.tolerance_pp 기본 ±5%p) 초과 — 라퍼지스토어 패턴.",
+      "severity": "BLOCK",
+      "params_ref": ["MX-04.tolerance_pp"]
+    },
+    {
+      "id": "TC-01",
+      "family": "TC",
+      "layer": "pillar_b",
+      "mode": ["deterministic_floor"],
+      "basis": ["E2", "E4"],
+      "condition": "소재·혼용률 주장이 있는데 시험성적서가 하나도 첨부되지 않음.",
+      "severity": "BLOCK",
+      "params_ref": []
+    },
+    {
+      "id": "TC-02",
+      "family": "TC",
+      "layer": "pillar_b",
+      "mode": ["deterministic_floor"],
+      "basis": ["E2"],
+      "condition": "발급기관이 비공인/식별 불가(parameters.certifier_whitelist: KOTITI/FITI/KATRI/KCL 등에 없음).",
+      "severity": "WARN",
+      "params_ref": ["certifier_whitelist"]
+    },
+    {
+      "id": "TS-01",
+      "family": "TS",
+      "layer": "pillar_b",
+      "mode": ["deterministic_floor"],
+      "basis": ["E3"],
+      "condition": "프리미엄 원자재 브랜드(premium_material_claims, lexicons.premium_material_brands 예: Horween/고어텍스) 명시 주장 + 근거 자료(성적서/인증) 미첨부.",
+      "severity": "BLOCK",
+      "params_ref": ["lexicons.premium_material_brands"]
+    },
+    {
+      "id": "TS-02",
+      "family": "TS",
+      "layer": "pillar_b",
+      "mode": ["deterministic_floor", "agent_surface"],
+      "basis": ["E3"],
+      "condition": "(고가 price_krw ≥ parameters.TS-02.price_threshold_krw) + (원산지 저가 생산국 parameters.low_cost_origin_countries) + (프리미엄 소재/브랜드 주장) 동시 충족 → 택갈이 위험. 임계=결정론 바닥, 정황 가중=에이전트 표면.",
+      "severity": "WARN",
+      "params_ref": ["TS-02.price_threshold_krw", "low_cost_origin_countries", "lexicons.premium_material_brands"]
+    },
+    {
+      "id": "TC-03",
+      "family": "TC",
+      "layer": "preprocess",
+      "mode": ["deterministic_floor"],
+      "basis": ["E4"],
+      "condition": "성적서 product_ref가 있고 product_id와 불일치, 또는 발급일이 비합리(미래/공란/스코프 만료). product_ref 부재는 §4.2 외래키불명으로 처리(구조검사·전처리 강등).",
+      "severity": "WARN",
+      "params_ref": []
+    },
+    {
+      "id": "OR-01",
+      "family": "OR",
+      "layer": "preprocess",
+      "mode": ["deterministic_floor"],
+      "basis": ["E5"],
+      "condition": "origin 누락(필수필드 공란·구조검사·전처리 강등).",
+      "severity": "WARN",
+      "params_ref": []
+    },
+    {
+      "id": "OR-02",
+      "family": "OR",
+      "layer": "pillar_b",
+      "mode": ["agent_surface"],
+      "basis": ["E3", "E5"],
+      "condition": "원산지(예: 중국)와 브랜드/카피가 연상시키는 생산국(lexicons.origin_association_terms 예: '이탈리안 레더'→이탈리아) 불일치. 연상어 의미 판단=에이전트 표면.",
+      "severity": "WARN",
+      "params_ref": ["lexicons.origin_association_terms"]
+    }
+  ]
+}

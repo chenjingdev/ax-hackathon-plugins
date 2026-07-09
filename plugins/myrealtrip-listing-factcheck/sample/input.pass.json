@@ -1,0 +1,19 @@
+{
+  "mode": "single",
+  "listing_id": "TOKYO-SKYTREE-PASS-01",
+  "title": "도쿄 스카이트리 전망대 평일 성인 입장권 (단건 검수)",
+  "partner": "도쿄시티패스",
+  "category": "입장권",
+  "places": [
+    { "name": "도쿄 스카이트리", "city": "Tokyo", "country": "Japan", "place_ref": "tokyo_skytree" }
+  ],
+  "visit_schedule": {
+    "weekdays": [4],
+    "sell_period": { "start": "2026-08-01", "end": "2027-01-31" },
+    "visit_time": "11:00"
+  },
+  "age_terms": [
+    { "tier": "성인", "age_min": 19 }
+  ],
+  "body": "금요일 오전, 도쿄 스카이트리 전망대를 방문하는 성인 전용 입장권입니다. 휴관일·시즌 제한 없이 연중 이용 가능합니다."
+}

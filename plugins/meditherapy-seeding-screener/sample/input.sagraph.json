@@ -1,0 +1,10 @@
+{
+  "_status": "DROPPED",
+  "_reason": "SAGraph(arxiv 2403.15105, SIGIR'25) 부차 sanity는 SPEC §8.3·PLAN 선결 #11에 따라 전면 DROP한다. 조사 결과(2026-06 확인): 데이터셋은 GitHub(github.com/xiaoqzhwhu/SAGraph)로 공개되나, 0~10 점수는 'GPT-4가 GPT-4-시뮬레이션 댓글에 매긴 per-comment 합성 점수'일 뿐 게시물 단위 독립 정답(real 구매 점수)이 존재하지 않는다. 원논문도 synthetic benchmark임을 인정. 따라서 실데이터(실 점수) 취득 INFEASIBLE → 자작/합성 라벨로 상관을 산출하면 날조이므로 A11 상관 sanity를 전면 DROP한다.",
+  "_consequence": "eval/correlation.py는 호출하지 않으며, A11은 비게이팅 sanity였으므로 수렴·게이트에 영향 없음. 헤드라인 검증은 input.kr.json 한국어 데모(A17 근거 실재성 + A18 변별)로 충분(SPEC §8.3 명시).",
+  "_sources": [
+    "https://arxiv.org/abs/2403.15105",
+    "https://github.com/xiaoqzhwhu/SAGraph/"
+  ],
+  "candidates": []
+}

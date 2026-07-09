@@ -1,0 +1,39 @@
+{
+  "name": "myrealtrip-listing-factcheck",
+  "version": "0.1.0",
+  "description": "마이리얼트립 입점 T&A 상품(투어·액티비티·티켓)의 방문 요일·시기·연령조건을 명소 공식 운영사실(정기 휴관일·시즌 폐쇄·연령/신장 규정)에 대조해, 등록·수정·세계상태 변화(휴장 공지·시즌 경계)마다 현지 사실 불일치를 탐지하고 정정·파트너 반려 사유서·고객 안내문 초안을 생성하는 상시 검수 에이전트(사실 변경 시 판매중 코퍼스 소급 재스캔 포함)",
+  "author": {
+    "name": "myrealtrip-listing-factcheck"
+  },
+  "license": "MIT",
+  "keywords": [
+    "factcheck",
+    "tour",
+    "activity",
+    "ticket",
+    "myrealtrip",
+    "marketplace",
+    "listing",
+    "opening-hours",
+    "season-closure",
+    "age-limit",
+    "rescan"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Listing Factcheck",
+    "shortDescription": "입점 T&A 상품 ↔ 명소 공식 운영사실 정합 상시 검수·소급 재스캔",
+    "longDescription": "마이리얼트립 입점 T&A 단품 리스팅(투어·액티비티·입장권)의 방문 요일·날짜·판매시기·연령/신장 조건을 명소 공식 운영사실(휴관 요일·특수휴관·시즌 폐쇄·연령 규정)에 3축(운영일·시즌·연령)으로 결정론 대조해 현지 사실 불일치를 탐지·판정하고, 정정 표기와 파트너 반려 사유서·고객 안내문 초안을 생성한다. 명소 휴장 공지·시즌 경계 등 세계상태 변화 시 판매중 코퍼스를 소급 재스캔해 발행 당시엔 맞았으나 지금은 어긋나는 리스팅을 근거(공식 URL)와 함께 끌어올린다. 명소 미확인 건은 하드 차단이 아니라 사람 확인 후보로 상정하며, 모든 출력은 검수 담당자 검토가 필요한 제안이다(자동 게시·발송 없음).",
+    "developerName": "myrealtrip-listing-factcheck",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Read"
+    ],
+    "defaultPrompt": [
+      "이 투어 상품 방문요일이 명소 휴관일이랑 겹치는지 검수해줘",
+      "9월 시밀란 스노클링 상품 지금 팔아도 되는지 현지 사실로 확인해줘",
+      "명소 휴관 공지가 떴는데 판매중인 파리 상품 중 걸리는 거 소급 재스캔해줘"
+    ]
+  }
+}
