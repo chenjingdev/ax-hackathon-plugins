@@ -9,26 +9,46 @@
   "origin": "중국",
   "style_no": "MSS-DEMO-0001",
   "material_claims": [
-    {"part": "겉감", "material": "에코레더(인조가죽)", "percent": 100},
-    {"part": "안감", "material": "캐시미어", "percent": 30},
-    {"part": "안감", "material": "폴리에스터", "percent": 70}
+    {
+      "part": "겉감",
+      "material": "에코레더(인조가죽)",
+      "percent": 100
+    },
+    {
+      "part": "안감",
+      "material": "캐시미어",
+      "percent": 30
+    },
+    {
+      "part": "안감",
+      "material": "폴리에스터",
+      "percent": 70
+    }
   ],
-  "tags": ["#에코레더", "#친환경", "#지속가능"],
+  "tags": [
+    "#에코레더",
+    "#친환경",
+    "#지속가능"
+  ],
   "marketing_copy": "지구를 생각한 친환경 에코레더와 부드러운 캐시미어 안감으로 완성한 프리미엄 무스탕 자켓입니다.",
   "premium_material_claims": [],
   "test_certificates": [
-    {"issuer": "KOTITI", "cert_no": "K25-LN-7788", "product_ref": "MSS-DEMO-0001",
-     "issued_date": "2025-11-20", "tested_part": "안감",
-     "tested_composition": [{"material": "아크릴", "percent": 100}],
-     "issuer_fields_raw": {"시료명": "안감 원단", "조성": "Acrylic 100%"}}
-  ],
-  "_expected_signature": {
-    "_spec_ref": "SPEC §8.3 (보조: 기둥 B 단건 정합성, 회귀 호환). 하네스가 채점(M4).",
-    "verdict": "BLOCK",
-    "rule_set": ["GW-01", "GW-02", "GW-03", "MX-01", "MX-03", "TS-02"],
-    "block_rules": ["GW-01", "GW-02", "MX-01", "MX-03"],
-    "warn_rules": ["GW-03", "TS-02"],
-    "anlining_match_status": "불일치",
-    "match_status_by_part": {"안감": "불일치"}
-  }
+    {
+      "issuer": "KOTITI",
+      "cert_no": "K25-LN-7788",
+      "product_ref": "MSS-DEMO-0001",
+      "issued_date": "2025-11-20",
+      "tested_part": "안감",
+      "tested_composition": [
+        {
+          "material": "아크릴",
+          "percent": 100
+        }
+      ],
+      "issuer_fields_raw": {
+        "시료명": "안감 원단",
+        "조성": "Acrylic 100%"
+      }
+    }
+  ]
 }

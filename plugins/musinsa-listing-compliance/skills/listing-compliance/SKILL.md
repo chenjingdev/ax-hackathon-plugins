@@ -39,9 +39,9 @@ description: "상품 검수/표시정보 컴플라이언스/그린워싱 판단/
 2. **성적서 정합성 4분류(`match_status`)** — **부위(part)별로** `material_claims`를 성적서 `tested_composition`과 **소재명칭·단위 정규화 후 수치 비교**해 산출(`match_status`는 **조성 커버리지만** 판단; 프리미엄 브랜드 증빙 부재는 TS-01로 별도 처리이지 match_status 강등 아님):
    - `정상(match)`: 그 부위 클레임 소재·함량이 성적서와 일치(허용오차 내).
    - `불일치(mismatch)`: 클레임 소재가 성적서에 **없거나** 함량 편차가 허용오차 초과(=MX-01 허위기재). 예: 안감 캐시미어/폴리 주장인데 성적서 아크릴100 → **불일치**.
-   - `부분커버(partial)`: 그 부위·소재를 커버하는 성적서가 **미첨부/스코프 밖**(클레임≠성적서 모순은 아님). 고급소재 부위 성적서 누락=MX-03.
+   - `부분커버(partial)`: 그 부위·소재를 커버하는 성적서가 **미첨부/스코프 밖**(클레임≠성적서 모순은 아님 — 모순이 있으면 그 부위 상태는 `불일치`).
    - `외래키불명(unlinked)`: `product_ref` 부재 + 퍼지 신뢰도 임계 미만(에이전트 표면 §2b-3).
-   평가 규칙: MX-01(불일치)·MX-03(부분커버/고급소재 미증빙)·MX-04(충전재 편차 `parameters.MX-04.tolerance_pp` ±5%p 초과)·TC-01(성적서 0건)·TC-02(비공인 발급기관=`certifier_whitelist` 밖).
+   평가 규칙: MX-01(불일치)·MX-03(부분커버/고급소재 미증빙)·MX-04(충전재 편차 `parameters.MX-04.tolerance_pp` ±5%p 초과)·TC-01(성적서 0건)·TC-02(비공인 발급기관=`certifier_whitelist` 밖). **MX-03은 부위 상태가 아니라 고급소재 클레임 단위로 평가한다**: `lexicons.premium_materials` 소재의 함량 주장을 **그 소재를 실제로 측정한 성적서**가 뒷받침하지 않으면(성적서 미첨부이거나, 부위 성적서가 있어도 `tested_composition`에 그 소재가 없으면=스코프 밖) 격발한다 — 같은 부위에서 MX-01과 **병발 가능**(예: 어떤 부위의 고급소재 X% 주장인데 그 부위 성적서가 다른 소재만 측정 → 모순으로 MX-01 + X를 측정한 성적서 부재로 MX-03).
 3. **택갈이·프리미엄**: TS-01(프리미엄 브랜드 주장+근거 미첨부), TS-02(`price_krw ≥ parameters.TS-02.price_threshold_krw` + 저가 생산국 + 프리미엄 주장) 임계 평가.
 4. 각 위반 기록: `{rule_id, severity, layer, part, claimed, observed, match_status, basis_url, message}`. **모든 평가된 기둥 B 부위의 match_status를 `match_status_by_part{part:status}`에 채운다(정상 부위 포함).**
 5. **verdict 집계**: BLOCK≥1 → **BLOCK** / (BLOCK=0, WARN≥1) → **WARN** / 위반 0 **이고 §1 검수 가능성 게이트 통과** → **PASS** / 위반 0인데 게이트 미통과(심사할 표시정보 없음) → **INSUFFICIENT_INPUT(판정 불가)** — PASS로 적지 않는다. (외래키불명·변형후보는 에이전트 표면 상정이라 verdict 격상 안 함 — 조성 모순 없으면 PASS 가능.)
