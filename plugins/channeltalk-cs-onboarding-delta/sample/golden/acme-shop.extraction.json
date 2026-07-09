@@ -1,0 +1,22 @@
+{
+  "company": "acme-shop",
+  "_note": "골든 추출(사실상 정답) — 자기오염 방지를 위해 시연 입력 폴더(sample/acme-shop) 밖 sample/golden/으로 격리했다. 에이전트(Codex)는 이 파일을 베끼지 말고 SKILL.md 절차대로 acme-shop 문서를 직접 읽어 추출해야 한다. 실제 런타임에는 Codex가 이 파일을 생성한다. 최종 분류는 넣지 않는다(코드가 계산). 이 파일은 데모 폴백·골든 채점 참조용.",
+  "findings": [
+    {"slot_id": "delivery-lead-time", "found": true, "extracted_answer": "영업일 2~3일 내 발송", "matches_baseline": true, "source_file": "policy.md", "source_line": 4, "source_quote": "영업일 기준 2~3일 이내 발송", "confidence": 0.95},
+    {"slot_id": "delivery-tracking", "found": true, "extracted_answer": "운송장 번호로 택배사 조회", "matches_baseline": true, "source_file": "policy.md", "source_line": 5, "source_quote": "운송장 번호로 택배사에서 배송 조회", "confidence": 0.95},
+    {"slot_id": "delivery-fee", "found": true, "extracted_answer": "3만원 이상 무료배송", "matches_baseline": true, "source_file": "faq.csv", "source_line": 3, "source_quote": "3만원 이상 구매 시 무료배송", "confidence": 0.9},
+    {"slot_id": "order-cancel", "found": true, "extracted_answer": "발송 전 즉시 취소 가능", "matches_baseline": true, "source_file": "policy.md", "source_line": 8, "source_quote": "발송 전에는 주문을 즉시 취소", "confidence": 0.95},
+    {"slot_id": "withdrawal-period", "found": true, "extracted_answer": "수령일로부터 7일 이내 반품", "matches_baseline": true, "source_file": "policy.md", "source_line": 11, "source_quote": "수령일로부터 7일 이내 단순변심 반품", "confidence": 0.95},
+    {"slot_id": "defect-return", "found": true, "extracted_answer": "불량·오배송은 판매자 배송비 부담", "matches_baseline": true, "source_file": "policy.md", "source_line": 12, "source_quote": "판매자가 반품 배송비를 부담", "confidence": 0.95},
+    {"slot_id": "refund-period", "found": true, "extracted_answer": "7영업일 이내", "matches_baseline": false, "source_file": "policy.md", "source_line": 13, "source_quote": "7영업일 이내에 처리", "confidence": 0.9},
+    {"slot_id": "refund-period", "found": true, "extracted_answer": "3일 이내", "matches_baseline": true, "source_file": "faq.csv", "source_line": 2, "source_quote": "3일 이내 처리", "confidence": 0.9},
+    {"slot_id": "refund-method", "found": true, "extracted_answer": "결제수단으로 원복", "matches_baseline": true, "source_file": "policy.md", "source_line": 14, "source_quote": "결제하신 수단으로 원복", "confidence": 0.9},
+    {"slot_id": "cs-hours", "found": true, "extracted_answer": "평일 10시~18시 운영", "matches_baseline": true, "source_file": "policy.md", "source_line": 17, "source_quote": "평일 오전 10시부터 오후 6시까지 운영", "confidence": 0.95},
+    {"slot_id": "return-shipping-fee", "found": true, "extracted_answer": "단순변심도 반품 배송비 무료", "matches_baseline": false, "source_file": "product.md", "source_line": 7, "source_quote": "단순변심의 경우에도 반품 배송비를 무료", "confidence": 0.95},
+    {"slot_id": "member-withdrawal", "found": true, "extracted_answer": "마이페이지에서 직접 탈퇴", "matches_baseline": true, "source_file": "faq.csv", "source_line": 4, "source_quote": "마이페이지에서 직접 탈퇴", "confidence": 0.9},
+    {"slot_id": "overseas-shipping", "found": true, "extracted_answer": "국내 배송만 지원(해외배송 미지원)", "matches_baseline": true, "source_file": "product.md", "source_line": 3, "source_quote": "국내 배송만 지원", "confidence": 0.9}
+  ],
+  "extra_candidates": [
+    {"topic": "정기구독 해지", "source_file": "policy.md", "source_line": 20, "source_quote": "정기구독 해지는 마이페이지", "confidence": 0.85}
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "name": "channeltalk-cs-onboarding-delta",
+  "version": "0.2.0",
+  "description": "이커머스 CS 도메인 베이스라인 매뉴얼과 신규 고객사의 흩어진 문서(정책·FAQ·상품정보)를 대조해, 베이스와의 '차이'만 — 이 회사만 다른 것(DIFFERENT)·베이스엔 있는데 빠진 것(MISSING)·문서끼리 모순(CONFLICT)·베이스에 없는 신규(EXTRA) — 을 근거 인용과 함께 뽑아내는 온보딩 델타 컴파일러. AI 상담(알프) 온보딩 시 AX 컨설턴트가 공통 문의를 재작성하지 않고 회사별 차이만 검수하도록 돕는다. (대고객 상담 챗봇·자동 반영·법령 위반 판정 아님. 모든 출력은 사람 검수 필수.)",
+  "author": { "name": "channeltalk-cs-onboarding-delta" },
+  "license": "MIT",
+  "keywords": ["cs", "onboarding", "knowledge-base", "delta", "baseline", "faq", "channeltalk", "customer-support", "ecommerce"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "CS Onboarding Delta",
+    "shortDescription": "CS 베이스라인 대비 고객사 문서의 차이·공백·모순을 근거와 함께 추출",
+    "longDescription": "도메인 CS 베이스라인 슬롯과 신규 고객사 문서를 대조해 SAME/DIFFERENT/MISSING/CONFLICT/EXTRA로 분류하고, 모든 판정에 출처(파일:라인+인용문)를 붙인 델타 리포트를 만든다. 공통 문의는 베이스가 커버하고 회사별 차이만 사람이 검수하도록 온보딩을 가속한다.",
+    "developerName": "channeltalk-cs-onboarding-delta",
+    "category": "Productivity",
+    "capabilities": ["Interactive", "Read"],
+    "defaultPrompt": [
+      "처음 써봐요. 이 플러그인이 뭘 하는 건지, 어떻게 시작하는지 퀵스타트로 안내해줘",
+      "합성 고객사 아크메샵 문서로 온보딩 델타를 시연해줘 — 문서끼리 모순과 베이스라인과의 차이를 원문 인용 근거와 함께 보여줘",
+      "이 고객사 문서들을 이커머스 CS 베이스라인과 대조해 델타 리포트를 만들어줘"
+    ],
+    "brandColor": "#4F46E5",
+    "composerIcon": "./assets/icon.svg",
+    "logo": "./assets/app-icon.png"
+  }
+}

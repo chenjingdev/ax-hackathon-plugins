@@ -1,18 +1,56 @@
 {
   "name": "ax-hackathon-plugins",
-  "interface": { "displayName": "AX 인재전쟁 Codex Plugins" },
+  "interface": {
+    "displayName": "AX 인재전쟁 Codex Plugins"
+  },
   "plugins": [
-    { "name": "musinsa-listing-compliance",
-      "source": { "source": "local", "path": "./plugins/musinsa-listing-compliance" },
-      "policy": { "installation": "AVAILABLE", "authentication": "ON_USE" },
-      "category": "Compliance" },
-    { "name": "myrealtrip-listing-factcheck",
-      "source": { "source": "local", "path": "./plugins/myrealtrip-listing-factcheck" },
-      "policy": { "installation": "AVAILABLE", "authentication": "ON_USE" },
-      "category": "Travel" },
-    { "name": "meditherapy-seeding-screener",
-      "source": { "source": "local", "path": "./plugins/meditherapy-seeding-screener" },
-      "policy": { "installation": "AVAILABLE", "authentication": "ON_USE" },
-      "category": "Marketing" }
+    {
+      "name": "musinsa-listing-compliance",
+      "source": {
+        "source": "local",
+        "path": "./plugins/musinsa-listing-compliance"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_USE"
+      },
+      "category": "Compliance"
+    },
+    {
+      "name": "myrealtrip-listing-factcheck",
+      "source": {
+        "source": "local",
+        "path": "./plugins/myrealtrip-listing-factcheck"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_USE"
+      },
+      "category": "Travel"
+    },
+    {
+      "name": "meditherapy-seeding-screener",
+      "source": {
+        "source": "local",
+        "path": "./plugins/meditherapy-seeding-screener"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_USE"
+      },
+      "category": "Marketing"
+    },
+    {
+      "name": "channeltalk-cs-onboarding-delta",
+      "source": {
+        "source": "local",
+        "path": "./plugins/channeltalk-cs-onboarding-delta"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_USE"
+      },
+      "category": "Productivity"
+    }
   ]
 }

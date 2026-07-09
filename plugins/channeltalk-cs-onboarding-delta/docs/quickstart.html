@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CS 온보딩 델타 컴파일러 — 소개 보고서</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Segoe UI","Noto Sans KR",sans-serif;line-height:1.65;color:#1a1a1a;background:#fff}
+main{max-width:860px;margin:0 auto;padding:44px 24px 64px}
+h1{font-size:1.65rem;margin:.3em 0 .15em}
+h2{font-size:1.12rem;margin:2.1em 0 .6em;padding-top:.5em;border-top:1px solid #e5e5e5}
+.chip{display:inline-block;font-size:.74rem;padding:.18em .65em;border-radius:99px;background:#f0f0f0;color:#555;margin-right:.35em;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.co{background:#4F46E5;color:#fff}
+.lead{color:#444;margin:.5em 0 0}
+pre{background:#f6f6f6;border:1px solid #e5e5e5;border-radius:8px;padding:12px 14px;overflow-x:auto;font-size:.85rem;line-height:1.55;margin:.5em 0}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin:.5em 0}
+th,td{border:1px solid #e2e2e2;padding:.45em .7em;text-align:left;vertical-align:top}
+th{background:#f6f6f6;font-weight:600}
+.wrap{overflow-x:auto}
+.hi{color:#1e8449;font-weight:700}.lo{color:#c0392b;font-weight:700}
+ul,ol{padding-left:1.3em;margin:.4em 0}
+li{margin:.35em 0}
+.calc{background:#f6f6f6;border-left:3px solid #4F46E5;border-radius:0 8px 8px 0;padding:10px 14px;font-size:.9rem;margin:.6em 0}
+.note{font-size:.84rem;color:#777}
+.pipe{display:flex;flex-wrap:wrap;gap:6px;align-items:stretch;margin:.8em 0}
+.stage{flex:1 1 140px;min-width:132px;border:1px solid #e2e2e2;border-radius:8px;padding:9px 11px;background:#fafafa}
+.stage .t{font-weight:700;font-size:.85rem}
+.stage .d{font-size:.8rem;color:#666;margin-top:.25em;line-height:1.5}
+.stage.in,.stage.out{border-color:#4F46E5}
+.arr{align-self:center;color:#999;font-weight:700}
+footer{margin-top:3em;padding-top:1em;border-top:1px solid #e5e5e5;font-size:.85rem;color:#777}
+a{color:#0b62c4}
+@media (prefers-color-scheme:dark){
+body{background:#121212;color:#e6e6e6}
+pre,th,.calc{background:#1d1d1d}pre,th,td{border-color:#333}
+h2,footer{border-color:#2a2a2a}
+.chip{background:#252525;color:#aaa}.co{background:#4F46E5;color:#fff}
+.lead{color:#b5b5b5}.note{color:#888}footer{color:#888}a{color:#7ab8f5}
+.stage{background:#1d1d1d;border-color:#333}.stage .d{color:#999}
+.stage.in,.stage.out{border-color:#7f78f0}
+.hi{color:#5fbf7f}.lo{color:#e57368}}
+:root[data-theme="dark"] body{background:#121212;color:#e6e6e6}
+:root[data-theme="dark"] pre,:root[data-theme="dark"] th,:root[data-theme="dark"] .calc{background:#1d1d1d}
+:root[data-theme="dark"] pre,:root[data-theme="dark"] th,:root[data-theme="dark"] td{border-color:#333}
+:root[data-theme="dark"] h2,:root[data-theme="dark"] footer{border-color:#2a2a2a}
+:root[data-theme="dark"] .chip{background:#252525;color:#aaa}
+:root[data-theme="dark"] .lead{color:#b5b5b5}:root[data-theme="dark"] .note{color:#888}
+:root[data-theme="dark"] footer{color:#888}:root[data-theme="dark"] a{color:#7ab8f5}
+:root[data-theme="dark"] .stage{background:#1d1d1d;border-color:#333}
+:root[data-theme="dark"] .stage .d{color:#999}
+:root[data-theme="dark"] .stage.in,:root[data-theme="dark"] .stage.out{border-color:#7f78f0}
+:root[data-theme="dark"] .hi{color:#5fbf7f}:root[data-theme="dark"] .lo{color:#e57368}
+:root[data-theme="light"] body{background:#fff;color:#1a1a1a}
+:root[data-theme="light"] pre,:root[data-theme="light"] th,:root[data-theme="light"] .calc{background:#f6f6f6}
+:root[data-theme="light"] .co{background:#4F46E5;color:#fff}
+</style>
+</head>
+<body>
+<main>
+
+<h1>CS 온보딩 델타 컴파일러</h1>
+<p><span class="chip co">채널톡</span><span class="chip">channeltalk-cs-onboarding-delta</span><span class="chip">Codex 플러그인</span></p>
+<p class="lead">새 고객사의 흩어진 CS 문서(반품·환불 정책·기존 FAQ·상품 안내)를 <b>이커머스 CS 표준 베이스라인</b>과 대조해, 베이스와 <b>다른 것·빠진 것·문서끼리 모순·신규 주제</b>만 근거 인용과 함께 리포트하는 <b>온보딩 도구</b>. 모든 판정에 <code>파일:라인 "원문"</code> 인용이 붙는다.</p>
+
+<h2>무엇을 하나</h2>
+<p>채널톡은 AI 상담 에이전트 <b>'알프(ALF)'</b>를 판다. 그런데 알프는 흩어진 지식을 스스로 흡수하지 않는다 — 회사의 지식(FAQ·상품·운영 정책)을 <b>사람이 문서로 정리해 '지식(Knowledge)'에 먹여야</b> 답한다(엑셀·PDF·웹 참조로 학습). <a href="https://channel.io/ko/blog/articles/alf-v2-press-f03760de">[알프 v2 소개]</a> 그래서 신규 고객사마다 <b>흩어진 지식을 사람이 손으로 변환하는 온보딩 손작업</b>이 생긴다.</p>
+<p>이 일은 채널톡이 신설한 <b>AX 컨설턴트</b> 직무의 핵심업무로 명문화돼 있다 — 채용공고 문구 그대로: <b>"고객사의 FAQ, 상품 정보, 운영 정책 데이터를 분석하여 ALF가 학습할 수 있는 지식(Knowledge)으로 변환"</b>. <a href="https://channel.io/en/careers/e588e8b8-c1d1-43d7-b8b0-3ae9cb639d74">[AX Consultant 채용공고]</a> 실제 온보딩에서 <b>베리시</b>는 FAQ 65개를 손으로 등록하는 데 <b>2시간 반</b>이 걸렸고 <a href="https://channel.io/ko/blog/articles/c82e9aa3">[베리시 케이스]</a>, <b>이랜드이츠</b>는 <b>130개</b> 오프라인 매장 안내를 문서로 입력했다 <a href="https://channel.io/ko/blog/articles/ai-case-elandeats-19ddab58">[이랜드이츠 케이스]</a>. 채널톡 전문가 온보딩 서비스도 <b>"대부분 50만원~150만원 구간"</b>에서 진행되며, 세팅 시 <b>"지식은 고객사에서 제공"</b>한다 <a href="https://docs.channel.io/help/ko/articles/채널톡-전문가-찾기-744b2e01">[전문가 찾기 도움말]</a>.</p>
+<p>회사마다 반복되는 이 <b>지식변환이 병목</b>이고, 사람이 문서 수십 장을 훑으면 <b>문서끼리 모순이나 빠진 항목을 놓치기 쉽다</b>. 이 도구는 그 반복 손작업을 친다 — 공통 문의는 표준 베이스라인이 커버하니 재작성하지 않고, <b>이 회사만 다른 것·빠진 것·모순·신규만</b> 근거와 함께 표면화한다.</p>
+
+<h2>돌리면 세 가지가 나온다</h2>
+<p>세 산출물은 각각 컨설턴트가 온보딩에서 하는 일 하나씩에 대응한다(공통 SAME은 베이스가 커버하니 재작성하지 않는다):</p>
+<ul>
+<li><b>① 델타 리포트 — 검수할 때.</b> 도구는 문서끼리 <b>모순(CONFLICT)</b>과 베이스와 <b>다른 정책(DIFFERENT)</b>을 <code>파일:라인 "원문"</code>과 함께 짚어준다. 예컨대 FAQ는 환불을 "3일", 정책서는 "7영업일"이라 말할 때, 사람이 놓칠 뻔한 그 모순을 <b>어느 파일 몇 번째 줄인지까지 대며</b> 표면화한다. 컨설턴트는 이 항목만 검수·반영하면 된다.</li>
+<li><b>② 고객사에 물어볼 질문 목록 — 킥오프 미팅 때.</b> 베이스에는 있는데 이 회사 문서엔 근거가 없는 슬롯(<b>MISSING</b>)을 "고객사에 확인 필요" 질문으로 모은다. 컨설턴트는 이 목록을 그대로 킥오프에서 물으면 된다.</li>
+<li><b>③ 신규 주제 — 지식을 추가할 때.</b> 베이스에 없는 이 회사 고유 주제(<b>EXTRA</b>, 예: 정기구독 해지)를 새 슬롯 후보로 뽑는다. 표준 베이스에 없던 항목이니 지식에 새로 추가한다.</li>
+</ul>
+
+<h2>시연 등장인물 — 합성 고객사 '아크메샵'</h2>
+<p>번들 시연의 고객사는 <b>아크메샵</b>이다. 실존 회사가 아니라, 차이·모순·공백을 검증용으로 일부러 심어둔 <b>합성 데이터</b>다. 아크메샵이 넘긴 문서는 세 종류:</p>
+<div class="wrap"><table>
+<tr><th>문서</th><th>파일</th><th>내용</th></tr>
+<tr><td><b>반품·환불 정책</b></td><td><code>policy.md</code></td><td>배송·주문·반품·환불·고객센터·정기구독 정책</td></tr>
+<tr><td><b>기존 FAQ 표</b></td><td><code>faq.csv</code></td><td>자주 묻는 질문/답변 표(환불·배송비·회원탈퇴)</td></tr>
+<tr><td><b>상품 안내</b></td><td><code>product.md</code></td><td>배송 범위·반품 배송비 안내</td></tr>
+</table></div>
+<p class="note">채팅 요약·문서에서는 <b>아크메샵</b>으로 부르고, 코드·경로에서는 <code>acme-shop</code>으로 표기한다.</p>
+
+<h2>어떻게 계산되나 (2계층)</h2>
+<p>이 도구는 두 계층으로 나뉜다 — <b>AI(에이전트)는 판정을 내리지 않는다.</b> AI는 각 베이스 슬롯에 대해 <b>"이 회사 문서에 답이 있나 / 그 답이 베이스와 같은 뜻인가"</b>만 읽어 <b>원문 인용과 함께</b> 슬롯별로 추출한다. 최종 <b>분류(5종)</b>·인용이 원문에 <b>실재하는지 검증(환각 걸러냄)</b>·required 슬롯 <b>전수 커버리지</b>는 <b>python 엔진</b>이 계산한다.</p>
+<div class="pipe">
+<div class="stage in"><div class="t">입력</div><div class="d">고객사 문서 3종(정책·FAQ·상품)</div></div>
+<div class="arr">→</div>
+<div class="stage"><div class="t">① 슬롯별 추출</div><div class="d">AI: 답 유무·베이스와 같은 뜻 판단 + 근거가 되는 원문 문장 채집</div></div>
+<div class="arr">→</div>
+<div class="stage"><div class="t">② 인용 실재성 검증</div><div class="d">코드: 인용이 원문에 실재하는지 대조(없으면 근거불명으로 강등)</div></div>
+<div class="arr">→</div>
+<div class="stage"><div class="t">③ 결정론 분류</div><div class="d">코드: SAME/DIFFERENT/MISSING/CONFLICT/EXTRA 라벨·카운트·커버리지</div></div>
+<div class="arr">→</div>
+<div class="stage out"><div class="t">결과</div><div class="d">델타 리포트 + 질문 목록 + 신규 주제</div></div>
+</div>
+<p>베이스라인 슬롯 <b>20종</b>은 <code>baseline/ecommerce-cs.json</code> 파일에 박혀 있고(AI가 그때그때 정하지 않는다), 각 슬롯 기준값의 출처(전자상거래법·소비자분쟁해결기준 등 공개 조문 / <code>[SYNTH]</code> 업계 관행 자작)는 <code>baseline/sources.md</code>에 정직하게 구분돼 있다.</p>
+
+<h2>무슨 결과가 나오나 (기대 결과)</h2>
+<p>아크메샵 문서를 베이스 20슬롯과 대조하면 다음이 나온다:</p>
+<div class="wrap"><table>
+<tr><th>라벨</th><th>건수</th><th>뜻 — 컨설턴트 액션</th></tr>
+<tr><td><b>SAME</b></td><td><span class="hi">10</span></td><td>베이스 그대로 — 재작성 불필요</td></tr>
+<tr><td><b>DIFFERENT</b></td><td>1</td><td>이 회사만 다름 — 반영</td></tr>
+<tr><td><b>MISSING</b></td><td>2</td><td>문서에 근거 없음 — 고객사에 질문</td></tr>
+<tr><td><b>CONFLICT</b></td><td><span class="lo">1</span></td><td>문서끼리 모순 — 먼저 확인</td></tr>
+<tr><td><b>EXTRA</b></td><td>1</td><td>베이스에 없는 신규 — 슬롯 후보</td></tr>
+</table></div>
+<div class="calc"><b>대표 예시</b><br>
+· <b>CONFLICT</b> <code>[refund-period]</code> — <code>policy.md:13</code> "7영업일 이내에 처리" ↔ <code>faq.csv:2</code> "3일 이내 처리". 같은 환불 처리기간을 두 문서가 다르게 말한다(컨설턴트가 훑다 놓칠 뻔한 모순).<br>
+· <b>DIFFERENT</b> <code>[return-shipping-fee]</code> — 베이스는 "단순변심 반품은 구매자 부담", 아크메샵은 <code>product.md:7</code> "단순변심의 경우에도 반품 배송비를 무료". 이 회사만의 정책이라 지식에 반영해야 한다.</div>
+<p class="note">공통 20슬롯 중 <b>10개가 SAME</b>이라 재작성 0 — 컨설턴트는 모순1·차이1·공백2·신규1, <b>딱 5개만</b> 확인하면 된다. 지어낸 인용은 코드가 원문 대조로 걸러 <b>근거불명 0</b>.</p>
+
+<h2>어떻게 쓰나 (3경로)</h2>
+<ul>
+<li><b>① Codex 앱 "사용해 보기".</b> 설치 후 앱에서 바로 실행한다. 처음이면 <b>"처음 써봐요, 퀵스타트로 안내해줘"</b>라고 치면 이 문서가 다시 열린다.</li>
+<li><b>② 채팅 복붙.</b> 고객사 문서(정책·FAQ·상품)를 채팅에 첨부하고 <b>"이 고객사 문서들을 이커머스 CS 베이스라인과 대조해 델타 리포트를 만들어줘"</b>. 시연만 원하면 <b>"합성 고객사 아크메샵 문서로 온보딩 델타를 시연해줘"</b>.</li>
+<li><b>③ CLI 설치+실행.</b> 로컬 마켓플레이스로 설치:
+<pre>codex plugin marketplace add dist/marketplace
+codex plugin add channeltalk-cs-onboarding-delta@channeltalk-marketplace</pre>
+결정론 엔진을 직접 돌려 시연:
+<pre>cd src
+python -m engine.cli --docs sample/acme-shop --domain ecommerce-cs \
+  --extraction sample/golden/acme-shop.extraction.json --out sample/out</pre></li>
+</ul>
+
+<h2>검증 요약</h2>
+<p>오프라인·순수 python3 stdlib·외부 의존 0. 신뢰의 바닥은 자동 재현이다:</p>
+<ul>
+<li><b>유닛테스트 27개</b> — 엔진(정규화·분류·그라운딩·리포트)을 회귀 고정. <code>cd src &amp;&amp; python -m unittest discover -s engine/tests</code>.</li>
+<li><b>골든 채점</b>(<code>eval/grader.py</code>) — 아크메샵 픽스처로 <b>분류 라벨 일치</b> · <b>근거불명 0</b> · <b>required 슬롯 커버리지 100%</b>를 매번 재확인. <code>python eval/grader.py</code> → <b>PASS</b>.</li>
+</ul>
+
+<h2>선 긋기 (비목표)</h2>
+<ul>
+<li><b>대고객 상담 챗봇(알프 클론) 아님.</b> 이 도구는 <b>빌드타임</b>(지식 준비·검수)이지 런타임(고객 응대)이 아니다 — 알프의 경쟁자가 아니라 <b>알프에 먹일 지식을 빠르게·검수 가능하게 만드는 보완재</b>.</li>
+<li><b>알프 자동 등록·발송 없음.</b> 모든 출력은 <b>사람 검수 대상</b>(<code>reviewed_by: human-required</code>)이다.</li>
+<li><b>데모는 합성 데이터(아크메샵).</b> 실 상담로그·고객사 사설 데이터에 의존하지 않는다.</li>
+</ul>
+
+<footer>
+채팅에 "퀵스타트"라고 치면 이 문서가 다시 열린다. 산출물은 전부 사람 검수 대상 — 자동 반영·발송 없음.
+</footer>
+
+</main>
+</body>
+</html>
