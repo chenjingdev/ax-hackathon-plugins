@@ -1,351 +1,101 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>meditherapy-seeding-screener 퀵스타트</title>
+<title>Seeding Screener — 퀵스타트</title>
 <style>
-  :root{
-    --bg:#fbfafc; --surface:#ffffff; --surface-2:#f4f1f6; --text:#1d1b1f;
-    --muted:#5c5763; --border:#e6e1ea; --accent:#b8437a; --accent-soft:#f7e6ef;
-    --code-bg:#f4f1f6; --code-text:#3a2733; --ok:#2f7d54; --warn:#a8621b;
-  }
-  @media (prefers-color-scheme: dark){
-    :root{
-      --bg:#141218; --surface:#1c1a22; --surface-2:#221f2a; --text:#e9e6ec;
-      --muted:#a9a2b3; --border:#332f3c; --accent:#e98cb5; --accent-soft:#2a1d26;
-      --code-bg:#221f2a; --code-text:#ecd7e3; --ok:#6bd39a; --warn:#e0a35c;
-    }
-  }
-  *{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%}
-  body{
-    margin:0; background:var(--bg); color:var(--text);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;
-    line-height:1.65; font-size:16px;
-  }
-  .wrap{max-width:880px; margin:0 auto; padding:0 20px 96px}
-  a{color:var(--accent); text-decoration:none}
-  a:hover{text-decoration:underline}
-  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; font-size:.9em}
-  :not(pre)>code{background:var(--code-bg); color:var(--code-text); padding:.12em .4em; border-radius:5px}
-  pre{
-    background:var(--code-bg); color:var(--code-text); border:1px solid var(--border);
-    border-radius:10px; padding:16px 18px; overflow-x:auto; font-size:13.5px; line-height:1.55;
-    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
-  }
-  pre.tree{line-height:1.5}
-
-  header.hero{padding:56px 0 26px; border-bottom:1px solid var(--border)}
-  .eyebrow{
-    display:inline-block; font-size:12px; letter-spacing:.06em; text-transform:uppercase;
-    color:var(--accent); background:var(--accent-soft); border:1px solid var(--border);
-    padding:5px 12px; border-radius:999px; font-weight:600;
-  }
-  h1{font-size:30px; line-height:1.25; margin:18px 0 6px; letter-spacing:-.01em}
-  h1 .display{color:var(--muted); font-weight:500; font-size:18px; display:block; margin-top:6px}
-  .lead{font-size:17px; color:var(--text); margin:14px 0 18px}
-  .meta{display:flex; flex-wrap:wrap; gap:8px; margin-top:6px}
-  .chip{
-    font-size:12.5px; color:var(--muted); background:var(--surface-2);
-    border:1px solid var(--border); border-radius:7px; padding:4px 10px;
-  }
-  .chip b{color:var(--text); font-weight:600}
-
-  section{padding-top:38px}
-  h2{
-    font-size:21px; margin:0 0 12px; letter-spacing:-.01em;
-    padding-left:12px; border-left:3px solid var(--accent);
-  }
-  h3{font-size:16px; margin:22px 0 8px}
-  p{margin:10px 0}
-  .muted{color:var(--muted)}
-  ul,ol{padding-left:22px; margin:10px 0}
-  li{margin:5px 0}
-
-  .card{
-    background:var(--surface); border:1px solid var(--border);
-    border-radius:12px; padding:18px 20px; margin:14px 0;
-  }
-  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:14px}
-  @media (max-width:620px){.grid2{grid-template-columns:1fr}}
-
-  table{width:100%; border-collapse:collapse; margin:12px 0; font-size:14px}
-  .tablewrap{overflow-x:auto; border:1px solid var(--border); border-radius:10px}
-  th,td{text-align:left; padding:10px 12px; border-bottom:1px solid var(--border); vertical-align:top}
-  thead th{background:var(--surface-2); font-weight:600; font-size:13px; color:var(--muted); white-space:nowrap}
-  tbody tr:last-child td{border-bottom:none}
-  td b{color:var(--accent)}
-  .num{font-variant-numeric:tabular-nums; white-space:nowrap}
-  .verdict-top{color:var(--ok); font-weight:600}
-  .verdict-bottom{color:var(--warn); font-weight:600}
-
-  .steps{counter-reset:step; list-style:none; padding-left:0}
-  .steps>li{
-    position:relative; padding:2px 0 16px 44px; margin:0;
-    border-left:2px solid var(--border); margin-left:14px;
-  }
-  .steps>li:last-child{border-left-color:transparent}
-  .steps>li::before{
-    counter-increment:step; content:counter(step);
-    position:absolute; left:-15px; top:0; width:28px; height:28px; border-radius:50%;
-    background:var(--accent); color:#fff; font-weight:700; font-size:13px;
-    display:flex; align-items:center; justify-content:center;
-  }
-  .steps h3{margin:2px 0 6px}
-
-  .note{
-    border-left:3px solid var(--accent); background:var(--accent-soft);
-    border-radius:0 8px 8px 0; padding:12px 16px; margin:14px 0; font-size:14.5px;
-  }
-  .kicker{font-size:13px; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:.04em}
-  footer{margin-top:52px; padding-top:22px; border-top:1px solid var(--border); color:var(--muted); font-size:13px}
-  .tag-ok{color:var(--ok); font-weight:600}
-  .tag-drop{color:var(--warn); font-weight:600}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Segoe UI","Noto Sans KR",sans-serif;line-height:1.6;color:#1a1a1a;background:#fff}
+main{max-width:860px;margin:0 auto;padding:44px 24px 64px}
+h1{font-size:1.65rem;margin:.3em 0 .15em}
+h2{font-size:1.12rem;margin:2.1em 0 .6em;padding-top:.5em;border-top:1px solid #e5e5e5}
+.chip{display:inline-block;font-size:.74rem;padding:.18em .65em;border-radius:99px;background:#f0f0f0;color:#555;margin-right:.35em;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.co{background:#b8437a;color:#fff}
+.lead{color:#444;margin:.5em 0 0}
+pre{background:#f6f6f6;border:1px solid #e5e5e5;border-radius:8px;padding:12px 14px;overflow-x:auto;font-size:.85rem;line-height:1.55;margin:.5em 0}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin:.5em 0}
+th,td{border:1px solid #e2e2e2;padding:.45em .7em;text-align:left;vertical-align:top}
+th{background:#f6f6f6;font-weight:600}
+.wrap{overflow-x:auto}
+.hi{color:#1e8449;font-weight:700}.lo{color:#c0392b;font-weight:700}
+ul,ol{padding-left:1.3em;margin:.4em 0}
+li{margin:.3em 0}
+footer{margin-top:3em;padding-top:1em;border-top:1px solid #e5e5e5;font-size:.85rem;color:#777}
+a{color:#0b62c4}
+@media (prefers-color-scheme:dark){
+body{background:#121212;color:#e6e6e6}
+pre,th{background:#1d1d1d}pre,th,td{border-color:#333}
+h2,footer{border-color:#2a2a2a}
+.chip{background:#252525;color:#aaa}.co{background:#b8437a;color:#fff}
+.lead{color:#b5b5b5}footer{color:#888}a{color:#7ab8f5}
+.hi{color:#5fbf7f}.lo{color:#e57368}}
 </style>
 </head>
 <body>
-<div class="wrap">
+<main>
 
-  <!-- ========== 1. HERO ========== -->
-  <header class="hero">
-    <span class="eyebrow">Codex Plugin · 퀵스타트</span>
-    <h1>meditherapy-seeding-screener
-      <span class="display">표시명: Meditherapy Seeding Screener</span>
-    </h1>
-    <p class="lead">
-      인플루언서 <b>시딩 후보의 공개 콘텐츠</b>가 "이 제품을 사게 만드는 결(구매의도 유발 콘텐츠 속성)"에
-      얼마나 부합하는지를, <b>한국 동료심사 근거로 가중된 5차원 온톨로지</b>로 정량·정성 스코어링하고
-      <b>근거를 원문 인용한 glass-box 숏리스트</b>로 산출하는 스크리너.
-    </p>
-    <div class="meta">
-      <span class="chip"><b>version</b> 0.2.1</span>
-      <span class="chip"><b>대상 기업</b> 메디테라피 (스킨케어 D2C)</span>
-      <span class="chip"><b>런타임</b> OpenAI Codex 플러그인</span>
-      <span class="chip"><b>자기완결</b> 외부 네트워크·유료 API 0</span>
-    </div>
-  </header>
+<h1>Seeding Screener</h1>
+<p><span class="chip co">메디테라피</span><span class="chip">meditherapy-seeding-screener</span><span class="chip">Codex 플러그인</span></p>
+<p class="lead">인플루언서 시딩 후보의 공개 콘텐츠를 한국 동료심사 근거 <b>5차원</b>으로 채점해, 팔로워 수가 아니라 <b>구매유발 결</b>로 랭킹한다. 모든 점수는 원문 인용으로 방어한다(glass-box).</p>
 
-  <!-- ========== 2. 무슨 문제를 푸는가 ========== -->
-  <section id="problem">
-    <h2>1 · 무슨 문제를 푸는가</h2>
-    <p>
-      스킨케어 D2C 브랜드가 신제품(예: <b>레티놀 세럼</b>)을 시딩할 때, 마케터는 후보 인플루언서 중
-      "누구에게 제품을 보낼까"를 정해야 한다. 흔한 함정은 <b>팔로워 수로 줄 세우는 것</b>이다 —
-      팔로워가 큰 계정이 반드시 <em>구매를 유발하는 콘텐츠 결</em>을 가진 것은 아니다.
-    </p>
-    <div class="card">
-      <p class="kicker">누가 · 언제 쓰나</p>
-      <ul>
-        <li><b>AX/마케팅 담당자</b>가 시딩 후보 숏리스트를 짤 때 (후보 배열 → 적합도 내림차순 랭킹).</li>
-        <li><b>콘텐츠 브리프</b>를 작성할 때 (약한 차원 → 보완 콘텐츠 디렉션 제안).</li>
-        <li><b>자사 콘텐츠 사전점검</b> / 신시장 후보 스크리닝 / 온톨로지 갱신 후 <b>재스캔</b> 시.</li>
-      </ul>
-    </div>
-    <p class="note">
-      <b>정체성 = 예언자가 아니라 정밀 계측기·설명기.</b>
-      핵심 산출물은 각 차원 점수를 방어하는 <b>원문 verbatim 인용(설명)</b>이며, 점수·랭킹은 정렬용 부산물이다.
-      마케터가 믿는 것은 숫자가 아니라 <em>"2주간 직접 써보고 말씀드릴게요" 같은 실재하는 근거</em>다.
-    </p>
-  </section>
+<h2>30초 시작</h2>
+<ol>
+<li>설치:
+<pre><code>codex plugin marketplace add https://github.com/chenjingdev/ax-hackathon-plugins
+codex plugin add meditherapy-seeding-screener@ax-hackathon-plugins</code></pre></li>
+<li>Codex 채팅에 붙여넣기 (앱이면 "사용해 보기" 클릭):
+<pre><code>번들 샘플 sample/input.kr.json으로 시딩 스크리닝을 시연해줘</code></pre></li>
+<li>팔로워 89만 메가가 적합도 <span class="lo">13</span>으로 3위, 팔로워 8.6천 더마 전문가가 <span class="hi">78</span>로 1위 — 역전 랭킹이 근거 인용과 함께 나오면 정상.</li>
+</ol>
 
-  <!-- ========== 3. 폴더 스캐폴딩 맵 ========== -->
-  <section id="structure">
-    <h2>2 · 폴더 스캐폴딩 맵 (<code>src/</code>)</h2>
-    <div class="tablewrap">
-<pre class="tree">src/
-├─ .codex-plugin/
-│  └─ plugin.json          # name · version · description · skills · interface.defaultPrompt
-├─ skills/
-│  ├─ seeding-screener/SKILL.md        # 메인: 차원별 0~1 부합도 + 원문 인용 산출(에이전트 표면)
-│  └─ meditherapy-quickstart/SKILL.md  # 이 온보딩 안내 스킬(읽기 전용)
-├─ rules/
-│  └─ ontology.json        # 5차원 동결 가중치 + KCI 근거 메타데이터(변경 불가)
-├─ scoring/                # 결정론 바닥(순수 python3 stdlib) — 총점은 여기서만 산출
-│  ├─ normalize.py · features.py · aggregate.py · report.py · cli.py
-│  └─ tests/               # 회귀 테스트(20건) + 자기완결(네트워크 import 0) 검증
-├─ sample/                 # input.kr · low · rescan · sagraph + EXPECTED.md(골든 리포트)
-└─ docs/
-   └─ quickstart.html      # ← 지금 이 문서</pre>
-    </div>
-    <p class="muted">
-      판정은 <b>2계층</b>이다. <b>결정론 바닥</b>(<code>scoring/</code>, 계산 가능 피처, 100% 재현)과
-      <b>에이전트 표면</b>(Codex가 차원별 0~1 부합도 + 원문 인용). <b>총점은 오직 코드가</b>
-      고정 공식으로 산출하고, 에이전트는 전체 점수를 절대 매기지 않는다.
-    </p>
-  </section>
+<h2>무엇을 하나</h2>
+<ul>
+<li><b>5차원 스코어링</b> — 전문성·준사회성·정보성·후기·진정성. 가중치는 한국 동료심사 논문 근거로 동결(<code>ontology.json</code>).</li>
+<li><b>glass-box 근거</b> — 모든 차원 점수에 원문 verbatim 인용을 붙인다. 인용은 실재해야 한다(환각 0 게이트).</li>
+<li><b>재스캔</b> — 온톨로지 갱신(v0.1→v0.2) 시 기존 후보를 재채점하고 순위 변화를 추적.</li>
+<li><b>산출</b> — 랭킹 숏리스트 + 후보별 dossier + 콘텐츠 보완 제안 + 사유 메모.</li>
+</ul>
 
-  <!-- ========== 4. 샘플 카탈로그 ========== -->
-  <section id="samples">
-    <h2>3 · 번들 샘플 카탈로그</h2>
-    <p><code>src/sample/</code>에 4개의 검증 픽스처가 있다. 판정은 <code>sample/EXPECTED.md</code>(골든 리포트) 기준이다.</p>
-    <div class="tablewrap">
-    <table>
-      <thead>
-        <tr><th>샘플 파일</th><th>모드</th><th>시나리오</th><th>기대 판정</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><code>sample/input.kr.json</code></td>
-          <td class="num">pool · 4인</td>
-          <td>헤드라인 데모 — 레티놀 세럼 시딩 후보 4인. "팔로워 수의 함정"을 근거로 뒤집는다.</td>
-          <td>
-            <span class="verdict-top">derma_micro_expert</span>(8.6k) 1위 <b>78</b> ·
-            mid_review_creator(82k) 2위 <b>70</b> ·
-            두 <span class="verdict-bottom">메가</span>(글램 894k <b>13</b> · 하울 600k <b>12</b>)는 바닥 →
-            <b>before/after 역전 4건</b>.
-          </td>
-        </tr>
-        <tr>
-          <td><code>sample/input.low.json</code></td>
-          <td class="num">pool · N=12</td>
-          <td>음성 픽스처 — 일상·여행·펫·OOTD 등 구매유발 결이 빈약한 콘텐츠 12건.</td>
-          <td>전원 <b>낮은 purchase_intent_fit</b>(오탐·과점수 방지). 양성 대비 <b>변별 마진 δ</b> 측정용.</td>
-        </tr>
-        <tr>
-          <td><code>sample/input.rescan.json</code></td>
-          <td class="num">rescan · v0.1→v0.2</td>
-          <td>룰셋 갱신 재스캔 — kr 후보 재사용 + 후보별 baseline 스냅샷.</td>
-          <td>후보별 <b>score/rank delta</b> 보고 (예: derma baseline 62·rank 2 → 상승·rank 1).</td>
-        </tr>
-        <tr>
-          <td><code>sample/input.sagraph.json</code></td>
-          <td class="num"><span class="tag-drop">DROPPED</span></td>
-          <td>교차도메인 SAGraph(Weibo) sanity 시도 — 캐비엇 기록용.</td>
-          <td>전면 <b>DROP</b> (candidates 0). 합성 GPT-4 라벨엔 독립 정답이 없어 상관 산출을 금지 — 스코어링하지 않음.</td>
-        </tr>
-      </tbody>
-    </table>
-    </div>
-    <p class="note">
-      <b>데모 추천:</b> 첫 인상은 <code>sample/input.kr.json</code>이 가장 강하다.
-      팔로워 1·2위(메가 894k·600k)가 적합도 바닥으로 내려가고, 팔로워 최소(더마 8.6k)가 1위로
-      역전되는 <b>"팔로워 수의 함정"</b> 4건 역전을 원문 인용으로 방어한다.
-    </p>
-  </section>
+<h2>번들 샘플</h2>
+<div class="wrap"><table>
+<tr><th>파일</th><th>시나리오</th><th>기대 결과</th></tr>
+<tr><td><code>sample/input.kr.json</code></td><td>레티놀 세럼 후보 4인 — "팔로워 수의 함정" 킬러 데모</td><td>적합도 <span class="hi">78·70</span> / <span class="lo">13·12</span> — 팔로워 순위 역전 4건</td></tr>
+<tr><td><code>sample/input.low.json</code></td><td>구매유발 결이 약한 후보 12인 풀 — 변별 대조군</td><td>전원 저점 — 상위 후보와 점수대 분리(오탐 방지)</td></tr>
+<tr><td><code>sample/input.rescan.json</code></td><td>온톨로지 v0.1→v0.2 갱신 후 후보 3인 재채점</td><td>갱신 전후 점수·순위 delta 리포트</td></tr>
+<tr><td><code>sample/input.sagraph.json</code></td><td>외부 벤치마크(SAGraph) 채택 검토 기록</td><td>DROPPED — GPT-4 시뮬레이션 점수라 근거 부적합, 채택 안 함(정직 기록)</td></tr>
+<tr><td><code>sample/EXPECTED.md</code></td><td>킬러 데모의 기대 출력 원문(골든)</td><td>채점 기준</td></tr>
+</table></div>
 
-  <!-- ========== 5. 사용법 3경로 ========== -->
-  <section id="usage">
-    <h2>4 · 사용하는 3가지 경로</h2>
-    <ol class="steps">
-      <li>
-        <h3>앱에서 "사용해 보기"</h3>
-        <p class="muted">
-          ChatGPT/Codex 앱에서 이 플러그인의 <b>사용해 보기</b>를 누르면 기본 프롬프트가 뜬다.
-          <code>[0]</code> 퀵스타트 안내, <code>[1]</code> 번들 샘플(<code>sample/input.kr.json</code>) 자가 시연 중 하나로 바로 시작한다.
-        </p>
-      </li>
-      <li>
-        <h3>채팅에 복붙</h3>
-        <p class="muted">아무 대화창에서 아래를 붙여넣으면 스크리너가 트리거된다.</p>
-<pre>번들 샘플 sample/input.kr.json 으로 시딩 스크리닝을 시연해줘.
-레티놀 세럼 후보 4인을 구매의도 적합도로 랭킹하고,
-각 차원 점수를 원문 인용으로 방어해서 보여줘.</pre>
-      </li>
-      <li>
-        <h3>CLI로 설치 + 실행</h3>
-        <p class="muted">Codex CLI에 마켓플레이스를 등록하고 플러그인을 설치한다.</p>
-<pre>codex plugin marketplace add https://github.com/chenjingdev/ax-hackathon-plugins
-codex plugin add meditherapy-seeding-screener@ax-hackathon-plugins</pre>
-        <p class="muted">설치 후 Codex에서 스크리너를 부르면 된다. 결정론 바닥만 오프라인으로 확인하려면 <code>src/</code>에서:</p>
-<pre>python3 -m scoring.cli score --input sample/input.kr.json \
-    --ontology rules/ontology.json --deterministic-only \
-    --out-json /tmp/kr.floor.json</pre>
-      </li>
-    </ol>
-  </section>
+<h2>폴더 구조</h2>
+<pre><code>meditherapy-seeding-screener/
+├── .codex-plugin/plugin.json    매니페스트
+├── skills/
+│   ├── seeding-screener/        메인 스킬 — 스크리닝 절차 + 리포트 골격
+│   └── meditherapy-quickstart/  이 문서를 여는 온보딩 스킬
+├── rules/ontology.json          5차원 온톨로지·가중치 — 한국 동료심사 근거
+├── scoring/                     결정론 스코어링 파이프라인(Python, 오프라인 stdlib)
+├── sample/                      데모 입력 4종 + 기대 출력
+└── docs/quickstart.html         이 문서</code></pre>
 
-  <!-- ========== 6. 기대 출력 미리보기 ========== -->
-  <section id="output">
-    <h2>5 · 기대 출력 미리보기</h2>
-    <p>산출물은 마크다운 리포트(§7.1)와 JSON 로그(§7.3)다. 리포트는 5개 절로 구성된다.</p>
-    <div class="grid2">
-      <div class="card">
-        <p class="kicker">리포트 골격</p>
-        <ol>
-          <li><b>후보 랭킹</b> (purchase_intent_fit · 차원 점수)</li>
-          <li><b>후보별 dossier</b> — 차원 · 점수 · confidence · <b>원문 인용</b> · source_field · 논문</li>
-          <li><b>보완 제안</b> (콘텐츠 디렉션)</li>
-          <li><b>사유 메모</b> (사람 검토·확정)</li>
-          <li><b>가드</b> (매출귀인 아님 · reviewed_by=human-required)</li>
-        </ol>
-      </div>
-      <div class="card">
-        <p class="kicker">판정 체계</p>
-        <ul>
-          <li><b>purchase_intent_fit</b> = round(Σ dimension_score×weight×100), 0~100 정수.</li>
-          <li><b>차원 점수</b> D1~D5 각 0~1 (에이전트 표면).</li>
-          <li>합산은 <b>고정 공식(코드)</b> — 에이전트가 넘긴 total은 무시.</li>
-          <li>각 인용은 원문 <b>substring 대조</b>로 <code>grounded</code> 플래그(환각 0 검증).</li>
-        </ul>
-      </div>
-    </div>
+<h2>출력</h2>
+<ul>
+<li>랭킹 표(purchase_intent_fit 0~100) + 후보별 dossier(차원 점수·confidence·원문 인용·출처 논문).</li>
+<li>점수가 아니라 근거가 당락을 가른다 — 마케터는 「2주간 직접 써보고 말씀드릴게요」 같은 실재 인용을 보고 결정한다.</li>
+</ul>
 
-    <h3>랭킹 표 예시 (골든 · <code>input.kr.json</code>)</h3>
-    <div class="tablewrap">
-    <table>
-      <thead>
-        <tr><th>순위</th><th>creator_id</th><th class="num">팔로워</th><th class="num">purchase_intent_fit</th><th>차원 점수</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>1</td><td><span class="verdict-top">derma_micro_expert</span></td><td class="num">8,600</td><td class="num"><b>78</b></td><td class="num">D1 0.38 · D2 0.77 · D3 0.84 · D4 0.91 · D5 0.87</td></tr>
-        <tr><td>2</td><td>mid_review_creator</td><td class="num">82,000</td><td class="num"><b>70</b></td><td class="num">D1 0.26 · D2 0.63 · D3 0.84 · D4 0.88 · D5 0.63</td></tr>
-        <tr><td>3</td><td class="verdict-bottom">mega_glam_lifestyle</td><td class="num">894,000</td><td class="num"><b>13</b></td><td class="num">D1 0.01 · D2 0.30 · D3 0.03 · D4 0.03 · D5 0.40</td></tr>
-        <tr><td>4</td><td class="verdict-bottom">mega_haul_unboxing</td><td class="num">600,000</td><td class="num"><b>12</b></td><td class="num">D1 0.01 · D2 0.24 · D3 0.17 · D4 0.03 · D5 0.07</td></tr>
-      </tbody>
-    </table>
-    </div>
+<h2>하지 않는 것</h2>
+<ul>
+<li>매출 귀인·바이럴 예측·진위 감사 아님 — 적합도는 추정이고 확정은 사람이 한다(reviewed_by=human-required).</li>
+<li>스크래핑 없음 — 콘텐츠는 입력으로 받는다. 자동 발송·확정 0.</li>
+</ul>
 
-    <h3>5차원 온톨로지 (동결 가중치)</h3>
-    <div class="tablewrap">
-    <table>
-      <thead><tr><th>차원</th><th>의미</th><th class="num">가중치</th><th>신뢰등급</th></tr></thead>
-      <tbody>
-        <tr><td><b>D1</b> 전문성/더마권위</td><td>성분·기전·전문 권위</td><td class="num">0.132</td><td>adjusted</td></tr>
-        <tr><td><b>D2</b> 준사회성/반복소통</td><td>호명·댓글 응답·친밀</td><td class="num">0.263</td><td>strong</td></tr>
-        <tr><td><b>D3</b> 정보성/성분설명</td><td>성분·사용법 정보 밀도</td><td class="num">0.263</td><td>strong</td></tr>
-        <tr><td><b>D4</b> 후기/eWOM</td><td>직접 후기·커뮤니티 신뢰</td><td class="num">0.263</td><td>strong</td></tr>
-        <tr><td><b>D5</b> 진정성(보조)</td><td>진실성·균형·비광고</td><td class="num">0.079</td><td>auxiliary</td></tr>
-      </tbody>
-    </table>
-    </div>
-    <p class="muted">가중치는 <code>rules/ontology.json</code>의 동결값(Σ=1.0)이며 에이전트·루프 모두 변경 불가.</p>
-  </section>
+<footer>
+채팅에 "퀵스타트"라고 치면 <code>meditherapy-quickstart</code> 스킬이 이 문서를 다시 연다.
+· <a href="https://github.com/chenjingdev/ax-hackathon-plugins">github.com/chenjingdev/ax-hackathon-plugins</a>
+</footer>
 
-  <!-- ========== 7. 제약 · 비목표 ========== -->
-  <section id="limits">
-    <h2>6 · 제약 · 비목표</h2>
-    <div class="card">
-      <p class="kicker">절대 하지 않는 것 (가드)</p>
-      <ul>
-        <li><b>매출 귀인 · 매출 예측 · ROI</b> — 산출하지 않는다.</li>
-        <li><b>바이럴 / 도달 / 조회수 예측</b> — 하지 않는다.</li>
-        <li><b>진위(가짜팔로워·봇) 확정 감사</b> — 하지 않는다(부차 sanity 플래그만, 헤드라인·강등 금지).</li>
-        <li>모든 출력에 <code>guard</code> 문자열 + <code>reviewed_by="human-required"</code> (자동 발송·확정 0).</li>
-      </ul>
-    </div>
-    <div class="card">
-      <p class="kicker">지키는 것 (불변식)</p>
-      <ul>
-        <li><b>근거 실재성(환각 0):</b> 모든 인용은 원문(caption/transcript/comments)에 <b>글자 그대로 실재</b>해야 한다.</li>
-        <li><b>가중치 동결:</b> 온톨로지 가중치·블렌드비는 코드 고정값 — 읽기만, 변경 금지.</li>
-        <li><b>자기완결:</b> 외부 네트워크·스크래핑·유료 API 0. 영상 자막은 입력으로 받음(스크래핑하지 않음).</li>
-        <li><b>총점 분리:</b> 에이전트는 차원별 부합도만, 총점은 코드 고정 공식만.</li>
-      </ul>
-    </div>
-    <p class="muted">
-      데모 픽스처의 게시물 텍스트는 플랫폼 접근 제한으로 인한 <b>대표 재구성</b>이며 실제 인물의 verbatim 발언이 아니다
-      (익명 아키타입 핸들, 스크래핑 0). 표면지표 규모는 공개 분포에 정합.
-    </p>
-  </section>
-
-  <footer>
-    <p>
-      meditherapy-seeding-screener · version 0.2.1 · AX 인재전쟁 예선 · 대상 기업 메디테라피 ·
-      전체 근거: <code>rules/ontology.json</code> · 골든 리포트: <code>sample/EXPECTED.md</code>
-    </p>
-  </footer>
-
-</div>
+</main>
 </body>
 </html>

@@ -5,379 +5,97 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Listing Compliance — 퀵스타트</title>
 <style>
-  :root {
-    --bg: #ffffff;
-    --fg: #14110f;
-    --muted: #5c5852;
-    --border: #e6e3df;
-    --card: #faf9f7;
-    --code-bg: #f4f3f0;
-    --accent: #0b7d6b;
-    --accent-soft: #e9f5f1;
-    --block: #b3261e;
-    --warn: #9a6700;
-    --pass: #0b7d6b;
-    --maxw: 880px;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #121110;
-      --fg: #ececea;
-      --muted: #a29d96;
-      --border: #2c2a27;
-      --card: #1a1917;
-      --code-bg: #1e1d1b;
-      --accent: #4fd1b8;
-      --accent-soft: #16211e;
-      --block: #ff6b60;
-      --warn: #e0b34a;
-      --pass: #4fd1b8;
-    }
-  }
-  * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--fg);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo",
-      "Malgun Gothic", "Noto Sans KR", Roboto, "Helvetica Neue", Arial, sans-serif;
-    line-height: 1.65;
-    font-size: 16px;
-  }
-  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 20px 96px; }
-  a { color: var(--accent); text-decoration: none; }
-  a:hover { text-decoration: underline; }
-
-  header.hero {
-    border-bottom: 3px solid var(--fg);
-    padding: 56px 0 28px;
-    margin-bottom: 8px;
-  }
-  .eyebrow {
-    font-size: 12px; letter-spacing: .16em; text-transform: uppercase;
-    color: var(--muted); font-weight: 700; margin: 0 0 10px;
-  }
-  h1 {
-    font-size: clamp(30px, 6vw, 46px); line-height: 1.1; margin: 0 0 6px;
-    letter-spacing: -0.02em;
-  }
-  .codename { font-size: 15px; color: var(--muted); margin: 0 0 18px; }
-  .codename code { color: var(--fg); }
-  .lede { font-size: 18px; margin: 0 0 22px; max-width: 62ch; }
-  .badges { display: flex; flex-wrap: wrap; gap: 8px; }
-  .badge {
-    display: inline-block; font-size: 12.5px; font-weight: 600;
-    padding: 4px 11px; border-radius: 999px;
-    background: var(--accent-soft); color: var(--accent);
-    border: 1px solid transparent;
-  }
-  .badge.plain { background: transparent; color: var(--muted); border-color: var(--border); }
-
-  section { padding: 34px 0; border-bottom: 1px solid var(--border); }
-  section:last-of-type { border-bottom: none; }
-  h2 {
-    font-size: 13px; letter-spacing: .12em; text-transform: uppercase;
-    color: var(--accent); font-weight: 700; margin: 0 0 4px;
-  }
-  h2 + .h2title { font-size: 24px; margin: 0 0 16px; letter-spacing: -0.01em; }
-  h3 { font-size: 17px; margin: 22px 0 8px; }
-  p { margin: 0 0 14px; }
-  ul, ol { margin: 0 0 14px; padding-left: 22px; }
-  li { margin: 4px 0; }
-  strong { font-weight: 700; }
-
-  code {
-    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
-      "Liberation Mono", monospace;
-    font-size: 0.88em; background: var(--code-bg);
-    padding: 1.5px 5px; border-radius: 5px;
-  }
-  pre {
-    background: var(--code-bg); border: 1px solid var(--border);
-    border-radius: 10px; padding: 16px; overflow-x: auto; margin: 0 0 16px;
-    line-height: 1.55;
-  }
-  pre code { background: none; padding: 0; font-size: 13px; }
-
-  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  @media (max-width: 640px) { .cards { grid-template-columns: 1fr; } }
-  .card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 12px; padding: 18px 18px 16px;
-  }
-  .card h3 { margin-top: 0; }
-  .pillar-tag {
-    display: inline-block; font-size: 11.5px; font-weight: 700;
-    letter-spacing: .08em; color: var(--accent);
-    background: var(--accent-soft); padding: 2px 9px; border-radius: 6px;
-    margin-bottom: 8px;
-  }
-
-  .tablewrap { overflow-x: auto; margin: 0 0 8px; border-radius: 10px; }
-  table {
-    width: 100%; border-collapse: collapse; font-size: 14.5px;
-    min-width: 520px;
-  }
-  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
-  th { font-size: 12.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); font-weight: 700; }
-  tbody tr:last-child td { border-bottom: none; }
-  td code { white-space: nowrap; }
-
-  .verdict { font-weight: 800; font-size: 13px; letter-spacing: .03em; }
-  .v-block { color: var(--block); }
-  .v-warn { color: var(--warn); }
-  .v-pass { color: var(--pass); }
-
-  .steps { list-style: none; padding: 0; margin: 0; }
-  .steps > li {
-    position: relative; padding-left: 44px; margin: 0 0 22px;
-  }
-  .steps > li .num {
-    position: absolute; left: 0; top: 0;
-    width: 30px; height: 30px; border-radius: 50%;
-    background: var(--fg); color: var(--bg);
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 800; font-size: 15px;
-  }
-  .steps > li h3 { margin: 3px 0 6px; }
-
-  .note {
-    background: var(--accent-soft); border-left: 3px solid var(--accent);
-    border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 0 0 14px;
-    font-size: 14.5px;
-  }
-  .muted { color: var(--muted); }
-  .skeleton { list-style: none; padding: 0; margin: 0; }
-  .skeleton li {
-    padding: 9px 0; border-bottom: 1px dashed var(--border);
-    display: flex; gap: 12px; align-items: baseline;
-  }
-  .skeleton li:last-child { border-bottom: none; }
-  .skeleton .sec { font-weight: 800; color: var(--accent); min-width: 46px; flex: none; }
-  footer.foot { padding-top: 30px; color: var(--muted); font-size: 13.5px; }
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Segoe UI","Noto Sans KR",sans-serif;line-height:1.6;color:#1a1a1a;background:#fff}
+main{max-width:860px;margin:0 auto;padding:44px 24px 64px}
+h1{font-size:1.65rem;margin:.3em 0 .15em}
+h2{font-size:1.12rem;margin:2.1em 0 .6em;padding-top:.5em;border-top:1px solid #e5e5e5}
+.chip{display:inline-block;font-size:.74rem;padding:.18em .65em;border-radius:99px;background:#f0f0f0;color:#555;margin-right:.35em;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.co{background:#111;color:#fff}
+.lead{color:#444;margin:.5em 0 0}
+pre{background:#f6f6f6;border:1px solid #e5e5e5;border-radius:8px;padding:12px 14px;overflow-x:auto;font-size:.85rem;line-height:1.55;margin:.5em 0}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin:.5em 0}
+th,td{border:1px solid #e2e2e2;padding:.45em .7em;text-align:left;vertical-align:top}
+th{background:#f6f6f6;font-weight:600}
+.wrap{overflow-x:auto}
+.b{color:#c0392b;font-weight:700}.p{color:#1e8449;font-weight:700}.r{color:#b8860b;font-weight:700}
+ul,ol{padding-left:1.3em;margin:.4em 0}
+li{margin:.3em 0}
+footer{margin-top:3em;padding-top:1em;border-top:1px solid #e5e5e5;font-size:.85rem;color:#777}
+a{color:#0b62c4}
+@media (prefers-color-scheme:dark){
+body{background:#121212;color:#e6e6e6}
+pre,th{background:#1d1d1d}pre,th,td{border-color:#333}
+h2,footer{border-color:#2a2a2a}
+.chip{background:#252525;color:#aaa}.co{background:#eee;color:#111}
+.lead{color:#b5b5b5}footer{color:#888}a{color:#7ab8f5}
+.b{color:#e57368}.p{color:#5fbf7f}.r{color:#d4a72c}}
 </style>
 </head>
 <body>
-<div class="wrap">
+<main>
 
-  <!-- 1) HERO -->
-  <header class="hero">
-    <p class="eyebrow">무신사 · AX 컴플라이언스 에이전트</p>
-    <h1>Listing Compliance</h1>
-    <p class="codename">플러그인 <code>musinsa-listing-compliance</code> · 표시명 “Listing Compliance”</p>
-    <p class="lede">
-      무신사 입점·운영 상품의 <strong>표시정보(혼용률·원산지·친환경 표현·시험성적서)</strong>가
-      그린워싱 가이드·표시광고법·성적서와 어긋나는지, <strong>변경 이벤트마다</strong>
-      교차참조·판정·문서화하는 Codex 플러그인. 탐지로 끝내지 않고 정정안과 출력단 3종 초안까지 생성한다(린터 아님).
-    </p>
-    <div class="badges">
-      <span class="badge">version 0.2.1</span>
-      <span class="badge">대상 기업 · 무신사</span>
-      <span class="badge plain">Codex 플러그인 (순수 SKILL + policy-as-code)</span>
-      <span class="badge plain">런타임 외부 네트워크·API 키 0</span>
-    </div>
-  </header>
+<h1>Listing Compliance</h1>
+<p><span class="chip co">무신사</span><span class="chip">musinsa-listing-compliance</span><span class="chip">Codex 플러그인</span></p>
+<p class="lead">상품 표시정보(혼용률·원산지·친환경 표현)를 규칙셋과 시험성적서에 대조해 <b>BLOCK / WARN / PASS</b>로 판정하고, 정정안과 반려 사유서 초안까지 만든다.</p>
 
-  <!-- 2) WHAT PROBLEM -->
-  <section>
-    <h2>무슨 문제를 푸는가</h2>
-    <p class="h2title">입점 1회 게이트를 “변경 이벤트 상시 집행”으로 반전</p>
-    <p>
-      <strong>누가·언제 쓰나</strong> — 무신사 <strong>MD·입점심사팀</strong>이 상품의
-      <strong>신규 등록·상세 수정·시즌 갱신·정책(룰) 갱신</strong> 이벤트마다 표시정보를 검수한다.
-      단일 입점 심사 한 번으로 끝나던 검수를, 표시값·정책이 바뀔 때마다 다시 집행하는 상시 컴플라이언스로 바꾼다.
-    </p>
-    <p class="muted">
-      자증: 회사의 입점 검수가 자사 PB의 인조가죽 ‘#에코레더’ 친환경 표현을 수년간 못 걸러 공정위 경고를 받았다(공개 사실 E1).
-    </p>
-    <div class="cards">
-      <div class="card">
-        <span class="pillar-tag">기둥 A</span>
-        <h3>그린워싱·진화표현 + 소급 재스캔</h3>
-        <p class="muted" style="margin:0">
-          정적 블랙리스트로 못 잡는 <strong>신조어·변형 표현</strong>을 ‘금지개념(석유화학 합성소재 ≠ 친환경)의 변형’으로
-          <strong>의미 판단</strong>(신뢰도 동반)하고, 룰이 갱신되면 <strong>전 코퍼스를 소급 재스캔</strong>해
-          ‘어느 원칙·어느 문장’ 근거와 함께 위반후보를 끌어올린다.
-        </p>
-      </div>
-      <div class="card">
-        <span class="pillar-tag">기둥 B</span>
-        <h3>성적서 ↔ 상품 ↔ 클레임 정합성</h3>
-        <p class="muted" style="margin:0">
-          이종기관 시험성적서를 <strong>정규화·퍼지매칭</strong>(외래키 <code>product_ref</code> 부재도 브랜드+품번+소재+부위로 연결)해
-          클레임과 대조하고, <strong>정합성 4분류(정상/부분커버/불일치/외래키불명)</strong>로 재판정한다.
-        </p>
-      </div>
-    </div>
-    <p class="muted" style="margin-top:14px">
-      두 기둥의 판정은 그대로 <strong>반려 사유서·이의제기 재심사 메모·셀러 응대 초안</strong>으로 흐른다.
-      모두 <strong>제안</strong>이며 사람(MD)이 검토·확정한다.
-    </p>
-  </section>
+<h2>30초 시작</h2>
+<ol>
+<li>설치:
+<pre><code>codex plugin marketplace add https://github.com/chenjingdev/ax-hackathon-plugins
+codex plugin add musinsa-listing-compliance@ax-hackathon-plugins</code></pre></li>
+<li>Codex 채팅에 붙여넣기 (앱이면 "사용해 보기" 클릭):
+<pre><code>번들 샘플 sample/input.product.json으로 표시정보 컴플라이언스 검수를 시연해줘</code></pre></li>
+<li>안감 "캐시미어 30%" 주장이 성적서(아크릴 100%)와 불일치로 걸려 <span class="b">BLOCK</span> 리포트가 나오면 정상.</li>
+</ol>
 
-  <!-- 3) SCAFFOLDING MAP -->
-  <section>
-    <h2>폴더 스캐폴딩 맵</h2>
-    <p class="h2title">플러그인 루트 구조와 각 파일의 역할</p>
-    <div class="tablewrap">
-<pre><code>(플러그인 루트)
-├─ .codex-plugin/plugin.json      매니페스트 (v0.2.1 · interface · defaultPrompt)
-├─ .mcp.json                       로컬 MCP 서버 등록 (compliance-kb · 오프라인)
-├─ rules/
-│  ├─ ruleset.json                 ★ 권위 사본 — 15룰 · 파라미터 · 렉시콘 · 4분류 택소노미
-│  └─ sources.md                   공개 근거(E1~E6) 출처 매핑
-├─ kb/                             법적근거 KB (법령 · 심사지침 · 공정위 의결례) — MCP가 인출
-│  ├─ statutes/  guidelines/  ftc_decisions/  labs/  _templates/
-│  └─ README.md                    라이선스 자세 · BYO 드롭인 어댑터
-├─ mcp_server/compliance_kb_server.py   순수 stdlib · stdio JSON-RPC · 도구 5종
-├─ sample/                          번들 데모 입력 + 골든 기대 출력
-│  ├─ input.product.json           기둥 B 단건 정합성 (기대 BLOCK)
-│  ├─ input.pass.json              오탐 방지 대조군 (기대 PASS)
-│  ├─ input.rescan.json            정책갱신 소급 재스캔 (킬러 데모)
-│  └─ EXPECTED.md                  골든 기대 출력 박제 (grader 채점 기준)
-├─ skills/
-│  ├─ listing-compliance/SKILL.md          ★ 메인 심사 스킬
-│  │  └─ templates/report.template.md       고정 출력 템플릿 (§0~6 + 검증 푸터)
-│  └─ musinsa-quickstart/SKILL.md           이 퀵스타트 안내 스킬
-└─ docs/quickstart.html            이 문서 (사람 · AI 겸용 온보딩)</code></pre>
-    </div>
-    <p class="muted" style="margin:0">
-      정책(판정)의 <strong>권위 사본은 <code>rules/ruleset.json</code></strong> 하나다 — 규칙·파라미터·렉시콘·임계는 여기서만 읽는다.
-      SKILL.md는 절차 지시문이고, 수치·표현 목록을 박제하지 않는다.
-    </p>
-  </section>
+<h2>무엇을 하나</h2>
+<ul>
+<li><b>그린워싱 탐지</b> — 등재 금지표현('에코레더' 등)은 즉시 격발. 미등재 신조어('에코퍼')는 의미로 잡아 사람 확인 후보로 상정.</li>
+<li><b>성적서 대조</b> — 부위별 혼용률 주장을 시험성적서와 수치 비교 → 정합성 4분류(정상 / 부분커버 / 불일치 / 외래키불명).</li>
+<li><b>소급 재스캔</b> — 룰이 갱신되면 판매중 코퍼스 전체를 재판정. 자사 PB도 예외 없음.</li>
+<li><b>후속 문서 생성</b> — 정정안 + 반려 사유서·이의제기 재심사 메모·셀러 응대 초안.</li>
+</ul>
 
-  <!-- 4) SAMPLE CATALOG -->
-  <section>
-    <h2>번들 샘플 카탈로그</h2>
-    <p class="h2title">설치 즉시 시연 가능한 <code>sample/</code> — 기대 판정은 <code>sample/EXPECTED.md</code>에 박제</p>
-    <div class="tablewrap">
-      <table>
-        <thead>
-          <tr><th>파일</th><th>시나리오</th><th>기대 판정</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><code>input.product.json</code></td>
-            <td><strong>기둥 B 단건 정합성 데모.</strong> 자사 PB 무스탕 자켓(690,000원·원산지 중국). 안감을 캐시미어 30 / 폴리 70으로 주장하나 KOTITI 성적서는 아크릴 100 → 안감 <strong>불일치</strong>. 겉감 ‘에코레더’ 친환경 합성어 + 근거 없는 환경성 표현.</td>
-            <td>
-              <span class="verdict v-block">BLOCK</span><br>
-              <span class="muted">rule_set {GW-01, GW-02, GW-03, MX-01, MX-03, TS-02}<br>BLOCK 4 · WARN 2 · 안감 = 불일치</span>
-            </td>
-          </tr>
-          <tr>
-            <td><code>input.pass.json</code></td>
-            <td><strong>오탐 방지 대조군.</strong> 면 100% 티셔츠. 몸판 클레임(면 100)이 KOTITI 성적서(면 100)와 일치, 환경성 표현 없음·원산지 표기 있음 → 깨끗한 상품은 막지 않는다.</td>
-            <td>
-              <span class="verdict v-pass">PASS</span><br>
-              <span class="muted">위반 0건 · 몸판 = 정상</span>
-            </td>
-          </tr>
-          <tr>
-            <td><code>input.rescan.json</code></td>
-            <td><strong>정책갱신 소급 재스캔 (킬러 데모).</strong> GW-02 확장(에코레더/비건레더/ECO VEGAN LEATHER = 석유화학 인조가죽 → 친환경 표현 금지)을 한 번 갱신하면, 코퍼스 4건을 소급 재평가한다: 자사 PB 인조가죽 자켓 + 타사 인조가죽 토트백 = BLOCK, 면 티셔츠 = 정상 통과, 미등재 친환경 신조어(‘에코퍼’) = 다음 룰 갱신 후보로 상정.</td>
-            <td>
-              <span class="verdict v-block">BLOCK 2</span> / <span class="verdict v-pass">PASS 1</span> / <span class="verdict v-warn">REVIEW 1</span><br>
-              <span class="muted">코퍼스 4건 · <code>own_brand_flagged = true</code></span>
-            </td>
-          </tr>
-          <tr>
-            <td><code>EXPECTED.md</code></td>
-            <td><strong>골든 기대 출력 박제.</strong> 위 세 입력의 기대 판정·플래그된 listing 집합·rule_set·<code>own_brand_flagged</code>·review_candidate를 고정해 둔 정답 서명. 오프라인 grader가 이 서명으로 채점한다.</td>
-            <td><span class="muted">채점 기준 (판정 아님)</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="note" style="margin-top:14px">
-      펀치라인: 룰 갱신 한 번 → <strong>무신사가 자사 인조가죽을 소급 적발</strong>한다. “무신사조차 못 닿았던 자사 제품을 잡는다.”
-    </p>
-  </section>
+<h2>번들 샘플</h2>
+<div class="wrap"><table>
+<tr><th>파일</th><th>시나리오</th><th>기대 결과</th></tr>
+<tr><td><code>sample/input.product.json</code></td><td>안감 캐시미어 주장 vs 성적서 아크릴 100%</td><td><span class="b">BLOCK</span> — 위반 6건(GW·MX·TS)</td></tr>
+<tr><td><code>sample/input.pass.json</code></td><td>면 100%, 성적서 일치, 환경성 표현 없음</td><td><span class="p">PASS</span> — 오탐 0</td></tr>
+<tr><td><code>sample/input.rescan.json</code></td><td>그린워싱 룰 갱신 → 코퍼스 4건 소급 재스캔</td><td><span class="b">BLOCK 2</span> · <span class="p">PASS 1</span> · <span class="r">REVIEW 1</span> — 자사 PB 적발 포함</td></tr>
+<tr><td><code>sample/EXPECTED.md</code></td><td>위 세 시나리오의 기대 출력 원문(골든)</td><td>채점 기준</td></tr>
+</table></div>
 
-  <!-- 5) HOW TO USE -->
-  <section>
-    <h2>사용법 3경로</h2>
-    <p class="h2title">앱 · 채팅 · CLI</p>
-    <ol class="steps">
-      <li>
-        <span class="num">1</span>
-        <h3>앱에서 “사용해 보기” 클릭</h3>
-        <p style="margin:0">
-          ChatGPT/Codex 앱에서 플러그인을 열고 <strong>“사용해 보기”</strong>를 누르면 첫 프롬프트로
-          <em>“퀵스타트: 이 플러그인의 용도·구조·샘플 시연 방법을 안내해줘”</em>가 뜬다 —
-          이 퀵스타트 안내와 함께 번들 샘플 시연을 제안한다.
-        </p>
-      </li>
-      <li>
-        <span class="num">2</span>
-        <h3>채팅에 프롬프트 복붙</h3>
-        <p style="margin:0 0 10px">아래를 그대로 붙여넣으면 메인 심사 스킬이 번들 샘플을 검수한다.</p>
-        <pre><code>listing-compliance 스킬로 sample/input.product.json을 검수해줘</code></pre>
-      </li>
-      <li>
-        <span class="num">3</span>
-        <h3>CLI (codex)</h3>
-        <p style="margin:0 0 10px">마켓플레이스 등록 → 설치 (2줄):</p>
-        <pre><code>codex plugin marketplace add https://github.com/chenjingdev/ax-hackathon-plugins
-codex plugin add musinsa-listing-compliance@ax-hackathon-plugins</code></pre>
-        <p style="margin:0 0 10px">설치 후 원커맨드 시연 (기대: BLOCK):</p>
-        <pre><code>codex exec "listing-compliance 스킬로 sample/input.product.json을 검수해줘"</code></pre>
-      </li>
-    </ol>
-  </section>
+<h2>폴더 구조</h2>
+<pre><code>musinsa-listing-compliance/
+├── .codex-plugin/plugin.json    매니페스트
+├── skills/
+│   ├── listing-compliance/      메인 스킬 — 심사 절차 + 리포트 템플릿
+│   └── musinsa-quickstart/      이 문서를 여는 온보딩 스킬
+├── rules/ruleset.json           규칙 15개·임계·렉시콘 — 판정의 유일한 원천
+├── kb/                          근거 원문(공정위 심결례·심사지침·표시광고법)
+├── sample/                      데모 입력 3종 + 기대 출력
+├── mcp_server/                  kb 검색용 로컬 MCP 서버(선택)
+└── docs/quickstart.html         이 문서</code></pre>
 
-  <!-- 6) EXPECTED OUTPUT PREVIEW -->
-  <section>
-    <h2>기대 출력 미리보기</h2>
-    <p class="h2title">고정 템플릿 리포트 골격 — <code>templates/report.template.md</code></p>
-    <p>모든 검수는 아래 <strong>고정 골격</strong>을 그대로 채워 출력한다(섹션 추가·삭제·재배열 금지). 채울 내용이 없는 슬롯은 <code>(없음)</code>/<code>해당 없음</code>으로 남긴다.</p>
-    <ul class="skeleton">
-      <li><span class="sec">§0</span><span><strong>판정 요약</strong> — 리포트 ID · 검수 모드 · 대상 · 최종 판정 · 적용 규칙 ID · 근거 데이터</span></li>
-      <li><span class="sec">§1</span><span><strong>결정론 바닥</strong> — 탐지된 위반(규칙 ID · 심각도 · 부위 · 정합성 · 주장 vs 관측 · 근거 URL)</span></li>
-      <li><span class="sec">§2</span><span><strong>에이전트 표면</strong> — 상정(자문 · 하드 BLOCK 아님, 신뢰도·근거 문장 동반)</span></li>
-      <li><span class="sec">§3</span><span><strong>소급 재스캔 결과</strong> — 추가된 룰 · 플래그된 listing · 자사 PB 포함 여부 · 정상 통과</span></li>
-      <li><span class="sec">§4</span><span><strong>정정안</strong>(생성·제안) — 표기·카피·태그·누락 4종</span></li>
-      <li><span class="sec">§5</span><span><strong>출력단 3종 초안</strong> — 반려 사유서 · 이의제기 재심사 메모 · 셀러 응대</span></li>
-      <li><span class="sec">§6</span><span><strong>결론</strong> + 검증 푸터(기계 판독: <code>report_id · verdict · rule_ids_used · match_status_by_part · own_brand_flagged · reviewed_by</code>)</span></li>
-    </ul>
-    <div class="cards" style="margin-top:6px">
-      <div class="card">
-        <h3 style="margin-top:0">verdict 체계</h3>
-        <p style="margin:0">
-          <span class="verdict v-block">BLOCK</span> 게시 보류 권고 (BLOCK≥1) ·
-          <span class="verdict v-warn">WARN</span> 주의 (BLOCK 0, WARN≥1) ·
-          <span class="verdict v-pass">PASS</span> 위반 0
-        </p>
-      </div>
-      <div class="card">
-        <h3 style="margin-top:0">정합성 4분류 (match_status)</h3>
-        <p style="margin:0" class="muted">
-          <strong>정상</strong>(match) · <strong>부분커버</strong>(partial) · <strong>불일치</strong>(mismatch = 허위기재) ·
-          <strong>외래키불명</strong>(unlinked · 퍼지 신뢰도 임계 미만 → 에이전트 표면 상정)
-        </p>
-      </div>
-    </div>
-  </section>
+<h2>출력</h2>
+<ul>
+<li>고정 템플릿 리포트(섹션 0~6 + 검증 푸터). 모든 위반에 규칙 ID와 근거 URL이 붙는다.</li>
+<li>규칙 ID는 <code>ruleset.json</code>에 등재된 것만 쓴다 — 즉석 창작 금지.</li>
+</ul>
 
-  <!-- 7) CONSTRAINTS / NON-GOALS -->
-  <section>
-    <h2>제약 · 비목표</h2>
-    <p class="h2title">이 에이전트가 하지 않는 것</p>
-    <ul>
-      <li><strong>자동 게시·발송 없음.</strong> 모든 정정·문서는 <strong>제안</strong>이며 <code>reviewed_by = "human-MD-required"</code> — 사람(MD)이 검토·확정하기 전 게시·발송하지 않는다.</li>
-      <li><strong>BLOCK = 게시 보류 권고</strong>이지 자동 차단이 아니다.</li>
-      <li><strong>OCR·이미지 유사도는 비목표.</strong> 시험성적서는 구조화 JSON으로 입력받고, 코어는 인지노동(의미 판단·교차참조·문서작성)에 집중한다.</li>
-      <li>단일 입점 게이트 아님 · 챗봇/요약봇 아님 · 고객 대면 제품 아님(내부 심사 도구) · 단순 린터 아님 · 법률 자문/최종 판정 권한 없음.</li>
-      <li>무신사 비공개 코드·외부 임베딩 API 불요 — <strong>런타임 외부 네트워크·API 키 0</strong>. 의미 추론은 Codex 자신이 수행한다.</li>
-    </ul>
-    <footer class="foot">
-      플러그인 <code>musinsa-listing-compliance</code> v0.2.1 · 진실원천 <code>SPEC.md</code> · 권위 사본 <code>rules/ruleset.json</code>(15룰) ·
-      기대 출력 <code>sample/EXPECTED.md</code>.
-      리포지토리: <a href="https://github.com/chenjingdev/ax-hackathon-plugins">github.com/chenjingdev/ax-hackathon-plugins</a>
-    </footer>
-  </section>
+<h2>하지 않는 것</h2>
+<ul>
+<li>자동 게시·차단 없음. BLOCK은 "게시 보류 권고"이고 확정은 사람(MD)이 한다.</li>
+<li>OCR 없음 — 성적서는 구조화 JSON으로 입력받는다.</li>
+</ul>
 
-</div>
+<footer>
+채팅에 "퀵스타트"라고 치면 <code>musinsa-quickstart</code> 스킬이 이 문서를 다시 연다.
+· <a href="https://github.com/chenjingdev/ax-hackathon-plugins">github.com/chenjingdev/ax-hackathon-plugins</a>
+</footer>
+
+</main>
 </body>
 </html>
