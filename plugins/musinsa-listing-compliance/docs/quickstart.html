@@ -82,13 +82,13 @@ h2,footer{border-color:#2a2a2a}
 <h2>무슨 결과가 나오나</h2>
 <p>판정 리포트 한 장: <b>판정(BLOCK/WARN/PASS) + 위반 목록(규칙·근거 URL) + 정정안 + 반려 사유서·셀러 응대 초안</b>. 셀러에게 보낼 문서까지 초안이 나오므로 MD는 검토·확정만 한다.</p>
 <figure>
-<img src="../sample/input.product.png" alt="번들 시연 상품의 등록 화면 캡처 — 친환경 에코레더 무스탕 자켓, 안감 캐시미어 30% 표기, 시험성적서 미첨부">
-<figcaption>번들 시연 상품 — '친환경 에코레더 무스탕 자켓'(690,000원) 등록 화면 캡처(<code>sample/input.product.png</code>). 안감을 '캐시미어 30%'라고 주장하는데 시험성적서가 없다. 기대 판정 <b>BLOCK</b>.</figcaption>
+<img src="../sample/demo/등록화면캡처.png" alt="번들 시연 상품의 등록 화면 캡처 — 친환경 에코레더 무스탕 자켓, 안감 캐시미어 30% 표기, 시험성적서 미첨부">
+<figcaption>번들 시연 상품 — '친환경 에코레더 무스탕 자켓'(690,000원) 등록 화면 캡처(<code>sample/demo/등록화면캡처.png</code>). 안감을 '캐시미어 30%'라고 주장하는데 시험성적서가 없다. 기대 판정 <b>BLOCK</b>.</figcaption>
 </figure>
 <p>번들 데모 3종의 기대 결과:</p>
 <div class="wrap"><table>
 <tr><th>데모</th><th>기대 결과</th></tr>
-<tr><td>가짜 캐시미어 자켓 단건 검수 (<code>sample/input.product.json</code> · 등록 화면 캡처판 <code>input.product.png</code>)</td><td><span class="b">BLOCK</span> — 그린워싱 표현 + 안감 혼용률 성적서 불일치</td></tr>
+<tr><td>가짜 캐시미어 자켓 단건 검수 (<code>sample/input.product.json</code> · 캡처판 <code>sample/demo/등록화면캡처.png</code>)</td><td><span class="b">BLOCK</span> — 그린워싱 표현 + 안감 혼용률 성적서 불일치</td></tr>
 <tr><td>면 100% 정상 상품 (<code>sample/input.pass.json</code>)</td><td><span class="p">PASS</span> — 깨끗한 상품은 막지 않는다</td></tr>
 <tr><td>그린워싱 룰 갱신 후 소급 재스캔 (<code>sample/input.rescan.json</code>)</td><td><span class="b">BLOCK 2</span>(자사 PB 포함) · <span class="p">PASS 1</span> · <span class="r">REVIEW 1</span></td></tr>
 </table></div>
