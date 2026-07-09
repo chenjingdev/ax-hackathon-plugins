@@ -4,20 +4,387 @@
   "product": {
     "name": "레티놀 세럼",
     "category": "skincare",
-    "key_attributes": ["레티놀", "모공", "탄력", "나이아신아마이드", "세라마이드"]
+    "key_attributes": [
+      "레티놀",
+      "모공",
+      "탄력",
+      "나이아신아마이드",
+      "세라마이드"
+    ]
   },
   "candidates": [
-    { "creator_id": "low_01_daily", "platform": "instagram", "surface_metrics": { "followers": 120000, "avg_likes": 8000, "avg_comments": 60, "post_cadence_days": 12, "ad_tag_ratio": 0.4 }, "contents": [ { "type": "post", "caption": "오늘 점심은 파스타 🍝 날씨 좋아서 산책도 했어요", "transcript": null, "hashtags": ["#일상", "#점심"], "comments_sample": ["맛있겠다", "좋아요"], "engagement": { "likes": 8000, "comments": 60 } } ] },
-    { "creator_id": "low_02_travel", "platform": "instagram", "surface_metrics": { "followers": 230000, "avg_likes": 14000, "avg_comments": 90, "post_cadence_days": 20, "ad_tag_ratio": 0.5 }, "contents": [ { "type": "post", "caption": "제주도 여행 다녀왔어요 ✈️ 바다 너무 예뻐요", "transcript": null, "hashtags": ["#여행", "#제주도"], "comments_sample": ["부럽다", "사진 예뻐요"], "engagement": { "likes": 14000, "comments": 90 } } ] },
-    { "creator_id": "low_03_pet", "platform": "instagram", "surface_metrics": { "followers": 56000, "avg_likes": 4000, "avg_comments": 120, "post_cadence_days": 3, "ad_tag_ratio": 0.1 }, "contents": [ { "type": "reel", "caption": "우리 강아지 산책 영상 🐶 너무 귀엽죠", "transcript": "오늘도 산책 가요 우리 댕댕이 신났어요", "hashtags": ["#강아지", "#멍스타그램"], "comments_sample": ["귀여워요", "심쿵"], "engagement": { "likes": 4000, "comments": 120 } } ] },
-    { "creator_id": "low_04_ootd", "platform": "instagram", "surface_metrics": { "followers": 310000, "avg_likes": 22000, "avg_comments": 70, "post_cadence_days": 5, "ad_tag_ratio": 0.6 }, "contents": [ { "type": "post", "caption": "오늘의 OOTD 👗 가을 코디 추천", "transcript": null, "hashtags": ["#ootd", "#코디"], "comments_sample": ["예뻐요", "어디 옷이에요"], "engagement": { "likes": 22000, "comments": 70 } } ] },
-    { "creator_id": "low_05_food", "platform": "youtube", "surface_metrics": { "followers": 480000, "avg_likes": 30000, "avg_comments": 200, "post_cadence_days": 7, "ad_tag_ratio": 0.3 }, "contents": [ { "type": "video", "caption": "먹방 브이로그 🍜 신상 라면 먹어봤어요", "transcript": "안녕하세요 오늘은 신상 라면 먹어볼게요 진짜 맛있어요 후루룩", "hashtags": ["#먹방", "#브이로그"], "comments_sample": ["맛있겠다", "저도 먹고싶어요"], "engagement": { "likes": 30000, "comments": 200 } } ] },
-    { "creator_id": "low_06_workout", "platform": "instagram", "surface_metrics": { "followers": 95000, "avg_likes": 6000, "avg_comments": 50, "post_cadence_days": 4, "ad_tag_ratio": 0.2 }, "contents": [ { "type": "reel", "caption": "홈트 루틴 💪 오늘도 운동 완료", "transcript": "다같이 스쿼트 시작할게요 하나 둘 셋", "hashtags": ["#홈트", "#운동"], "comments_sample": ["대단해요", "같이 해요"], "engagement": { "likes": 6000, "comments": 50 } } ] },
-    { "creator_id": "low_07_cafe", "platform": "instagram", "surface_metrics": { "followers": 41000, "avg_likes": 2800, "avg_comments": 30, "post_cadence_days": 9, "ad_tag_ratio": 0.3 }, "contents": [ { "type": "post", "caption": "성수동 카페 투어 ☕ 분위기 좋아요", "transcript": null, "hashtags": ["#카페", "#성수동"], "comments_sample": ["가보고 싶다", "예뻐요"], "engagement": { "likes": 2800, "comments": 30 } } ] },
-    { "creator_id": "low_08_game", "platform": "youtube", "surface_metrics": { "followers": 720000, "avg_likes": 40000, "avg_comments": 500, "post_cadence_days": 2, "ad_tag_ratio": 0.4 }, "contents": [ { "type": "video", "caption": "신작 게임 플레이 🎮 같이 해요", "transcript": "오늘은 신작 게임 해볼게요 와 이거 재밌다", "hashtags": ["#게임", "#실况"], "comments_sample": ["꿀잼", "ㅋㅋㅋ"], "engagement": { "likes": 40000, "comments": 500 } } ] },
-    { "creator_id": "low_09_music", "platform": "instagram", "surface_metrics": { "followers": 180000, "avg_likes": 12000, "avg_comments": 80, "post_cadence_days": 10, "ad_tag_ratio": 0.2 }, "contents": [ { "type": "reel", "caption": "커버곡 불러봤어요 🎵 들어주세요", "transcript": "오늘은 요즘 인기곡 커버해볼게요", "hashtags": ["#커버", "#노래"], "comments_sample": ["목소리 좋아요", "최고"], "engagement": { "likes": 12000, "comments": 80 } } ] },
-    { "creator_id": "low_10_humor", "platform": "instagram", "surface_metrics": { "followers": 260000, "avg_likes": 19000, "avg_comments": 140, "post_cadence_days": 6, "ad_tag_ratio": 0.5 }, "contents": [ { "type": "reel", "caption": "웃긴 일상 짤 😂 공감 100%", "transcript": "이런 적 다들 있죠 완전 공감", "hashtags": ["#유머", "#일상"], "comments_sample": ["ㅋㅋㅋㅋ", "공감"], "engagement": { "likes": 19000, "comments": 140 } } ] },
-    { "creator_id": "low_11_interior", "platform": "instagram", "surface_metrics": { "followers": 73000, "avg_likes": 5000, "avg_comments": 40, "post_cadence_days": 14, "ad_tag_ratio": 0.4 }, "contents": [ { "type": "post", "caption": "방 꾸미기 🏠 미니멀 인테리어", "transcript": null, "hashtags": ["#인테리어", "#홈스타일링"], "comments_sample": ["깔끔해요", "예뻐요"], "engagement": { "likes": 5000, "comments": 40 } } ] },
-    { "creator_id": "low_12_skincare_shallow", "platform": "instagram", "surface_metrics": { "followers": 150000, "avg_likes": 9000, "avg_comments": 55, "post_cadence_days": 8, "ad_tag_ratio": 0.7 }, "contents": [ { "type": "post", "caption": "요즘 쓰는 화장품 추천 ✨ 다 좋아요 강추!", "transcript": null, "hashtags": ["#화장품", "#추천", "#광고"], "comments_sample": ["저도 살래요", "예뻐요"], "engagement": { "likes": 9000, "comments": 55 } } ] }
+    {
+      "creator_id": "low_01_daily",
+      "display_name": "일상 브이로거",
+      "platform": "instagram",
+      "surface_metrics": {
+        "followers": 120000,
+        "avg_likes": 8000,
+        "avg_comments": 60,
+        "post_cadence_days": 12,
+        "ad_tag_ratio": 0.4
+      },
+      "contents": [
+        {
+          "type": "post",
+          "caption": "오늘 점심은 파스타 🍝 날씨 좋아서 산책도 했어요",
+          "transcript": null,
+          "hashtags": [
+            "#일상",
+            "#점심"
+          ],
+          "comments_sample": [
+            "맛있겠다",
+            "좋아요"
+          ],
+          "engagement": {
+            "likes": 8000,
+            "comments": 60
+          }
+        }
+      ]
+    },
+    {
+      "creator_id": "low_02_travel",
+      "display_name": "여행 크리에이터",
+      "platform": "instagram",
+      "surface_metrics": {
+        "followers": 230000,
+        "avg_likes": 14000,
+        "avg_comments": 90,
+        "post_cadence_days": 20,
+        "ad_tag_ratio": 0.5
+      },
+      "contents": [
+        {
+          "type": "post",
+          "caption": "제주도 여행 다녀왔어요 ✈️ 바다 너무 예뻐요",
+          "transcript": null,
+          "hashtags": [
+            "#여행",
+            "#제주도"
+          ],
+          "comments_sample": [
+            "부럽다",
+            "사진 예뻐요"
+          ],
+          "engagement": {
+            "likes": 14000,
+            "comments": 90
+          }
+        }
+      ]
+    },
+    {
+      "creator_id": "low_03_pet",
+      "display_name": "반려동물 채널",
+      "platform": "instagram",
+      "surface_metrics": {
+        "followers": 56000,
+        "avg_likes": 4000,
+        "avg_comments": 120,
+        "post_cadence_days": 3,
+        "ad_tag_ratio": 0.1
+      },
+      "contents": [
+        {
+          "type": "reel",
+          "caption": "우리 강아지 산책 영상 🐶 너무 귀엽죠",
+          "transcript": "오늘도 산책 가요 우리 댕댕이 신났어요",
+          "hashtags": [
+            "#강아지",
+            "#멍스타그램"
+          ],
+          "comments_sample": [
+            "귀여워요",
+            "심쿵"
+          ],
+          "engagement": {
+            "likes": 4000,
+            "comments": 120
+          }
+        }
+      ]
+    },
+    {
+      "creator_id": "low_04_ootd",
+      "display_name": "데일리룩 크리에이터",
+      "platform": "instagram",
+      "surface_metrics": {
+        "followers": 310000,
+        "avg_likes": 22000,
+        "avg_comments": 70,
+        "post_cadence_days": 5,
+        "ad_tag_ratio": 0.6
+      },
+      "contents": [
+        {
+          "type": "post",
+          "caption": "오늘의 OOTD 👗 가을 코디 추천",
+          "transcript": null,
+          "hashtags": [
+            "#ootd",
+            "#코디"
+          ],
+          "comments_sample": [
+            "예뻐요",
+            "어디 옷이에요"
+          ],
+          "engagement": {
+            "likes": 22000,
+            "comments": 70
+          }
+        }
+      ]
+    },
+    {
+      "creator_id": "low_05_food",
+      "display_name": "먹방·요리 채널",
+      "platform": "youtube",
+      "surface_metrics": {
+        "followers": 480000,
+        "avg_likes": 30000,
+        "avg_comments": 200,
+        "post_cadence_days": 7,
+        "ad_tag_ratio": 0.3
+      },
+      "contents": [
+        {
+          "type": "video",
+          "caption": "먹방 브이로그 🍜 신상 라면 먹어봤어요",
+          "transcript": "안녕하세요 오늘은 신상 라면 먹어볼게요 진짜 맛있어요 후루룩",
+          "hashtags": [
+            "#먹방",
+            "#브이로그"
+          ],
+          "comments_sample": [
+            "맛있겠다",
+            "저도 먹고싶어요"
+          ],
+          "engagement": {
+            "likes": 30000,
+            "comments": 200
+          }
+        }
+      ]
+    },
+    {
+      "creator_id": "low_06_workout",
+      "display_name": "홈트 크리에이터",
+      "platform": "instagram",
+      "surface_metrics": {
+        "followers": 95000,
+        "avg_likes": 6000,
+        "avg_comments": 50,
+        "post_cadence_days": 4,
+        "ad_tag_ratio": 0.2
+      },
+      "contents": [
+        {
+          "type": "reel",
+          "caption": "홈트 루틴 💪 오늘도 운동 완료",
+          "transcript": "다같이 스쿼트 시작할게요 하나 둘 셋",
+          "hashtags": [
+            "#홈트",
+            "#운동"
+          ],
+          "comments_sample": [
+            "대단해요",
+            "같이 해요"
+          ],
+          "engagement": {
+            "likes": 6000,
+            "comments": 50
+          }
+        }
+      ]
+    },
+    {
+      "creator_id": "low_07_cafe",
+      "display_name": "카페 투어 블로거",
+      "platform": "instagram",
+      "surface_metrics": {
+        "followers": 41000,
+        "avg_likes": 2800,
+        "avg_comments": 30,
+        "post_cadence_days": 9,
+        "ad_tag_ratio": 0.3
+      },
+      "contents": [
+        {
+          "type": "post",
+          "caption": "성수동 카페 투어 ☕ 분위기 좋아요",
+          "transcript": null,
+          "hashtags": [
+            "#카페",
+            "#성수동"
+          ],
+          "comments_sample": [
+            "가보고 싶다",
+            "예뻐요"
+          ],
+          "engagement": {
+            "likes": 2800,
+            "comments": 30
+          }
+        }
+      ]
+    },
+    {
+      "creator_id": "low_08_game",
+      "display_name": "게임 스트리머",
+      "platform": "youtube",
+      "surface_metrics": {
+        "followers": 720000,
+        "avg_likes": 40000,
+        "avg_comments": 500,
+        "post_cadence_days": 2,
+        "ad_tag_ratio": 0.4
+      },
+      "contents": [
+        {
+          "type": "video",
+          "caption": "신작 게임 플레이 🎮 같이 해요",
+          "transcript": "오늘은 신작 게임 해볼게요 와 이거 재밌다",
+          "hashtags": [
+            "#게임",
+            "#실况"
+          ],
+          "comments_sample": [
+            "꿀잼",
+            "ㅋㅋㅋ"
+          ],
+          "engagement": {
+            "likes": 40000,
+            "comments": 500
+          }
+        }
+      ]
+    },
+    {
+      "creator_id": "low_09_music",
+      "display_name": "음악 커버 채널",
+      "platform": "instagram",
+      "surface_metrics": {
+        "followers": 180000,
+        "avg_likes": 12000,
+        "avg_comments": 80,
+        "post_cadence_days": 10,
+        "ad_tag_ratio": 0.2
+      },
+      "contents": [
+        {
+          "type": "reel",
+          "caption": "커버곡 불러봤어요 🎵 들어주세요",
+          "transcript": "오늘은 요즘 인기곡 커버해볼게요",
+          "hashtags": [
+            "#커버",
+            "#노래"
+          ],
+          "comments_sample": [
+            "목소리 좋아요",
+            "최고"
+          ],
+          "engagement": {
+            "likes": 12000,
+            "comments": 80
+          }
+        }
+      ]
+    },
+    {
+      "creator_id": "low_10_humor",
+      "display_name": "유머·밈 채널",
+      "platform": "instagram",
+      "surface_metrics": {
+        "followers": 260000,
+        "avg_likes": 19000,
+        "avg_comments": 140,
+        "post_cadence_days": 6,
+        "ad_tag_ratio": 0.5
+      },
+      "contents": [
+        {
+          "type": "reel",
+          "caption": "웃긴 일상 짤 😂 공감 100%",
+          "transcript": "이런 적 다들 있죠 완전 공감",
+          "hashtags": [
+            "#유머",
+            "#일상"
+          ],
+          "comments_sample": [
+            "ㅋㅋㅋㅋ",
+            "공감"
+          ],
+          "engagement": {
+            "likes": 19000,
+            "comments": 140
+          }
+        }
+      ]
+    },
+    {
+      "creator_id": "low_11_interior",
+      "display_name": "인테리어 크리에이터",
+      "platform": "instagram",
+      "surface_metrics": {
+        "followers": 73000,
+        "avg_likes": 5000,
+        "avg_comments": 40,
+        "post_cadence_days": 14,
+        "ad_tag_ratio": 0.4
+      },
+      "contents": [
+        {
+          "type": "post",
+          "caption": "방 꾸미기 🏠 미니멀 인테리어",
+          "transcript": null,
+          "hashtags": [
+            "#인테리어",
+            "#홈스타일링"
+          ],
+          "comments_sample": [
+            "깔끔해요",
+            "예뻐요"
+          ],
+          "engagement": {
+            "likes": 5000,
+            "comments": 40
+          }
+        }
+      ]
+    },
+    {
+      "creator_id": "low_12_skincare_shallow",
+      "display_name": "스킨케어 짧은 리뷰 채널",
+      "platform": "instagram",
+      "surface_metrics": {
+        "followers": 150000,
+        "avg_likes": 9000,
+        "avg_comments": 55,
+        "post_cadence_days": 8,
+        "ad_tag_ratio": 0.7
+      },
+      "contents": [
+        {
+          "type": "post",
+          "caption": "요즘 쓰는 화장품 추천 ✨ 다 좋아요 강추!",
+          "transcript": null,
+          "hashtags": [
+            "#화장품",
+            "#추천",
+            "#광고"
+          ],
+          "comments_sample": [
+            "저도 살래요",
+            "예뻐요"
+          ],
+          "engagement": {
+            "likes": 9000,
+            "comments": 55
+          }
+        }
+      ]
+    }
   ]
 }
