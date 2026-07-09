@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Listing Compliance — 퀵스타트</title>
+<title>Listing Compliance — 소개 보고서</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Segoe UI","Noto Sans KR",sans-serif;line-height:1.6;color:#1a1a1a;background:#fff}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Segoe UI","Noto Sans KR",sans-serif;line-height:1.65;color:#1a1a1a;background:#fff}
 main{max-width:860px;margin:0 auto;padding:44px 24px 64px}
 h1{font-size:1.65rem;margin:.3em 0 .15em}
 h2{font-size:1.12rem;margin:2.1em 0 .6em;padding-top:.5em;border-top:1px solid #e5e5e5}
@@ -21,15 +21,18 @@ th{background:#f6f6f6;font-weight:600}
 .wrap{overflow-x:auto}
 .b{color:#c0392b;font-weight:700}.p{color:#1e8449;font-weight:700}.r{color:#b8860b;font-weight:700}
 ul,ol{padding-left:1.3em;margin:.4em 0}
-li{margin:.3em 0}
+li{margin:.35em 0}
+.calc{background:#f6f6f6;border-left:3px solid #111;border-radius:0 8px 8px 0;padding:10px 14px;font-size:.9rem;margin:.6em 0}
+.note{font-size:.84rem;color:#777}
 footer{margin-top:3em;padding-top:1em;border-top:1px solid #e5e5e5;font-size:.85rem;color:#777}
 a{color:#0b62c4}
 @media (prefers-color-scheme:dark){
 body{background:#121212;color:#e6e6e6}
-pre,th{background:#1d1d1d}pre,th,td{border-color:#333}
+pre,th,.calc{background:#1d1d1d}pre,th,td{border-color:#333}
+.calc{border-left-color:#eee}
 h2,footer{border-color:#2a2a2a}
 .chip{background:#252525;color:#aaa}.co{background:#eee;color:#111}
-.lead{color:#b5b5b5}footer{color:#888}a{color:#7ab8f5}
+.lead{color:#b5b5b5}.note{color:#888}footer{color:#888}a{color:#7ab8f5}
 .b{color:#e57368}.p{color:#5fbf7f}.r{color:#d4a72c}}
 </style>
 </head>
@@ -38,63 +41,56 @@ h2,footer{border-color:#2a2a2a}
 
 <h1>Listing Compliance</h1>
 <p><span class="chip co">무신사</span><span class="chip">musinsa-listing-compliance</span><span class="chip">Codex 플러그인</span></p>
-<p class="lead">상품 표시정보(혼용률·원산지·친환경 표현)를 규칙셋과 시험성적서에 대조해 <b>BLOCK / WARN / PASS</b>로 판정하고, 정정안과 반려 사유서 초안까지 만든다.</p>
+<p class="lead">상품 표시정보(혼용률·원산지·친환경 표현)를 규칙과 시험성적서에 대조해 <b>BLOCK / WARN / PASS</b>로 판정하고, 정정안과 반려 사유서 초안까지 만드는 <b>MD·검수팀용 상시 심사 도구</b>.</p>
 
-<h2>30초 시작</h2>
+<h2>무엇을 하나</h2>
+<p>무신사의 표시정보 검수는 '입점 1회 게이트'에 몰려 있다. 그래서 등록 후 바뀌는 상세페이지, 블랙리스트에 없는 새 그린워싱 신조어, 나중에 갱신된 규칙이 이미 올라간 상품들에 소급 적용되지 않는 문제를 놓친다. 실제로 <a href="https://www.intn.co.kr/news/articleView.html?idxno=2043500">자사 PB의 '#에코레더' 친환경 광고가 수년간 통과되다 공정위 경고</a>를 받았다 — 패션업계 첫 친환경 표시 제재다.</p>
+<p>이 도구는 그 검수를 <b>변경 이벤트(등록·수정·시즌·정책 갱신)마다 자동 집행</b>으로 바꾼다:</p>
+<ul>
+<li><b>그린워싱 탐지</b> — 등재 금지표현은 즉시 격발, 미등재 신조어('에코퍼')는 의미로 잡아 사람 확인 후보로.</li>
+<li><b>성적서 대조</b> — 부위별 혼용률 주장을 시험성적서와 수치 비교. 안감이 "캐시미어 30%"라는데 성적서가 아크릴 100%면 걸린다.</li>
+<li><b>소급 재스캔</b> — 룰이 갱신되면 판매중 상품 전체를 재판정. 자사 PB도 예외 없음.</li>
+</ul>
+
+<h2>어떻게 쓰나</h2>
 <ol>
 <li>설치:
 <pre><code>codex plugin marketplace add https://github.com/chenjingdev/ax-hackathon-plugins
 codex plugin add musinsa-listing-compliance@ax-hackathon-plugins</code></pre></li>
-<li>Codex 채팅에 붙여넣기 (앱이면 "사용해 보기" 클릭):
-<pre><code>번들 샘플 sample/input.product.json으로 표시정보 컴플라이언스 검수를 시연해줘</code></pre></li>
-<li>안감 "캐시미어 30%" 주장이 성적서(아크릴 100%)와 불일치로 걸려 <span class="b">BLOCK</span> 리포트가 나오면 정상.</li>
+<li>등록 화면 캡처를 첨부하거나 상품 정보를 붙여넣고 <b>"이 상품 검수해줘"</b>. 처음이면 아무것도 없이 그렇게만 말해도 번들 샘플로 시연한다.</li>
 </ol>
-<p>실사용 입력은 JSON일 필요 없다 — <b>등록 화면 캡처를 첨부</b>하거나 텍스트를 붙여넣으면 스킬이 정규화한다(CLI는 <code>codex exec -i sample/input.product.png "이 등록 캡처를 검수해줘"</code>). 시험성적서만 구조화 JSON으로.</p>
+<p class="note">시험성적서만은 이미지가 아니라 데이터(JSON)로 넣는다 — 혼용률 수치 판정을 OCR에 태우지 않기 위한 의도된 제한.</p>
 
-<h2>무엇을 하나</h2>
-<ul>
-<li><b>그린워싱 탐지</b> — 등재 금지표현('에코레더' 등)은 즉시 격발. 미등재 신조어('에코퍼')는 의미로 잡아 사람 확인 후보로 상정.</li>
-<li><b>성적서 대조</b> — 부위별 혼용률 주장을 시험성적서와 수치 비교 → 정합성 4분류(정상 / 부분커버 / 불일치 / 외래키불명).</li>
-<li><b>소급 재스캔</b> — 룰이 갱신되면 판매중 코퍼스 전체를 재판정. 자사 PB도 예외 없음.</li>
-<li><b>후속 문서 생성</b> — 정정안 + 반려 사유서·이의제기 재심사 메모·셀러 응대 초안.</li>
-</ul>
-
-<h2>번들 샘플</h2>
+<h2>무슨 결과가 나오나</h2>
+<p>판정 리포트 한 장: <b>판정(BLOCK/WARN/PASS) + 위반 목록(규칙·근거 URL) + 정정안 + 반려 사유서·셀러 응대 초안</b>. 셀러에게 보낼 문서까지 초안이 나오므로 MD는 검토·확정만 한다. 번들 데모 3종의 기대 결과:</p>
 <div class="wrap"><table>
-<tr><th>파일</th><th>시나리오</th><th>기대 결과</th></tr>
-<tr><td><code>sample/input.product.json</code></td><td>안감 캐시미어 주장 vs 성적서 아크릴 100%</td><td><span class="b">BLOCK</span> — 위반 6건(GW·MX·TS)</td></tr>
-<tr><td><code>sample/input.product.png</code></td><td>같은 상품의 파트너센터 등록 화면 캡처 — 실사용 입력 데모(성적서 미첨부)</td><td><span class="b">BLOCK</span> — 그린워싱 표현 + 증빙 누락</td></tr>
-<tr><td><code>sample/input.pass.json</code></td><td>면 100%, 성적서 일치, 환경성 표현 없음</td><td><span class="p">PASS</span> — 오탐 0</td></tr>
-<tr><td><code>sample/input.rescan.json</code></td><td>그린워싱 룰 갱신 → 코퍼스 4건 소급 재스캔</td><td><span class="b">BLOCK 2</span> · <span class="p">PASS 1</span> · <span class="r">REVIEW 1</span> — 자사 PB 적발 포함</td></tr>
-<tr><td><code>sample/EXPECTED.md</code></td><td>위 세 시나리오의 기대 출력 원문(골든)</td><td>채점 기준</td></tr>
+<tr><th>데모</th><th>기대 결과</th></tr>
+<tr><td>가짜 캐시미어 자켓 단건 검수 (<code>sample/input.product.json</code> · 등록 화면 캡처판 <code>input.product.png</code>)</td><td><span class="b">BLOCK</span> — 그린워싱 표현 + 안감 혼용률 성적서 불일치</td></tr>
+<tr><td>면 100% 정상 상품 (<code>sample/input.pass.json</code>)</td><td><span class="p">PASS</span> — 깨끗한 상품은 막지 않는다</td></tr>
+<tr><td>그린워싱 룰 갱신 후 소급 재스캔 (<code>sample/input.rescan.json</code>)</td><td><span class="b">BLOCK 2</span>(자사 PB 포함) · <span class="p">PASS 1</span> · <span class="r">REVIEW 1</span></td></tr>
 </table></div>
 
-<h2>폴더 구조</h2>
-<pre><code>musinsa-listing-compliance/
-├── .codex-plugin/plugin.json    매니페스트
-├── skills/
-│   ├── listing-compliance/      메인 스킬 — 심사 절차 + 리포트 템플릿
-│   └── musinsa-quickstart/      이 문서를 여는 온보딩 스킬
-├── rules/ruleset.json           규칙 15개·임계·렉시콘 — 판정의 유일한 원천
-├── kb/                          근거 원문(공정위 심결례·심사지침·표시광고법)
-├── sample/                      데모 입력 3종 + 기대 출력
-├── mcp_server/                  kb 검색용 로컬 MCP 서버(선택)
-└── docs/quickstart.html         이 문서</code></pre>
-
-<h2>출력</h2>
+<h2>경제적 효과</h2>
+<p>사전조사에서 확인된 비용 사건들이 이 도구가 막는 것의 크기를 보여준다:</p>
 <ul>
-<li>고정 템플릿 리포트(섹션 0~6 + 검증 푸터). 모든 위반에 규칙 ID와 근거 URL이 붙는다.</li>
-<li>규칙 ID는 <code>ruleset.json</code>에 등재된 것만 쓴다 — 즉석 창작 금지.</li>
+<li><a href="https://www.sedaily.com/NewsView/2GQDT2GBT7">무신사 자체 전수조사: 다운·캐시미어 7,968개 중 677개(8.5%)가 혼용률 표기 미달</a> — 위반은 예외가 아니라 상시 존재한다.</li>
+<li><a href="https://news.bizwatch.co.kr/article/consumer/2026/03/13/0029">'택갈이' 사건 — 중국산 10만원대 구두를 프리미엄 가죽으로 홍보해 60~70만원대에 판매</a>.</li>
+<li><a href="https://alphabiz.co.kr/news/view/1065615419880479">성적서 의무화 약속 1년 안에 패딩 충전재 오표기 재발</a> — 수작업 검수로는 재발을 못 막는다.</li>
 </ul>
-
-<h2>하지 않는 것</h2>
+<p>절감은 세 축이다:</p>
 <ul>
-<li>자동 게시·차단 없음. BLOCK은 "게시 보류 권고"이고 확정은 사람(MD)이 한다.</li>
-<li>OCR 없음 — 성적서는 구조화 JSON으로 입력받는다.</li>
+<li><b>제재·사고 비용 회피</b> — 위반이 소비자·언론·공정위보다 먼저 내부에서 걸린다. 제재 1건의 비용은 과징금 리스크 + 환불·회수 + 브랜드 신뢰 손상.</li>
+<li><b>전수조사 인건비</b> — 사건이 터진 뒤 1회성으로 하던 전수조사를, 룰 갱신 때마다 자동으로 반복한다.</li>
+<li><b>검수 공수 축소</b> — 위 조사 기준 위반율 8.5%라면, 정상 91.5%는 사람 손을 거의 타지 않고 MD는 BLOCK·REVIEW 건만 본다.</li>
 </ul>
+<div class="calc"><b>산정 예시</b> — 7,968개 전수조사를 건당 5분으로 잡으면(가정) 약 664시간 ≈ <b>83인일/회</b>. 정책 갱신이 연 2회면 <b>연 166인일</b>의 전수조사 공수가 자동화된다. 성적서 수작업 대조·재발 모니터링은 별도.</div>
+<p class="note">위 산정은 공개 조사 수치에 보수적 가정(건당 5분)을 붙인 추정이다. 과징금·매출 영향은 사건별로 달라 수치로 단정하지 않는다.</p>
+
+<h2>선 긋기</h2>
+<p>자동 게시·차단·발송은 없다. BLOCK은 "게시 보류 권고"이고, 모든 정정·문서는 사람(MD)이 확정한다.</p>
 
 <footer>
-채팅에 "퀵스타트"라고 치면 <code>musinsa-quickstart</code> 스킬이 이 문서를 다시 연다.
+채팅에 "퀵스타트"라고 치면 이 문서가 다시 열린다.
 · <a href="https://github.com/chenjingdev/ax-hackathon-plugins">github.com/chenjingdev/ax-hackathon-plugins</a>
 </footer>
 

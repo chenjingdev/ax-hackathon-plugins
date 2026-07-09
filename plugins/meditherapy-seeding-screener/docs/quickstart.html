@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Seeding Screener — 퀵스타트</title>
+<title>Seeding Screener — 소개 보고서</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Segoe UI","Noto Sans KR",sans-serif;line-height:1.6;color:#1a1a1a;background:#fff}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Segoe UI","Noto Sans KR",sans-serif;line-height:1.65;color:#1a1a1a;background:#fff}
 main{max-width:860px;margin:0 auto;padding:44px 24px 64px}
 h1{font-size:1.65rem;margin:.3em 0 .15em}
 h2{font-size:1.12rem;margin:2.1em 0 .6em;padding-top:.5em;border-top:1px solid #e5e5e5}
@@ -21,15 +21,17 @@ th{background:#f6f6f6;font-weight:600}
 .wrap{overflow-x:auto}
 .hi{color:#1e8449;font-weight:700}.lo{color:#c0392b;font-weight:700}
 ul,ol{padding-left:1.3em;margin:.4em 0}
-li{margin:.3em 0}
+li{margin:.35em 0}
+.calc{background:#f6f6f6;border-left:3px solid #b8437a;border-radius:0 8px 8px 0;padding:10px 14px;font-size:.9rem;margin:.6em 0}
+.note{font-size:.84rem;color:#777}
 footer{margin-top:3em;padding-top:1em;border-top:1px solid #e5e5e5;font-size:.85rem;color:#777}
 a{color:#0b62c4}
 @media (prefers-color-scheme:dark){
 body{background:#121212;color:#e6e6e6}
-pre,th{background:#1d1d1d}pre,th,td{border-color:#333}
+pre,th,.calc{background:#1d1d1d}pre,th,td{border-color:#333}
 h2,footer{border-color:#2a2a2a}
 .chip{background:#252525;color:#aaa}.co{background:#b8437a;color:#fff}
-.lead{color:#b5b5b5}footer{color:#888}a{color:#7ab8f5}
+.lead{color:#b5b5b5}.note{color:#888}footer{color:#888}a{color:#7ab8f5}
 .hi{color:#5fbf7f}.lo{color:#e57368}}
 </style>
 </head>
@@ -38,61 +40,48 @@ h2,footer{border-color:#2a2a2a}
 
 <h1>Seeding Screener</h1>
 <p><span class="chip co">메디테라피</span><span class="chip">meditherapy-seeding-screener</span><span class="chip">Codex 플러그인</span></p>
-<p class="lead">인플루언서 시딩 후보의 공개 콘텐츠를 한국 동료심사 근거 <b>5차원</b>으로 채점해, 팔로워 수가 아니라 <b>구매유발 결</b>로 랭킹한다. 모든 점수는 원문 인용으로 방어한다(glass-box).</p>
+<p class="lead">인플루언서 시딩 후보의 공개 콘텐츠를 <b>구매유발 5차원</b>으로 채점해, 팔로워 수가 아니라 <b>구매를 부르는 콘텐츠 결</b>로 후보를 고르는 <b>마케터용 스크리닝 도구</b>. 모든 점수에 원문 인용 근거가 붙는다.</p>
 
-<h2>30초 시작</h2>
+<h2>무엇을 하나</h2>
+<p>시딩 후보를 팔로워 수로 고르면 함정에 빠진다 — 팔로워가 커도 일상·색조 콘텐츠 중심이면 스킨케어 구매유발 결이 없다. 이 도구는 후보의 게시물·영상 대본·댓글을 <b>전문성·준사회성·정보성·후기·진정성</b> 5차원으로 채점한다. 차원과 가중치는 임의로 정한 게 아니라 <b>구매의도와의 연관이 동료심사 논문 4편에서 확인된 속성</b>을 코드화한 것이다.</p>
+<ul>
+<li><b>랭킹 + 근거</b> — 후보별 적합도(0~100)와 함께, 각 점수를 방어하는 원문 인용을 붙인다. 「2주간 직접 써보고 말씀드릴게요」 같은 실재 문장이 근거다.</li>
+<li><b>보완 제안</b> — 아깝게 떨어진 후보에게 "기전 설명 한 컷 추가" 같은 콘텐츠 디렉션을 제안.</li>
+<li><b>재채점</b> — 온톨로지(채점 기준)가 갱신되면 기존 후보 전체를 다시 채점하고 순위 변화를 보여준다.</li>
+</ul>
+
+<h2>어떻게 쓰나</h2>
 <ol>
 <li>설치:
 <pre><code>codex plugin marketplace add https://github.com/chenjingdev/ax-hackathon-plugins
 codex plugin add meditherapy-seeding-screener@ax-hackathon-plugins</code></pre></li>
-<li>Codex 채팅에 붙여넣기 (앱이면 "사용해 보기" 클릭):
-<pre><code>번들 샘플 sample/input.kr.json으로 시딩 스크리닝을 시연해줘</code></pre></li>
-<li>팔로워 89만 메가가 적합도 <span class="lo">13</span>으로 3위, 팔로워 8.6천 더마 전문가가 <span class="hi">78</span>로 1위 — 역전 랭킹이 근거 인용과 함께 나오면 정상.</li>
+<li>제품 정보와 후보들의 콘텐츠(게시물·대본·댓글)를 주고 <b>"시딩 후보 스크리닝해줘"</b>. 처음이면 그냥 "시연해줘"만 해도 번들 샘플로 돈다.</li>
 </ol>
 
-<h2>무엇을 하나</h2>
-<ul>
-<li><b>5차원 스코어링</b> — 전문성·준사회성·정보성·후기·진정성. 가중치는 한국 동료심사 논문 근거로 동결(<code>ontology.json</code>).</li>
-<li><b>glass-box 근거</b> — 모든 차원 점수에 원문 verbatim 인용을 붙인다. 인용은 실재해야 한다(환각 0 게이트).</li>
-<li><b>재스캔</b> — 온톨로지 갱신(v0.1→v0.2) 시 기존 후보를 재채점하고 순위 변화를 추적.</li>
-<li><b>산출</b> — 랭킹 숏리스트 + 후보별 dossier + 콘텐츠 보완 제안 + 사유 메모.</li>
-</ul>
-
-<h2>번들 샘플</h2>
+<h2>무슨 결과가 나오나</h2>
+<p>랭킹 리포트 한 장: <b>적합도 순위표 + 후보별 상세(차원 점수·원문 인용·출처 논문) + 보완 제안 + 선정 사유 메모</b>. 번들 킬러 데모(레티놀 세럼, 후보 4인)의 기대 결과 — 팔로워 순위가 뒤집힌다:</p>
 <div class="wrap"><table>
-<tr><th>파일</th><th>시나리오</th><th>기대 결과</th></tr>
-<tr><td><code>sample/input.kr.json</code></td><td>레티놀 세럼 후보 4인 — "팔로워 수의 함정" 킬러 데모</td><td>적합도 <span class="hi">78·70</span> / <span class="lo">13·12</span> — 팔로워 순위 역전 4건</td></tr>
-<tr><td><code>sample/input.low.json</code></td><td>구매유발 결이 약한 후보 12인 풀 — 변별 대조군</td><td>전원 저점 — 상위 후보와 점수대 분리(오탐 방지)</td></tr>
-<tr><td><code>sample/input.rescan.json</code></td><td>온톨로지 v0.1→v0.2 갱신 후 후보 3인 재채점</td><td>갱신 전후 점수·순위 delta 리포트</td></tr>
-<tr><td><code>sample/input.sagraph.json</code></td><td>외부 벤치마크(SAGraph) 채택 검토 기록</td><td>DROPPED — GPT-4 시뮬레이션 점수라 근거 부적합, 채택 안 함(정직 기록)</td></tr>
-<tr><td><code>sample/EXPECTED.md</code></td><td>킬러 데모의 기대 출력 원문(골든)</td><td>채점 기준</td></tr>
+<tr><th>후보</th><th>팔로워</th><th>적합도</th><th>결과</th></tr>
+<tr><td>더마 전문가(마이크로)</td><td>8,600 (4위)</td><td><span class="hi">78</span></td><td><b>1위</b> — 성분 기전·직접 후기·균형 잡힌 단점 언급</td></tr>
+<tr><td>리뷰 크리에이터(미드)</td><td>82,000 (3위)</td><td><span class="hi">70</span></td><td>2위</td></tr>
+<tr><td>글램 라이프스타일(메가)</td><td>894,000 (1위)</td><td><span class="lo">13</span></td><td>3위 — 색조 중심, 스킨케어 구매유발 결 부재</td></tr>
+<tr><td>하울 언박싱(메가)</td><td>600,000 (2위)</td><td><span class="lo">12</span></td><td>4위 — 협찬 하울·과장 표현</td></tr>
 </table></div>
 
-<h2>폴더 구조</h2>
-<pre><code>meditherapy-seeding-screener/
-├── .codex-plugin/plugin.json    매니페스트
-├── skills/
-│   ├── seeding-screener/        메인 스킬 — 스크리닝 절차 + 리포트 골격
-│   └── meditherapy-quickstart/  이 문서를 여는 온보딩 스킬
-├── rules/ontology.json          5차원 온톨로지·가중치 — 한국 동료심사 근거
-├── scoring/                     결정론 스코어링 파이프라인(Python, 오프라인 stdlib)
-├── sample/                      데모 입력 4종 + 기대 출력
-└── docs/quickstart.html         이 문서</code></pre>
-
-<h2>출력</h2>
+<h2>경제적 효과</h2>
+<p>정직하게 시작하면: 사전조사 결론상 <b>"이 콘텐츠가 매출 N원을 낸다"는 공개 데이터로 증명할 수 없다</b>(매출 귀인은 내부 전환 데이터 영역). 그래서 이 도구는 매출을 약속하지 않는다. 대신 확실한 절감 축이 둘 있다:</p>
 <ul>
-<li>랭킹 표(purchase_intent_fit 0~100) + 후보별 dossier(차원 점수·confidence·원문 인용·출처 논문).</li>
-<li>점수가 아니라 근거가 당락을 가른다 — 마케터는 「2주간 직접 써보고 말씀드릴게요」 같은 실재 인용을 보고 결정한다.</li>
+<li><b>시딩 물량 낭비 방지</b> — 시딩은 제품·배송·운영비가 후보 수만큼 나간다. 팔로워 수로 뽑으면 위 데모처럼 89만 팔로워 후보가 구매유발 결 최하위(13점)일 수 있다 — 결이 안 맞는 후보에게 나간 물량은 그대로 낭비다. 스크리너는 그 예산을 결이 맞는 후보로 재배분한다.</li>
+<li><b>스크리닝 공수 절감</b> — 후보 1인을 제대로 보려면 게시물·영상·댓글을 정독해야 한다. 도구는 이를 자동 채점하고, 사람은 근거 인용을 검토·확정만 한다.</li>
 </ul>
+<div class="calc"><b>산정 예시</b> — 후보 1인 콘텐츠 정독·평가를 30분으로 잡으면(가정) 캠페인당 후보 50인 = <b>25시간</b>. 도구는 같은 일을 분 단위로 처리하고, 온톨로지 갱신 시 전 후보 재채점도 무상이다. 여기에 선정 사유가 인용과 함께 남아 캠페인 사후 복기("왜 이 후보였나")가 가능해진다.</div>
+<p class="note">차원·가중치의 근거는 동료심사 논문 4편(정보성·신뢰성·준사회성·진정성 → 구매의도)이며, 이들의 종속변수는 자기보고식 '구매의도'다. 검증되지 않은 매출 수치는 사전조사에서 기각되어 쓰지 않는다.</p>
 
-<h2>하지 않는 것</h2>
-<ul>
-<li>매출 귀인·바이럴 예측·진위 감사 아님 — 적합도는 추정이고 확정은 사람이 한다(reviewed_by=human-required).</li>
-<li>스크래핑 없음 — 콘텐츠는 입력으로 받는다. 자동 발송·확정 0.</li>
-</ul>
+<h2>선 긋기</h2>
+<p>적합도는 추정이고 확정은 사람이 한다. 매출 귀인·바이럴 예측·진위 감사가 아니며, 스크래핑 없이 콘텐츠는 입력으로 받는다. 자동 발송 0.</p>
 
 <footer>
-채팅에 "퀵스타트"라고 치면 <code>meditherapy-quickstart</code> 스킬이 이 문서를 다시 연다.
+채팅에 "퀵스타트"라고 치면 이 문서가 다시 열린다.
 · <a href="https://github.com/chenjingdev/ax-hackathon-plugins">github.com/chenjingdev/ax-hackathon-plugins</a>
 </footer>
 

@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Listing Factcheck — 퀵스타트</title>
+<title>Listing Factcheck — 소개 보고서</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Segoe UI","Noto Sans KR",sans-serif;line-height:1.6;color:#1a1a1a;background:#fff}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Segoe UI","Noto Sans KR",sans-serif;line-height:1.65;color:#1a1a1a;background:#fff}
 main{max-width:860px;margin:0 auto;padding:44px 24px 64px}
 h1{font-size:1.65rem;margin:.3em 0 .15em}
 h2{font-size:1.12rem;margin:2.1em 0 .6em;padding-top:.5em;border-top:1px solid #e5e5e5}
@@ -21,15 +21,17 @@ th{background:#f6f6f6;font-weight:600}
 .wrap{overflow-x:auto}
 .b{color:#c0392b;font-weight:700}.p{color:#1e8449;font-weight:700}
 ul,ol{padding-left:1.3em;margin:.4em 0}
-li{margin:.3em 0}
+li{margin:.35em 0}
+.calc{background:#f6f6f6;border-left:3px solid #0e7490;border-radius:0 8px 8px 0;padding:10px 14px;font-size:.9rem;margin:.6em 0}
+.note{font-size:.84rem;color:#777}
 footer{margin-top:3em;padding-top:1em;border-top:1px solid #e5e5e5;font-size:.85rem;color:#777}
 a{color:#0b62c4}
 @media (prefers-color-scheme:dark){
 body{background:#121212;color:#e6e6e6}
-pre,th{background:#1d1d1d}pre,th,td{border-color:#333}
+pre,th,.calc{background:#1d1d1d}pre,th,td{border-color:#333}
 h2,footer{border-color:#2a2a2a}
 .chip{background:#252525;color:#aaa}.co{background:#0e7490;color:#fff}
-.lead{color:#b5b5b5}footer{color:#888}a{color:#7ab8f5}
+.lead{color:#b5b5b5}.note{color:#888}footer{color:#888}a{color:#7ab8f5}
 .b{color:#e57368}.p{color:#5fbf7f}}
 </style>
 </head>
@@ -38,64 +40,49 @@ h2,footer{border-color:#2a2a2a}
 
 <h1>Listing Factcheck</h1>
 <p><span class="chip co">마이리얼트립</span><span class="chip">myrealtrip-listing-factcheck</span><span class="chip">Codex 플러그인</span></p>
-<p class="lead">투어·액티비티 상품의 방문 요일·시기·연령 표기를 명소 <b>공식 운영사실</b>과 대조해, 지금 팔면 현장에서 노쇼·입장거부 나는 리스팅을 잡는다.</p>
+<p class="lead">투어·액티비티 상품의 방문 요일·시기·연령 표기를 명소의 <b>공식 운영사실</b>과 대조해, 지금 팔면 현장에서 노쇼·입장거부 나는 리스팅을 미리 잡는 <b>검수 담당자용 도구</b>.</p>
 
-<h2>30초 시작</h2>
+<h2>무엇을 하나</h2>
+<p>마이리얼트립은 파트너 입점 마켓플레이스다 — 현지 파트너가 수기로 올린 상품을 검수 담당자가 영업일 3일 안에 승인한다(파트너센터 확인). 그런데 검수 항목은 제목·카테고리·태그 같은 메타데이터 중심이고, "월요일 출발 오르세 투어"의 월요일이 <b>실제로 오르세 휴관일인지</b>까지 사람이 명소마다 해외 공식 홈페이지를 뒤져 대조하기는 어렵다. 발행 후에 명소가 휴장 공지를 내면, 통과된 상품이 어긋난 채 계속 팔린다.</p>
+<ul>
+<li><b>3축 대조</b> — 운영일(휴관 요일·특수휴관) / 시즌(폐쇄 기간) / 연령·신장 규정을 공식 사실 스냅샷과 기계적으로 비교. 근거 URL이 판정마다 붙는다.</li>
+<li><b>소급 재스캔</b> — 휴장 공지·시즌 경계 같은 변화 1건이 오면 판매중 상품 전체를 다시 판정.</li>
+<li><b>모르면 사람에게</b> — 확인 안 되는 명소는 차단하지 않고 사람 확인 후보로 올린다.</li>
+</ul>
+
+<h2>어떻게 쓰나</h2>
 <ol>
 <li>설치:
 <pre><code>codex plugin marketplace add https://github.com/chenjingdev/ax-hackathon-plugins
 codex plugin add myrealtrip-listing-factcheck@ax-hackathon-plugins</code></pre></li>
-<li>Codex 채팅에 붙여넣기 (앱이면 "사용해 보기" 클릭):
-<pre><code>번들 샘플 sample/input.rescan.json 코퍼스를 재스캔 검수해줘</code></pre></li>
-<li>판매중 4건 중 3건이 <span class="b">BLOCK</span>(휴관일 겹침·우기 폐쇄·연령 미달), 1건이 <span class="p">PASS</span>로 나오면 정상.</li>
+<li>리스팅 내용을 붙여넣고 <b>"이 상품 현지 사실 검수해줘"</b>, 또는 휴장 공지가 떴을 때 <b>"판매중인 것 중 걸리는 거 재스캔해줘"</b>. 처음이면 그냥 "검수 시연해줘"만 해도 번들 샘플로 돈다.</li>
 </ol>
 
-<h2>무엇을 하나</h2>
-<ul>
-<li><b>3축 대조</b> — 운영일(휴관 요일·특수휴관) / 시즌(폐쇄 기간) / 연령·신장 규정을 <code>facts.json</code>의 공식 사실과 결정론 비교.</li>
-<li><b>소급 재스캔</b> — 휴장 공지·시즌 경계 같은 세계상태 변화 1건으로 판매중 코퍼스 전체 재판정.</li>
-<li><b>명소불명 상정</b> — 매칭 안 되는 명소는 차단하지 않고 사람 확인 후보로 올린다.</li>
-<li><b>후속 문서 생성</b> — 정정 표기 + 파트너 반려 사유서·고객 안내문 초안.</li>
-</ul>
-
-<h2>번들 샘플</h2>
+<h2>무슨 결과가 나오나</h2>
+<p>판정 리포트 한 장: <b>불일치 목록(주장 vs 공식사실, 근거 URL) + 정정 문구 + 파트너 반려 사유서 초안</b>. 정정은 사람이 읽는 문장으로 나온다 — "매주 월요일 출발" → "화~일 출발(월요일은 오르세 정기 휴관)". 번들 재스캔 데모(판매중 4건)의 기대 결과:</p>
 <div class="wrap"><table>
-<tr><th>파일 / 리스팅</th><th>시나리오</th><th>기대 결과</th></tr>
-<tr><td rowspan="4"><code>sample/input.rescan.json</code><br>(재스캔 코퍼스 4건)</td><td>PARIS-ORSAY-MON — 월요일 출발 vs 오르세 월요일 정기 휴관</td><td><span class="b">BLOCK</span> OD-01</td></tr>
-<tr><td>SIMILAN-SEP-01 — 9월 판매 vs 시밀란 5/15~10/15 우기 폐쇄</td><td><span class="b">BLOCK</span> SC-01 · 이번 델타로 신규 격발</td></tr>
-<tr><td>SENTOSA-LUGE-KID — 아동 단독 만4세 vs 공식 만6세·110cm</td><td><span class="b">BLOCK</span> AG-01</td></tr>
-<tr><td>TOKYO-SKYTREE-OK — 어긋난 사실 없음</td><td><span class="p">PASS</span> — 오탐 0</td></tr>
-<tr><td><code>sample/input.pass.json</code></td><td>스카이트리 입장권 단건 음성</td><td><span class="p">PASS</span> — 위반 0</td></tr>
-<tr><td><code>sample/EXPECTED.md</code></td><td>위 시나리오의 기대 출력 원문(골든)</td><td>채점 기준</td></tr>
+<tr><th>리스팅</th><th>무엇이 걸리나</th><th>판정</th></tr>
+<tr><td>파리 오르세 투어</td><td>월요일 출발 vs 월요일 정기 휴관</td><td><span class="b">BLOCK</span></td></tr>
+<tr><td>시밀란 스노클링</td><td>9월 판매 vs 5/15~10/15 우기 전면 폐쇄</td><td><span class="b">BLOCK</span></td></tr>
+<tr><td>센토사 루지 아동권</td><td>단독탑승 만4세 vs 공식 만6세·110cm</td><td><span class="b">BLOCK</span></td></tr>
+<tr><td>도쿄 스카이트리 입장권</td><td>어긋난 사실 없음</td><td><span class="p">PASS</span> — 오탐 0</td></tr>
 </table></div>
 
-<h2>폴더 구조</h2>
-<pre><code>myrealtrip-listing-factcheck/
-├── .codex-plugin/plugin.json    매니페스트
-├── skills/
-│   ├── listing-factcheck/       메인 스킬 — 검수 절차 + 리포트 골격
-│   └── myrealtrip-quickstart/   이 문서를 여는 온보딩 스킬
-├── rules/
-│   ├── ruleset.json             규칙 9개(OD·SC·AG·PP)·임계
-│   ├── facts.json               명소 공식 운영사실 동결 스냅샷(근거 URL 포함)
-│   └── sources.md               출처 목록
-├── sample/                      데모 입력 2종 + 기대 출력
-└── docs/quickstart.html         이 문서</code></pre>
-
-<h2>출력</h2>
+<h2>경제적 효과</h2>
+<p>사고 1건의 비용 구조가 이 도구의 가치다. 현지 사실과 어긋난 상품이 팔리면 <b>당일 노쇼·입장거부 → 전액 환불 + CS 응대 + 파트너 분쟁 + 평점·재구매 하락</b>이 한꺼번에 발생하고, 지금 구조에서는 터진 뒤에야 발견된다.</p>
 <ul>
-<li>고정 6섹션 리포트 + JSON 로그. 모든 위반에 규칙 ID와 공식 근거 URL이 붙는다.</li>
-<li>정정안은 기계 표현이 아니라 사람이 읽는 문장으로 — 예: "매주 월요일 출발" → "화~일 출발(월요일은 오르세 정기 휴관)".</li>
+<li><b>사고 사전 차단</b> — 발행 당시 맞았어도 세계가 바뀌면 어긋난다. 시즌 경계·휴장 공지마다 판매중 전체를 자동 재점검해, 환불·CS·분쟁 비용이 발생하기 전에 내린다.</li>
+<li><b>검수 공수 축소</b> — 명소 공식 홈페이지를 사람이 뒤져 대조하는 축을 자동화. 검수자는 걸린 건과 사람 확인 후보만 본다.</li>
+<li><b>리드타임 단축</b> — 영업일 3일 검수 게이트에서 사실 대조 축이 즉시 처리되면 상품 개시가 빨라진다 = 판매 기회.</li>
 </ul>
+<div class="calc"><b>산정 예시</b> — 리스팅 1건의 명소 사실 대조를 15분으로 잡으면(가정) 판매중 1,000건 재점검 = <b>250시간 ≈ 31인일</b>. 사람은 세계상태가 바뀔 때마다 이걸 반복할 수 없지만, 도구는 변화 1건마다 무상으로 반복한다.</div>
+<p class="note">마이리얼트립의 특정 노쇼 사고를 다룬 1차 출처는 사전조사에서 확보되지 않았다(정직한 한계). 위 산정은 확인된 검수 구조(3일 게이트·메타데이터 항목)에 보수적 가정을 붙인 추정이다.</p>
 
-<h2>하지 않는 것</h2>
-<ul>
-<li>자동 게시·발송 없음. BLOCK은 "개시 보류 권고"이고 확정은 검수 담당자가 한다.</li>
-<li>법률 심사·여정 설계 아님. 라이브 API 아님 — 사실은 동결 스냅샷(<code>facts.json</code>)에서만 온다.</li>
-</ul>
+<h2>선 긋기</h2>
+<p>자동 게시·발송은 없다. BLOCK은 "개시 보류 권고"이고 확정은 검수 담당자가 한다. 법률 심사·여정 설계가 아니고, 사실은 근거 URL이 붙은 동결 스냅샷에서만 온다.</p>
 
 <footer>
-채팅에 "퀵스타트"라고 치면 <code>myrealtrip-quickstart</code> 스킬이 이 문서를 다시 연다.
+채팅에 "퀵스타트"라고 치면 이 문서가 다시 열린다.
 · <a href="https://github.com/chenjingdev/ax-hackathon-plugins">github.com/chenjingdev/ax-hackathon-plugins</a>
 </footer>
 
