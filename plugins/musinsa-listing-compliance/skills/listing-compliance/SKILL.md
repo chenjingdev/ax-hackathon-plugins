@@ -27,6 +27,10 @@ description: "상품 검수/표시정보 컴플라이언스/그린워싱 판단/
 - **이종기관 성적서(§3.3)**: `test_certificates[]` = `{issuer, cert_no, product_ref?, issued_date, tested_part?, tested_composition[{material,percent}], issuer_fields_raw?}`. **기관마다 필드명·단위·소재명칭·포맷이 다르고 `product_ref`가 없을 수 있다** → 정규형으로 매핑(출처 `issuer_fields_raw` 추적)한 뒤 매칭한다.
 - `marketing_copy`/`product_name`/`tags`에서 환경성 표현·소재 주장·생산국 연상어를 추출한다.
 
+**검수 가능성 게이트(정규화 직후·판정 전 필수)**: 이 스킬의 심사 대상은 **상품 표시정보**다. 정규화 결과에 심사할 클레임이 하나도 없으면 — `material_claims` 0건 **그리고** 상품명·카피·태그의 환경성/소재/프리미엄 표현 0건 **그리고** `origin`·성적서도 없음 — 판정을 내리지 않고 **`INSUFFICIENT_INPUT`(판정 불가·추가자료 필요)**로 보고한다. PASS는 "표시정보를 심사했고 깨끗하다"는 승인 신호라서, 심사할 것이 없던 입력에 PASS를 주면 미검수 상품이 통과로 기록된다 — **'위반이 안 잡힘'과 '심사할 것이 없음'은 다른 결론**이다.
+- **URL만 온 경우**: 페이지 내용을 가져올 수 있으면 위 스키마로 정규화해 심사한다. 단, 그 페이지가 상품 상세/등록 화면이 아니면(콘텐츠 기사·브랜드관·목록 등) 상품 표시정보가 아니므로 판정 불가로 보고하고 상품 상세 URL 또는 등록 화면 캡처를 요청한다. 페이지를 가져올 수 없으면(도구·네트워크 없음) 내용을 추측해 판정하지 말고 판정 불가 + 캡처/텍스트 요청으로 답한다.
+- **판정 불가 리포트**: 템플릿 골격은 유지하되 §0 최종 판정에 `판정 불가(INSUFFICIENT_INPUT)`, 적용 규칙 ID `(없음)`, §6 결론에 **무엇이 없어서 판정하지 못했는지와 무엇을 주면 검수 가능한지**를 적는다. 부분 입력에서 관측된 위반 문구가 있으면 그것은 §1/§2에 기록한다 — **위반은 부분 입력에서도 성립하지만, PASS는 충분한 입력에서만 성립한다.**
+
 ## 2. 2계층 탐지 (§5)
 판정은 두 층. **(a) 결정론 바닥**은 동일 입력→동일 결과(하드게이트). **(b) 에이전트 표면**은 신뢰도+근거를 달아 사람에게 상정(하드 BLOCK 아님).
 
@@ -40,7 +44,7 @@ description: "상품 검수/표시정보 컴플라이언스/그린워싱 판단/
    평가 규칙: MX-01(불일치)·MX-03(부분커버/고급소재 미증빙)·MX-04(충전재 편차 `parameters.MX-04.tolerance_pp` ±5%p 초과)·TC-01(성적서 0건)·TC-02(비공인 발급기관=`certifier_whitelist` 밖).
 3. **택갈이·프리미엄**: TS-01(프리미엄 브랜드 주장+근거 미첨부), TS-02(`price_krw ≥ parameters.TS-02.price_threshold_krw` + 저가 생산국 + 프리미엄 주장) 임계 평가.
 4. 각 위반 기록: `{rule_id, severity, layer, part, claimed, observed, match_status, basis_url, message}`. **모든 평가된 기둥 B 부위의 match_status를 `match_status_by_part{part:status}`에 채운다(정상 부위 포함).**
-5. **verdict 집계**: BLOCK≥1 → **BLOCK** / (BLOCK=0, WARN≥1) → **WARN** / 위반 0 → **PASS**. (외래키불명·변형후보는 에이전트 표면 상정이라 verdict 격상 안 함 — 조성 모순 없으면 PASS 가능.)
+5. **verdict 집계**: BLOCK≥1 → **BLOCK** / (BLOCK=0, WARN≥1) → **WARN** / 위반 0 **이고 §1 검수 가능성 게이트 통과** → **PASS** / 위반 0인데 게이트 미통과(심사할 표시정보 없음) → **INSUFFICIENT_INPUT(판정 불가)** — PASS로 적지 않는다. (외래키불명·변형후보는 에이전트 표면 상정이라 verdict 격상 안 함 — 조성 모순 없으면 PASS 가능.)
 
 ### 2b. 에이전트 표면 — 자문·상정 (§5.3)
 1. **진화표현 변형후보 의미탐지**: ruleset **미등재** 신조어·변형(친환경 인상을 주는 합성 신조어를 `lexicons`의 등재 표현·금지개념과 대조해 추론)을 GW 금지개념(석유화학 합성소재≠친환경)의 변형으로 **의미추론** → `review_candidates[]`에 `{text, matched_concept, confidence, evidence_quote, proposed_rule, verdict_layer:"agent_surface"}` 산출(근거 문장 인용 필수). 하드 BLOCK 아님 → "다음 룰 갱신 후보". (정답 신조어를 SKILL에 박제하지 않는다 — 의미추론으로 발견.)
@@ -86,3 +90,4 @@ description: "상품 검수/표시정보 컴플라이언스/그린워싱 판단/
 2. **판정별 "주장 vs 관측" 대조 1줄 + 규칙 ID** — 예: 안감 '캐시미어 30%' 주장 vs 시험성적서 미첨부 → 해당 규칙 ID로 BLOCK. 값은 방금 생성한 JSON 로그의 `violations[].claimed/observed/rule_id`에서 옮긴다(문서·기대값에서 옮기지 않는다).
 3. 재스캔 모드면 **몇 건이 어느 규칙으로 뒤집혔는지** 1줄씩.
 4. **법적근거 MCP 검증 사용 여부** 한 줄(§3.5) — "사용(verify_citation 통과)" 또는 "미사용(도구 미노출)".
+5. **판정 불가(INSUFFICIENT_INPUT)면** 무엇이 없어서 판정하지 못했는지(예: 콘텐츠 기사라 혼용률·원산지·성적서 필드 없음)와 무엇을 주면 검수 가능한지(상품 상세 URL·등록 화면 캡처·상품 텍스트)를 각 1줄로 밝힌다 — "위반 없음"이나 PASS로 표현하지 않는다.
