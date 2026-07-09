@@ -24,6 +24,12 @@ ul,ol{padding-left:1.3em;margin:.4em 0}
 li{margin:.35em 0}
 .calc{background:#f6f6f6;border-left:3px solid #0e7490;border-radius:0 8px 8px 0;padding:10px 14px;font-size:.9rem;margin:.6em 0}
 .note{font-size:.84rem;color:#777}
+.pipe{display:flex;flex-wrap:wrap;gap:6px;align-items:stretch;margin:.8em 0}
+.stage{flex:1 1 140px;min-width:132px;border:1px solid #e2e2e2;border-radius:8px;padding:9px 11px;background:#fafafa}
+.stage .t{font-weight:700;font-size:.85rem}
+.stage .d{font-size:.8rem;color:#666;margin-top:.25em;line-height:1.5}
+.stage.in,.stage.out{border-color:#0e7490}
+.arr{align-self:center;color:#999;font-weight:700}
 footer{margin-top:3em;padding-top:1em;border-top:1px solid #e5e5e5;font-size:.85rem;color:#777}
 a{color:#0b62c4}
 @media (prefers-color-scheme:dark){
@@ -32,6 +38,8 @@ pre,th,.calc{background:#1d1d1d}pre,th,td{border-color:#333}
 h2,footer{border-color:#2a2a2a}
 .chip{background:#252525;color:#aaa}.co{background:#0e7490;color:#fff}
 .lead{color:#b5b5b5}.note{color:#888}footer{color:#888}a{color:#7ab8f5}
+.stage{background:#1d1d1d;border-color:#333}.stage .d{color:#999}
+.stage.in,.stage.out{border-color:#0e7490}
 .b{color:#e57368}.p{color:#5fbf7f}}
 </style>
 </head>
@@ -51,12 +59,18 @@ h2,footer{border-color:#2a2a2a}
 </ul>
 
 <h2>어떻게 쓰나</h2>
-<ol>
-<li>설치:
-<pre><code>codex plugin marketplace add https://github.com/chenjingdev/ax-hackathon-plugins
-codex plugin add myrealtrip-listing-factcheck@ax-hackathon-plugins</code></pre></li>
-<li>리스팅 내용을 붙여넣고 <b>"이 상품 현지 사실 검수해줘"</b>, 또는 휴장 공지가 떴을 때 <b>"판매중인 것 중 걸리는 거 재스캔해줘"</b>. 처음이면 그냥 "검수 시연해줘"만 해도 번들 샘플로 돈다.</li>
-</ol>
+<p>리스팅 내용을 붙여넣고 <b>"이 상품 현지 사실 검수해줘"</b>, 또는 휴장 공지가 떴을 때 <b>"판매중인 것 중 걸리는 거 재스캔해줘"</b> — 그 한마디에 아래 과정이 한 번에 돈다. 처음이면 그냥 <b>"검수 시연해줘"</b>만 해도 번들 샘플로 돈다.</p>
+<div class="pipe">
+<div class="stage in"><div class="t">입력</div><div class="d">리스팅 내용<br>또는 휴장·시즌 변화 공지 1건</div></div>
+<div class="arr">→</div>
+<div class="stage"><div class="t">① 주장 추출</div><div class="d">방문 요일·시기·연령 주장을 구조화</div></div>
+<div class="arr">→</div>
+<div class="stage"><div class="t">② 공식사실 대조</div><div class="d">명소별 스냅샷(근거 URL)과 3축 기계 대조</div></div>
+<div class="arr">→</div>
+<div class="stage"><div class="t">③ 분류</div><div class="d">확인 안 되는 명소는 차단 대신 사람 확인 후보로</div></div>
+<div class="arr">→</div>
+<div class="stage out"><div class="t">결과</div><div class="d">BLOCK/PASS 판정 + 정정 문구 + 파트너 반려 사유서</div></div>
+</div>
 
 <h2>무슨 결과가 나오나</h2>
 <p>판정 리포트 한 장: <b>불일치 목록(주장 vs 공식사실, 근거 URL) + 정정 문구 + 파트너 반려 사유서 초안</b>. 정정은 사람이 읽는 문장으로 나온다 — "매주 월요일 출발" → "화~일 출발(월요일은 오르세 정기 휴관)". 번들 재스캔 데모(판매중 4건)의 기대 결과:</p>

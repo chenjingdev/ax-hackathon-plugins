@@ -27,12 +27,20 @@ li{margin:.35em 0}
 figure{margin:.9em 0}
 figure img{display:block;max-width:min(420px,100%);border:1px solid #e2e2e2;border-radius:8px}
 figcaption{font-size:.82rem;color:#777;margin-top:.4em}
+.pipe{display:flex;flex-wrap:wrap;gap:6px;align-items:stretch;margin:.8em 0}
+.stage{flex:1 1 140px;min-width:132px;border:1px solid #e2e2e2;border-radius:8px;padding:9px 11px;background:#fafafa}
+.stage .t{font-weight:700;font-size:.85rem}
+.stage .d{font-size:.8rem;color:#666;margin-top:.25em;line-height:1.5}
+.stage.in,.stage.out{border-color:#111}
+.arr{align-self:center;color:#999;font-weight:700}
 footer{margin-top:3em;padding-top:1em;border-top:1px solid #e5e5e5;font-size:.85rem;color:#777}
 a{color:#0b62c4}
 @media (prefers-color-scheme:dark){
 body{background:#121212;color:#e6e6e6}
 pre,th,.calc{background:#1d1d1d}pre,th,td{border-color:#333}
 figure img{border-color:#333}figcaption{color:#888}
+.stage{background:#1d1d1d;border-color:#333}.stage .d{color:#999}
+.stage.in,.stage.out{border-color:#eee}
 .calc{border-left-color:#eee}
 h2,footer{border-color:#2a2a2a}
 .chip{background:#252525;color:#aaa}.co{background:#eee;color:#111}
@@ -57,12 +65,18 @@ h2,footer{border-color:#2a2a2a}
 </ul>
 
 <h2>어떻게 쓰나</h2>
-<ol>
-<li>설치:
-<pre><code>codex plugin marketplace add https://github.com/chenjingdev/ax-hackathon-plugins
-codex plugin add musinsa-listing-compliance@ax-hackathon-plugins</code></pre></li>
-<li>등록 화면 캡처를 첨부하거나 상품 정보를 붙여넣고 <b>"이 상품 검수해줘"</b>. 처음이면 아무것도 없이 그렇게만 말해도 번들 샘플로 시연한다.</li>
-</ol>
+<p>등록 화면 캡처를 첨부하거나 상품 정보를 붙여넣고 <b>"이 상품 검수해줘"</b> — 그 한마디에 아래 과정이 한 번에 돈다. 처음이면 아무것도 없이 <b>"시연해줘"</b>만 해도 번들 샘플로 돈다.</p>
+<div class="pipe">
+<div class="stage in"><div class="t">입력</div><div class="d">등록 화면 캡처 또는 상품 텍스트<br>(성적서는 JSON)</div></div>
+<div class="arr">→</div>
+<div class="stage"><div class="t">① 추출·정규화</div><div class="d">혼용률·원산지·표현·증빙을 표시정보 스키마로 정리</div></div>
+<div class="arr">→</div>
+<div class="stage"><div class="t">② 규칙 대조</div><div class="d">금지표현·증빙 규칙과 기계 대조, 성적서 수치 비교</div></div>
+<div class="arr">→</div>
+<div class="stage"><div class="t">③ 의미 판단</div><div class="d">등재 안 된 신조어('에코퍼')를 의미로 포착 → 사람 확인 후보</div></div>
+<div class="arr">→</div>
+<div class="stage out"><div class="t">결과</div><div class="d">BLOCK/WARN/PASS 판정 + 정정안 + 반려 사유서 초안</div></div>
+</div>
 <p class="note">시험성적서만은 이미지가 아니라 데이터(JSON)로 넣는다 — 혼용률 수치 판정을 OCR에 태우지 않기 위한 의도된 제한.</p>
 
 <h2>무슨 결과가 나오나</h2>

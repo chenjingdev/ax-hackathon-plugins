@@ -73,3 +73,9 @@ description: "무신사 입점·운영 상품의 표시정보(상품명·소재/
 **(2) JSON 로그**(§7.3 골격, `logs/`): `{mode, policy_update?, rescan_summary{flagged_listings,own_brand_flagged,passed}, listings[{product_id,is_own_brand,verdict,counts{BLOCK,WARN,INFO},match_status_by_part{part:status},violations[{rule_id,severity,layer,part,match_status,claimed,observed,basis_url,message}],corrections[{type,rule_id,before,after}],drafts{rejection_notice,appeal_memo,seller_reply}}], review_candidates[{text,matched_concept,confidence,evidence_quote,proposed_rule,verdict_layer}], reviewed_by:"human-MD-required"}`. 단건 모드는 `mode:"single"` + 단일 listing. **`match_status_by_part`는 기둥 B 평가 부위 전체(정상 포함)를 채운다**; `correction.rule_id`로 대응 위반을 태깅한다.
 
 > **자증 킬러 데모**: 룰 갱신 한 번 → 무신사가 자사 PB 인조가죽('에코레더')을 소급 BLOCK(`own_brand_flagged=true`). "무신사조차 못 닿았던 자사 제품을 잡는다."
+
+## 5. 채팅 응답 — 판정 옆에 근거를 붙여라
+사용자는 리포트 파일을 바로 열어보지 않는다. 채팅 요약이 판정(BLOCK/PASS)만 나열하면 계산이 아니라 복사로 보인다. 채팅 응답에 반드시 포함:
+1. **산출 경로 한 줄** — `ruleset.json` 규칙 대조(결정론 하드게이트) + 에이전트 표면 상정으로 나온 판정임을 밝힌다.
+2. **판정별 "주장 vs 관측" 대조 1줄 + 규칙 ID** — 예: 안감 '캐시미어 30%' 주장 vs 시험성적서 미첨부 → 해당 규칙 ID로 BLOCK. 값은 방금 생성한 JSON 로그의 `violations[].claimed/observed/rule_id`에서 옮긴다(문서·기대값에서 옮기지 않는다).
+3. 재스캔 모드면 **몇 건이 어느 규칙으로 뒤집혔는지** 1줄씩.

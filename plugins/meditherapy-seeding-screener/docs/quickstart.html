@@ -24,6 +24,12 @@ ul,ol{padding-left:1.3em;margin:.4em 0}
 li{margin:.35em 0}
 .calc{background:#f6f6f6;border-left:3px solid #b8437a;border-radius:0 8px 8px 0;padding:10px 14px;font-size:.9rem;margin:.6em 0}
 .note{font-size:.84rem;color:#777}
+.pipe{display:flex;flex-wrap:wrap;gap:6px;align-items:stretch;margin:.8em 0}
+.stage{flex:1 1 140px;min-width:132px;border:1px solid #e2e2e2;border-radius:8px;padding:9px 11px;background:#fafafa}
+.stage .t{font-weight:700;font-size:.85rem}
+.stage .d{font-size:.8rem;color:#666;margin-top:.25em;line-height:1.5}
+.stage.in,.stage.out{border-color:#b8437a}
+.arr{align-self:center;color:#999;font-weight:700}
 footer{margin-top:3em;padding-top:1em;border-top:1px solid #e5e5e5;font-size:.85rem;color:#777}
 a{color:#0b62c4}
 @media (prefers-color-scheme:dark){
@@ -32,6 +38,8 @@ pre,th,.calc{background:#1d1d1d}pre,th,td{border-color:#333}
 h2,footer{border-color:#2a2a2a}
 .chip{background:#252525;color:#aaa}.co{background:#b8437a;color:#fff}
 .lead{color:#b5b5b5}.note{color:#888}footer{color:#888}a{color:#7ab8f5}
+.stage{background:#1d1d1d;border-color:#333}.stage .d{color:#999}
+.stage.in,.stage.out{border-color:#b8437a}
 .hi{color:#5fbf7f}.lo{color:#e57368}}
 </style>
 </head>
@@ -51,12 +59,18 @@ h2,footer{border-color:#2a2a2a}
 </ul>
 
 <h2>어떻게 쓰나</h2>
-<ol>
-<li>설치:
-<pre><code>codex plugin marketplace add https://github.com/chenjingdev/ax-hackathon-plugins
-codex plugin add meditherapy-seeding-screener@ax-hackathon-plugins</code></pre></li>
-<li>제품 정보와 후보들의 콘텐츠(게시물·대본·댓글)를 주고 <b>"시딩 후보 스크리닝해줘"</b>. 처음이면 그냥 "시연해줘"만 해도 번들 샘플로 돈다.</li>
-</ol>
+<p>제품 정보와 후보들의 콘텐츠(게시물·대본·댓글)를 주고 <b>"시딩 후보 스크리닝해줘"</b> — 그 한마디에 아래 과정이 한 번에 돈다. 처음이면 그냥 <b>"시연해줘"</b>만 해도 번들 샘플로 돈다.</p>
+<div class="pipe">
+<div class="stage in"><div class="t">입력</div><div class="d">제품 정보 + 후보별 게시물·대본·댓글</div></div>
+<div class="arr">→</div>
+<div class="stage"><div class="t">① 정독·채점</div><div class="d">후보×5차원 부합도 판정 + 근거가 되는 원문 문장 채집</div></div>
+<div class="arr">→</div>
+<div class="stage"><div class="t">② 인용 검증</div><div class="d">모든 인용이 원문에 실재하는지 기계 대조</div></div>
+<div class="arr">→</div>
+<div class="stage"><div class="t">③ 고정 공식 합산</div><div class="d">논문 근거 동결 가중치로 적합도 0~100 계산(코드)</div></div>
+<div class="arr">→</div>
+<div class="stage out"><div class="t">결과</div><div class="d">랭킹 + 차원별 근거 인용 + 보완 제안</div></div>
+</div>
 
 <h2>무슨 결과가 나오나</h2>
 <p>랭킹 리포트 한 장: <b>적합도 순위표 + 후보별 상세(차원 점수·원문 인용·출처 논문) + 보완 제안 + 선정 사유 메모</b>. 번들 킬러 데모(레티놀 세럼, 후보 4인)의 기대 결과 — 팔로워 순위가 뒤집힌다:</p>
