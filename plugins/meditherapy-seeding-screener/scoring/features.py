@@ -1,10 +1,10 @@
 """결정론 바닥 피처 추출 (SPEC §4.3·§5.2).
 
-extract_deterministic_features(normalized, ontology) -> {D1..D5: float in [0,1]}
+extract_deterministic_features(normalized, rubric) -> {D1..D5: float in [0,1]}
 같은 normalized 입력 → 항상 동일 출력(temp 무관·100% 재현, A8).
 
 여기 상수(키워드 사전·포화 임계)는 *측정 휴리스틱*이며 루프가 튜닝 가능(SPEC §12.5).
-가중치·블렌드비·D1 배분(동결값)은 여기에 없다 — ontology.json 소관.
+가중치·블렌드비·D1 배분(동결값)은 여기에 없다 — rubric.json 소관.
 """
 
 import re
@@ -52,7 +52,7 @@ def _clamp01(x):
     return max(0.0, min(1.0, float(x)))
 
 
-def extract_deterministic_features(normalized, ontology):
+def extract_deterministic_features(normalized, rubric):
     text = _norm(normalized.get("merged_text", ""))
     fields = normalized.get("fields", {})
     cap_tr = _norm(fields.get("caption", "") + " " + fields.get("transcript", ""))

@@ -38,24 +38,24 @@ POOR = {
 }
 
 
-def test_features_reproducible(ontology):
+def test_features_reproducible(rubric):
     """같은 normalized 입력 → 동일 피처 벡터 N=10 (temp 무관)."""
     norm = normalize(RICH, PRODUCT)
-    outs = [extract_deterministic_features(norm, ontology) for _ in range(10)]
+    outs = [extract_deterministic_features(norm, rubric) for _ in range(10)]
     assert all(o == outs[0] for o in outs)
 
 
-def test_features_in_unit_range(ontology):
+def test_features_in_unit_range(rubric):
     for cr in (RICH, POOR):
-        f = extract_deterministic_features(normalize(cr, PRODUCT), ontology)
+        f = extract_deterministic_features(normalize(cr, PRODUCT), rubric)
         for D in DIMS:
             assert 0.0 <= f[D] <= 1.0, (D, f[D])
 
 
-def test_features_discriminate_rich_vs_poor(ontology):
+def test_features_discriminate_rich_vs_poor(rubric):
     """구매유발 결이 풍부한 콘텐츠가 빈약 콘텐츠보다 핵심 차원 점수가 높다(변별)."""
-    fr = extract_deterministic_features(normalize(RICH, PRODUCT), ontology)
-    fp = extract_deterministic_features(normalize(POOR, PRODUCT), ontology)
+    fr = extract_deterministic_features(normalize(RICH, PRODUCT), rubric)
+    fp = extract_deterministic_features(normalize(POOR, PRODUCT), rubric)
     # D1(전문성)·D3(정보성)·D4(후기)에서 명확히 변별
     assert fr["D1"] > fp["D1"]
     assert fr["D3"] > fp["D3"]

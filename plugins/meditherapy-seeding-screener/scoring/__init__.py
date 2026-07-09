@@ -7,6 +7,6 @@
 - report:    §7.1 마크다운 + §7.3 JSON 로그 렌더
 - cli:       normalize→features→combine→aggregate→report 결정론 오케스트레이션(SKILL이 shell로 호출)
 
-가중치·블렌드비·D1 배분은 rules/ontology.json 동결값 — 이 코드는 읽기만 한다(SPEC §4.2·§5.4).
+가중치·블렌드비·D1 배분은 rules/rubric.json 동결값 — 이 코드는 읽기만 한다(SPEC §4.2·§5.4).
 네트워크 import 0(자기완결, SPEC §10.3).
 """

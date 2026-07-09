@@ -8,10 +8,10 @@ _SRC = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 if _SRC not in sys.path:
     sys.path.insert(0, _SRC)
 
-_ONTOLOGY_PATH = os.path.join(_SRC, "rules", "ontology.json")
+_RUBRIC_PATH = os.path.join(_SRC, "rules", "rubric.json")
 
 
 @pytest.fixture(scope="session")
-def ontology():
-    with open(_ONTOLOGY_PATH, "r", encoding="utf-8") as f:
+def rubric():
+    with open(_RUBRIC_PATH, "r", encoding="utf-8") as f:
         return json.load(f)
