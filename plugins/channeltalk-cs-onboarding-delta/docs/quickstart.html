@@ -77,15 +77,16 @@ h2,footer{border-color:#2a2a2a}
 <li><b>③ 신규 주제 — 지식을 추가할 때.</b> 표준에 없는 이 회사 고유 주제(<b>EXTRA</b>, 예: 정기구독 해지)를 새 슬롯 후보로 뽑는다. 표준에 없던 항목이니 지식에 새로 추가한다.</li>
 </ul>
 
-<h2>시연 등장인물 — 합성 고객사 '아크메샵'</h2>
-<p>번들 시연의 고객사는 <b>아크메샵</b>이다. 실존 회사가 아니라, 차이점·서로 어긋난 안내·빠진 항목을 검증용으로 일부러 심어둔 <b>합성 데이터</b>다. 아크메샵이 넘긴 자료는 <b>한 파일</b>(<code>acme-shop.md</code>)이고, 그 안에 세 갈래 내용이 담겨 있다:</p>
+<h2>시연 등장인물 — 기준 매뉴얼 + 합성 고객사 '아크메샵'</h2>
+<p>번들 시연은 <b>두 파일</b>을 쓴다 — 무엇에 대입해 비교하는지 눈에 보이도록 <b>기준 문서</b>를 함께 둔다. ① 기준 <code>표준-CS-매뉴얼.md</code>(합성 <b>이커머스 CS 표준 매뉴얼 v1.0</b>) ② 신규 고객사 <b>아크메샵</b>의 문서 <code>acme-shop.md</code>. 아크메샵은 실존 회사가 아니라 차이점·서로 어긋난 안내·빠진 항목을 검증용으로 일부러 심어둔 <b>합성 데이터</b>다. 두 파일을 함께 첨부하면 표준 매뉴얼에 고객사 문서를 대입해 차이만 뽑는다.</p>
 <div class="wrap"><table>
-<tr><th>파일</th><th>섹션</th><th>내용</th></tr>
-<tr><td rowspan="3"><code>acme-shop.md</code></td><td><b>반품·환불 정책</b></td><td>배송·주문·반품·환불·고객센터·정기구독 정책</td></tr>
-<tr><td><b>자주 묻는 질문(FAQ)</b></td><td>자주 묻는 질문/답변(환불·배송비·회원탈퇴)</td></tr>
-<tr><td><b>상품·배송 안내</b></td><td>배송 범위·반품 배송비 안내</td></tr>
+<tr><th>파일</th><th>역할</th><th>내용</th></tr>
+<tr><td><code>표준-CS-매뉴얼.md</code></td><td><b>기준(baseline)</b></td><td>이커머스 CS 공통 20주제의 표준 응대 값(전자상거래법·소비자분쟁해결기준·업계 관행). 동봉 baseline JSON과 1:1.</td></tr>
+<tr><td rowspan="3"><code>acme-shop.md</code></td><td rowspan="3"><b>고객사 문서</b></td><td>반품·환불 정책(배송·주문·반품·환불·고객센터·정기구독)</td></tr>
+<tr><td>자주 묻는 질문(FAQ)(환불·배송비·회원탈퇴)</td></tr>
+<tr><td>상품·배송 안내(배송 범위·반품 배송비)</td></tr>
 </table></div>
-<p class="note">채팅 요약·문서에서는 <b>아크메샵</b>으로 부르고, 코드·경로에서는 <code>acme-shop</code>으로 표기한다. 실제 고객사가 문서를 여러 파일(<code>.md</code>·<code>.csv</code>)로 줘도 그대로 처리한다 — 번들 시연만 한 파일로 통합했다.</p>
+<p class="note">채팅 요약·문서에서는 <b>아크메샵</b>으로 부르고, 코드·경로에서는 <code>acme-shop</code>으로 표기한다. 실제 고객사가 문서를 여러 파일(<code>.md</code>·<code>.csv</code>)로 줘도 그대로 처리한다 — 번들 시연만 고객사 문서를 한 파일로 통합했다. 자사 표준 매뉴얼을 첨부하면 그 문서가 기준이 된다.</p>
 
 <h2>어떻게 계산되나 (2계층)</h2>
 <p>이 도구는 두 계층으로 나뉜다 — <b>AI(에이전트)는 판정을 내리지 않는다.</b> AI는 각 표준 슬롯에 대해 <b>"이 회사 문서에 답이 있나 / 그 답이 표준과 같은 뜻인가"</b>만 읽어 <b>원문 인용과 함께</b> 슬롯별로 추출한다. 최종 <b>분류(5종)</b>·인용이 원문에 <b>실재하는지 검증(환각 걸러냄)</b>·required 슬롯 <b>전수 커버리지</b>는 <b>python 엔진</b>이 계산한다.</p>
@@ -120,13 +121,13 @@ h2,footer{border-color:#2a2a2a}
 <h2>어떻게 쓰나 (3경로)</h2>
 <ul>
 <li><b>① Codex 앱 "사용해 보기".</b> 설치 후 앱에서 바로 실행한다. 처음이면 <b>"처음 써봐요, 퀵스타트로 안내해줘"</b>라고 치면 이 문서가 다시 열린다.</li>
-<li><b>② 채팅 복붙.</b> 고객사 문서(정책·FAQ·상품)를 채팅에 첨부하고 <b>"이 고객사 문서들을 이커머스 CS 표준 매뉴얼과 대조해 차이점 리포트를 만들어줘"</b>. 시연만 원하면 <b>"합성 고객사 아크메샵 문서로 온보딩 차이점 분석을 시연해줘"</b>.</li>
+<li><b>② 채팅 복붙.</b> 고객사 문서(정책·FAQ·상품)를 채팅에 첨부하고 <b>"이 고객사 문서들을 이커머스 CS 표준 매뉴얼과 대조해 차이점 리포트를 만들어줘"</b>. 자사 표준 매뉴얼이 있으면 함께 첨부하면 그 기준으로 대조한다. 시연만 원하면 <b>"채널톡 표준 CS 매뉴얼과 합성 고객사 아크메샵 문서를 대조해 온보딩 차이점을 시연해줘"</b>.</li>
 <li><b>③ CLI 설치+실행.</b> 로컬 마켓플레이스로 설치:
 <pre>codex plugin marketplace add dist/marketplace
 codex plugin add channeltalk-cs-onboarding-delta@channeltalk-marketplace</pre>
 결정론 엔진을 직접 돌려 시연:
 <pre>cd src
-python -m engine.cli --docs sample/acme-shop --domain ecommerce-cs \
+python -m engine.cli --docs sample/demo/acme-shop.md --domain ecommerce-cs \
   --extraction sample/golden/acme-shop.extraction.json --out sample/out</pre></li>
 </ul>
 

@@ -1,6 +1,6 @@
 {
   "company": "acme-shop",
-  "_note": "골든 추출(사실상 정답) — 자기오염 방지를 위해 시연 입력 폴더(sample/acme-shop) 밖 sample/golden/으로 격리했다. 에이전트(Codex)는 이 파일을 베끼지 말고 SKILL.md 절차대로 acme-shop 문서(sample/acme-shop/acme-shop.md 단일 파일)를 직접 읽어 추출해야 한다. 실제 런타임에는 Codex가 이 파일을 생성한다. 최종 분류는 넣지 않는다(코드가 계산). 이 파일은 데모 폴백·골든 채점 참조용.",
+  "_note": "골든 추출(사실상 정답) — 자기오염 방지를 위해 시연 입력 폴더(sample/demo) 밖 sample/golden/으로 격리했다. 에이전트(Codex)는 이 파일을 베끼지 말고 SKILL.md 절차대로 고객사 문서(sample/demo/acme-shop.md 단일 파일)를 직접 읽어 추출해야 한다. 실제 런타임에는 Codex가 이 파일을 생성한다. 최종 분류는 넣지 않는다(코드가 계산). 이 파일은 데모 폴백·골든 채점 참조용.",
   "findings": [
     {"slot_id": "delivery-lead-time", "found": true, "extracted_answer": "영업일 2~3일 내 발송", "matches_baseline": true, "source_file": "acme-shop.md", "source_line": 8, "source_quote": "영업일 기준 2~3일 이내 발송", "confidence": 0.95},
     {"slot_id": "delivery-tracking", "found": true, "extracted_answer": "운송장 번호로 택배사 조회", "matches_baseline": true, "source_file": "acme-shop.md", "source_line": 9, "source_quote": "운송장 번호로 택배사에서 배송 조회", "confidence": 0.95},

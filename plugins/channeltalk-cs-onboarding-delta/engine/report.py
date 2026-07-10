@@ -7,6 +7,12 @@ from __future__ import annotations
 
 from engine.delta_engine import Delta, counts
 
+# 기준(baseline) 표기 기본값 — 동봉 표준 매뉴얼을 썼을 때. cli가 첨부 매뉴얼을
+# 컴파일해 --baseline 으로 넘기면 그에 맞는 라벨을 전달한다.
+_DEFAULT_BASELINE_LABEL = (
+    "동봉 이커머스 표준 매뉴얼 v1.0 (전자상거래법·소비자분쟁해결기준 기반 — 자사 표준으로 교체 가능)"
+)
+
 _ORDER = ["CONFLICT", "DIFFERENT", "MISSING", "EXTRA"]
 _TITLE = {
     "CONFLICT": "⚠ 안내가 서로 어긋남 (CONFLICT) — 먼저 확인",
@@ -20,11 +26,13 @@ def _cite_lines(d: Delta) -> list[str]:
     return [f'    · {c.file}:{c.line}  "{c.quote}"' for c in d.citations]
 
 
-def render_md(deltas: list[Delta], violations: list[dict] | None = None, company: str = "") -> str:
+def render_md(deltas: list[Delta], violations: list[dict] | None = None, company: str = "",
+              baseline_label: str | None = None) -> str:
     violations = violations or []
     c = counts(deltas)
     out: list[str] = []
     out.append(f"## 온보딩 차이점 리포트 — {company or '고객사'} (도메인: 이커머스 CS)")
+    out.append(f"기준: {baseline_label or _DEFAULT_BASELINE_LABEL}")
     out.append(
         f"요약: 표준과 동일(SAME) {c['SAME']} · 이 회사만 다름(DIFFERENT) {c['DIFFERENT']} · "
         f"문서에 없음(MISSING) {c['MISSING']} · 서로 어긋남(CONFLICT) {c['CONFLICT']} · "
@@ -79,10 +87,12 @@ def _delta_json(d: Delta) -> dict:
     }
 
 
-def render_json(deltas: list[Delta], violations: list[dict] | None = None, company: str = "") -> dict:
+def render_json(deltas: list[Delta], violations: list[dict] | None = None, company: str = "",
+                baseline_label: str | None = None) -> dict:
     return {
         "company": company,
         "domain": "ecommerce-cs",
+        "baseline_label": baseline_label or _DEFAULT_BASELINE_LABEL,
         "summary": counts(deltas),
         "deltas": [_delta_json(d) for d in deltas],
         "grounding_violations": violations or [],

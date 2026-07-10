@@ -1,9 +1,5 @@
-# 골든 기대 리포트 — acme-shop (합성 고객사)
-
-> `python -m engine.cli --docs sample/demo/acme-shop.md --domain ecommerce-cs --extraction sample/golden/acme-shop.extraction.json` 의 기대 출력(기본 baseline). 합성 데이터(정직성 라벨). 시연 시엔 기준 문서 `표준-CS-매뉴얼.md`를 `acme-shop.md`와 함께 첨부해 그 매뉴얼로 컴파일한 기준으로 실행되지만, 매뉴얼 값은 동봉 baseline JSON과 1:1이라 결과(카운트·분류)는 동일하다. 입력은 고객사 문서 한 파일 `sample/demo/acme-shop.md`. 심은 것(한 문서 안): CONFLICT 1(정책 '환불 7영업일 이내' vs FAQ '3일 이내' — 같은 문서의 다른 대목이 서로 어긋남)·DIFFERENT 1(단순변심 무료반품)·MISSING 2(주문변경·교환절차 문장 없음)·EXTRA 1(정기구독 해지).
-
 ## 온보딩 차이점 리포트 — acme-shop (도메인: 이커머스 CS)
-기준: 동봉 이커머스 표준 매뉴얼 v1.0 (전자상거래법·소비자분쟁해결기준 기반 — 자사 표준으로 교체 가능)
+기준: 첨부된 표준 CS 매뉴얼(compiled-baseline.json)
 요약: 표준과 동일(SAME) 10 · 이 회사만 다름(DIFFERENT) 1 · 문서에 없음(MISSING) 2 · 서로 어긋남(CONFLICT) 1 · 신규 주제(EXTRA) 1
 
 ### ⚠ 안내가 서로 어긋남 (CONFLICT) — 먼저 확인 — 1
@@ -14,7 +10,7 @@
 
 ### ✎ 이 회사만 다른 정책 (DIFFERENT) — 검수 후 반영 — 1
 - [return-shipping-fee] 단순변심 반품 시 배송비는 누가 부담하나요?
-    · 표준: 단순변심 반품은 구매자가 반품 배송비 부담(표준)
+    · 표준: 단순변심 반품은 구매자가 반품 배송비를 부담합니다.
     · 이 회사: 단순변심도 반품 배송비 무료
     · acme-shop.md:43  "단순변심의 경우에도 반품 배송비를 무료"
 

@@ -27,20 +27,37 @@ def normalize_text(s: str) -> str:
     return _WS.sub(" ", s).strip()
 
 
-def load_docs(directory: str | Path) -> list[Unit]:
-    """디렉토리의 .md/.csv를 읽어 Unit 목록으로. .md=줄단위, .csv=행단위(셀 결합)."""
-    directory = Path(directory)
+def _load_file(path: Path, units: list[Unit]) -> None:
+    """단일 .md/.csv 파일을 Unit으로 적재. .md=줄단위, .csv=행단위(셀 결합)."""
+    if path.suffix.lower() == ".md":
+        for i, raw in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
+            text = raw.strip()
+            if text:
+                units.append(Unit(path.name, i, text))
+    elif path.suffix.lower() == ".csv":
+        with path.open(encoding="utf-8", newline="") as fh:
+            for i, row in enumerate(csv.reader(fh), start=1):
+                cells = [c.strip() for c in row if c and c.strip()]
+                if cells:
+                    units.append(Unit(path.name, i, " | ".join(cells)))
+
+
+def load_docs(docs: str | Path | list[str | Path]) -> list[Unit]:
+    """고객사 문서를 Unit 목록으로 적재.
+
+    `docs`는 (1)디렉토리 (2)단일 파일 (3)파일·디렉토리 경로의 리스트 중 무엇이든 된다.
+    디렉토리면 그 안의 .md/.csv를 훑고, 파일이면 그 파일만 문서로 취급한다
+    (시연 폴더에 표준 매뉴얼이 함께 있어도 고객사 문서만 지정할 수 있도록).
+    """
+    specs = [docs] if isinstance(docs, (str, Path)) else list(docs)
     units: list[Unit] = []
-    for path in sorted(directory.iterdir()):
-        if path.suffix.lower() == ".md":
-            for i, raw in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
-                text = raw.strip()
-                if text:
-                    units.append(Unit(path.name, i, text))
-        elif path.suffix.lower() == ".csv":
-            with path.open(encoding="utf-8", newline="") as fh:
-                for i, row in enumerate(csv.reader(fh), start=1):
-                    cells = [c.strip() for c in row if c and c.strip()]
-                    if cells:
-                        units.append(Unit(path.name, i, " | ".join(cells)))
+    for spec in specs:
+        p = Path(spec)
+        if p.is_dir():
+            for path in sorted(p.iterdir()):
+                _load_file(path, units)
+        elif p.is_file():
+            _load_file(p, units)
+        else:
+            raise SystemExit(f"[에러] 문서 경로 없음: {p}")
     return units
