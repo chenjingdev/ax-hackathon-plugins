@@ -59,12 +59,12 @@ description: 고객사 문서 대조/온보딩 델타/온보딩 차이점/차이
     {"slot_id": "return-shipping-fee", "found": true,
      "extracted_answer": "단순변심 무료 반품",
      "matches_baseline": false,
-     "source_file": "product.md", "source_line": 8,
-     "source_quote": "단순변심도 무료 반품 가능합니다", "confidence": 0.9}
+     "source_file": "acme-shop.md", "source_line": 43,
+     "source_quote": "단순변심의 경우에도 반품 배송비를 무료", "confidence": 0.9}
   ],
   "extra_candidates": [
-    {"topic": "정기구독 해지", "source_file": "policy.md", "source_line": 20,
-     "source_quote": "정기구독 해지는 마이페이지에서"}
+    {"topic": "정기구독 해지", "source_file": "acme-shop.md", "source_line": 24,
+     "source_quote": "정기구독 해지는 마이페이지"}
   ]
 }
 ```
