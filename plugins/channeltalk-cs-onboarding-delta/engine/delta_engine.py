@@ -85,7 +85,7 @@ def classify(baseline_slots: list[dict], extraction: dict) -> list[Delta]:
         topic = ex.get("topic", "")
         deltas.append(Delta(slot_id=topic, label="EXTRA", category="(신규)",
                             canonical_question=topic, baseline_answer="", company_answer=topic,
-                            citations=_cites([ex]), note="베이스에 없는 신규 주제 — 슬롯 후보"))
+                            citations=_cites([ex]), note="표준에 없는 신규 주제 — 슬롯 후보"))
 
     _assert_coverage(baseline_slots, deltas)
     return deltas

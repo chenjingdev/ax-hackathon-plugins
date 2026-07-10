@@ -52,7 +52,7 @@ def main(argv: list[str] | None = None) -> int:
             stream.reconfigure(encoding="utf-8")  # Windows cp949 콘솔 대응
         except Exception:
             pass
-    p = argparse.ArgumentParser(description="CS 온보딩 델타 컴파일러")
+    p = argparse.ArgumentParser(description="CS 온보딩 차이점 도우미")
     p.add_argument("--docs", required=True, help="고객사 문서 디렉토리")
     p.add_argument("--domain", default="ecommerce-cs")
     p.add_argument("--extraction", help="에이전트 추출 JSON(extraction.json)")

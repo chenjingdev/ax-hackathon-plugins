@@ -1,4 +1,4 @@
-"""리포트 렌더 — 델타를 사람용 마크다운 + 기계용 JSON으로.
+"""리포트 렌더 — 차이점(Delta)을 사람용 마크다운 + 기계용 JSON으로.
 
 글래스박스: 모든 항목에 출처(file:line + 인용문). 자동 반영 없음(reviewed_by).
 순수 stdlib.
@@ -9,10 +9,10 @@ from engine.delta_engine import Delta, counts
 
 _ORDER = ["CONFLICT", "DIFFERENT", "MISSING", "EXTRA"]
 _TITLE = {
-    "CONFLICT": "⚠ CONFLICT (문서끼리 모순 — 먼저 확인)",
-    "DIFFERENT": "✎ DIFFERENT (이 회사만 다름 — 반영)",
-    "MISSING": "▢ MISSING (공백 — 고객사에 질문)",
-    "EXTRA": "＋ EXTRA (베이스에 없는 신규 — 슬롯 후보)",
+    "CONFLICT": "⚠ 안내가 서로 어긋남 (CONFLICT) — 먼저 확인",
+    "DIFFERENT": "✎ 이 회사만 다른 정책 (DIFFERENT) — 검수 후 반영",
+    "MISSING": "▢ 문서에 없는 항목 (MISSING) — 고객사에 질문",
+    "EXTRA": "＋ 표준에 없는 신규 주제 (EXTRA) — 슬롯 후보",
 }
 
 
@@ -24,10 +24,11 @@ def render_md(deltas: list[Delta], violations: list[dict] | None = None, company
     violations = violations or []
     c = counts(deltas)
     out: list[str] = []
-    out.append(f"## 온보딩 델타 리포트 — {company or '고객사'} (도메인: 이커머스 CS)")
+    out.append(f"## 온보딩 차이점 리포트 — {company or '고객사'} (도메인: 이커머스 CS)")
     out.append(
-        f"요약: 공통 SAME {c['SAME']} · 회사고유 DIFFERENT {c['DIFFERENT']} · "
-        f"공백 MISSING {c['MISSING']} · 모순 CONFLICT {c['CONFLICT']} · 신규 EXTRA {c['EXTRA']}"
+        f"요약: 표준과 동일(SAME) {c['SAME']} · 이 회사만 다름(DIFFERENT) {c['DIFFERENT']} · "
+        f"문서에 없음(MISSING) {c['MISSING']} · 서로 어긋남(CONFLICT) {c['CONFLICT']} · "
+        f"신규 주제(EXTRA) {c['EXTRA']}"
     )
     out.append("")
     for label in _ORDER:
@@ -39,7 +40,7 @@ def render_md(deltas: list[Delta], violations: list[dict] | None = None, company
             head = f"- [{d.slot_id}] {d.canonical_question}"
             out.append(head)
             if label == "DIFFERENT":
-                out.append(f"    · 베이스: {d.baseline_answer}")
+                out.append(f"    · 표준: {d.baseline_answer}")
                 out.append(f"    · 이 회사: {d.company_answer}")
             elif label == "CONFLICT":
                 out.append(f"    · 상충 값: {d.company_answer}")
@@ -51,7 +52,7 @@ def render_md(deltas: list[Delta], violations: list[dict] | None = None, company
         out.append("")
     same = [d.slot_id for d in deltas if d.label == "SAME"]
     if same:
-        out.append(f"### ✓ SAME (베이스 그대로 — 재작성 불필요) — {len(same)}")
+        out.append(f"### ✓ 표준과 동일 (SAME) — 재작성 불필요 — {len(same)}")
         out.append("    " + ", ".join(same))
         out.append("")
     if violations:

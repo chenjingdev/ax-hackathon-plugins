@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CS 온보딩 델타 컴파일러 — 소개 보고서</title>
+<title>CS 온보딩 차이점 도우미 — 소개 보고서</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Segoe UI","Noto Sans KR",sans-serif;line-height:1.65;color:#1a1a1a;background:#fff}
@@ -60,67 +60,67 @@ h2,footer{border-color:#2a2a2a}
 <body>
 <main>
 
-<h1>CS 온보딩 델타 컴파일러</h1>
+<h1>CS 온보딩 차이점 도우미</h1>
 <p><span class="chip co">채널톡</span><span class="chip">channeltalk-cs-onboarding-delta</span><span class="chip">Codex 플러그인</span></p>
-<p class="lead">새 고객사의 흩어진 CS 문서(반품·환불 정책·기존 FAQ·상품 안내)를 <b>이커머스 CS 표준 베이스라인</b>과 대조해, 베이스와 <b>다른 것·빠진 것·문서끼리 모순·신규 주제</b>만 근거 인용과 함께 리포트하는 <b>온보딩 도구</b>. 모든 판정에 <code>파일:라인 "원문"</code> 인용이 붙는다.</p>
+<p class="lead">새 고객사의 CS 문서(반품·환불 정책·기존 FAQ·상품 안내)를 <b>이커머스 CS 표준 매뉴얼</b>과 대조해, 표준과 <b>다른 것·빠진 것·서로 어긋난 안내·신규 주제</b>만 근거 인용과 함께 리포트하는 <b>온보딩 도구</b>. 모든 판정에 <code>파일:라인 "원문"</code> 인용이 붙는다.</p>
 
 <h2>무엇을 하나</h2>
 <p>채널톡은 AI 상담 에이전트 <b>'알프(ALF)'</b>를 판다. 그런데 알프는 흩어진 지식을 스스로 흡수하지 않는다 — 회사의 지식(FAQ·상품·운영 정책)을 <b>사람이 문서로 정리해 '지식(Knowledge)'에 먹여야</b> 답한다(엑셀·PDF·웹 참조로 학습). <a href="https://channel.io/ko/blog/articles/alf-v2-press-f03760de">[알프 v2 소개]</a> 그래서 신규 고객사마다 <b>흩어진 지식을 사람이 손으로 변환하는 온보딩 손작업</b>이 생긴다.</p>
 <p>이 일은 채널톡이 신설한 <b>AX 컨설턴트</b> 직무의 핵심업무로 명문화돼 있다 — 채용공고 문구 그대로: <b>"고객사의 FAQ, 상품 정보, 운영 정책 데이터를 분석하여 ALF가 학습할 수 있는 지식(Knowledge)으로 변환"</b>. <a href="https://channel.io/en/careers/e588e8b8-c1d1-43d7-b8b0-3ae9cb639d74">[AX Consultant 채용공고]</a> 실제 온보딩에서 <b>베리시</b>는 FAQ 65개를 손으로 등록하는 데 <b>2시간 반</b>이 걸렸고 <a href="https://channel.io/ko/blog/articles/c82e9aa3">[베리시 케이스]</a>, <b>이랜드이츠</b>는 <b>130개</b> 오프라인 매장 안내를 문서로 입력했다 <a href="https://channel.io/ko/blog/articles/ai-case-elandeats-19ddab58">[이랜드이츠 케이스]</a>. 채널톡 전문가 온보딩 서비스도 <b>"대부분 50만원~150만원 구간"</b>에서 진행되며, 세팅 시 <b>"지식은 고객사에서 제공"</b>한다 <a href="https://docs.channel.io/help/ko/articles/채널톡-전문가-찾기-744b2e01">[전문가 찾기 도움말]</a>.</p>
-<p>회사마다 반복되는 이 <b>지식변환이 병목</b>이고, 사람이 문서 수십 장을 훑으면 <b>문서끼리 모순이나 빠진 항목을 놓치기 쉽다</b>. 이 도구는 그 반복 손작업을 친다 — 공통 문의는 표준 베이스라인이 커버하니 재작성하지 않고, <b>이 회사만 다른 것·빠진 것·모순·신규만</b> 근거와 함께 표면화한다.</p>
+<p>회사마다 반복되는 이 <b>지식변환이 병목</b>이고, 사람이 문서를 눈으로 훑으면 <b>안내가 서로 어긋나거나 빠진 항목을 놓치기 쉽다</b>. 이 도구는 그 반복 손작업을 친다 — 공통 문의는 표준 매뉴얼이 커버하니 재작성하지 않고, <b>이 회사만 다른 것·빠진 것·서로 어긋난 안내·신규만</b> 근거와 함께 표면화한다.</p>
 
 <h2>돌리면 세 가지가 나온다</h2>
-<p>세 산출물은 각각 컨설턴트가 온보딩에서 하는 일 하나씩에 대응한다(공통 SAME은 베이스가 커버하니 재작성하지 않는다):</p>
+<p>세 산출물은 각각 컨설턴트가 온보딩에서 하는 일 하나씩에 대응한다(공통 SAME은 표준이 커버하니 재작성하지 않는다):</p>
 <ul>
-<li><b>① 델타 리포트 — 검수할 때.</b> 도구는 문서끼리 <b>모순(CONFLICT)</b>과 베이스와 <b>다른 정책(DIFFERENT)</b>을 <code>파일:라인 "원문"</code>과 함께 짚어준다. 예컨대 FAQ는 환불을 "3일", 정책서는 "7영업일"이라 말할 때, 사람이 놓칠 뻔한 그 모순을 <b>어느 파일 몇 번째 줄인지까지 대며</b> 표면화한다. 컨설턴트는 이 항목만 검수·반영하면 된다.</li>
-<li><b>② 고객사에 물어볼 질문 목록 — 킥오프 미팅 때.</b> 베이스에는 있는데 이 회사 문서엔 근거가 없는 슬롯(<b>MISSING</b>)을 "고객사에 확인 필요" 질문으로 모은다. 컨설턴트는 이 목록을 그대로 킥오프에서 물으면 된다.</li>
-<li><b>③ 신규 주제 — 지식을 추가할 때.</b> 베이스에 없는 이 회사 고유 주제(<b>EXTRA</b>, 예: 정기구독 해지)를 새 슬롯 후보로 뽑는다. 표준 베이스에 없던 항목이니 지식에 새로 추가한다.</li>
+<li><b>① 차이점 리포트 — 검수할 때.</b> 도구는 <b>서로 어긋난 안내(CONFLICT)</b>와 표준과 <b>다른 정책(DIFFERENT)</b>을 <code>파일:라인 "원문"</code>과 함께 짚어준다. 예컨대 같은 문서에서 FAQ 대목은 환불을 "3일", 정책 대목은 "7영업일"이라 말할 때, 사람이 놓칠 뻔한 그 어긋남을 <b>어느 파일 몇 번째 줄인지까지 대며</b> 표면화한다. 컨설턴트는 이 항목만 검수·반영하면 된다.</li>
+<li><b>② 고객사에 물어볼 질문 목록 — 킥오프 미팅 때.</b> 표준에는 있는데 이 회사 문서엔 근거가 없는 슬롯(<b>MISSING</b>)을 "고객사에 확인 필요" 질문으로 모은다. 컨설턴트는 이 목록을 그대로 킥오프에서 물으면 된다.</li>
+<li><b>③ 신규 주제 — 지식을 추가할 때.</b> 표준에 없는 이 회사 고유 주제(<b>EXTRA</b>, 예: 정기구독 해지)를 새 슬롯 후보로 뽑는다. 표준에 없던 항목이니 지식에 새로 추가한다.</li>
 </ul>
 
 <h2>시연 등장인물 — 합성 고객사 '아크메샵'</h2>
-<p>번들 시연의 고객사는 <b>아크메샵</b>이다. 실존 회사가 아니라, 차이·모순·공백을 검증용으로 일부러 심어둔 <b>합성 데이터</b>다. 아크메샵이 넘긴 문서는 세 종류:</p>
+<p>번들 시연의 고객사는 <b>아크메샵</b>이다. 실존 회사가 아니라, 차이점·서로 어긋난 안내·빠진 항목을 검증용으로 일부러 심어둔 <b>합성 데이터</b>다. 아크메샵이 넘긴 자료는 <b>한 파일</b>(<code>acme-shop.md</code>)이고, 그 안에 세 갈래 내용이 담겨 있다:</p>
 <div class="wrap"><table>
-<tr><th>문서</th><th>파일</th><th>내용</th></tr>
-<tr><td><b>반품·환불 정책</b></td><td><code>policy.md</code></td><td>배송·주문·반품·환불·고객센터·정기구독 정책</td></tr>
-<tr><td><b>기존 FAQ 표</b></td><td><code>faq.csv</code></td><td>자주 묻는 질문/답변 표(환불·배송비·회원탈퇴)</td></tr>
-<tr><td><b>상품 안내</b></td><td><code>product.md</code></td><td>배송 범위·반품 배송비 안내</td></tr>
+<tr><th>파일</th><th>섹션</th><th>내용</th></tr>
+<tr><td rowspan="3"><code>acme-shop.md</code></td><td><b>반품·환불 정책</b></td><td>배송·주문·반품·환불·고객센터·정기구독 정책</td></tr>
+<tr><td><b>자주 묻는 질문(FAQ)</b></td><td>자주 묻는 질문/답변(환불·배송비·회원탈퇴)</td></tr>
+<tr><td><b>상품·배송 안내</b></td><td>배송 범위·반품 배송비 안내</td></tr>
 </table></div>
-<p class="note">채팅 요약·문서에서는 <b>아크메샵</b>으로 부르고, 코드·경로에서는 <code>acme-shop</code>으로 표기한다.</p>
+<p class="note">채팅 요약·문서에서는 <b>아크메샵</b>으로 부르고, 코드·경로에서는 <code>acme-shop</code>으로 표기한다. 실제 고객사가 문서를 여러 파일(<code>.md</code>·<code>.csv</code>)로 줘도 그대로 처리한다 — 번들 시연만 한 파일로 통합했다.</p>
 
 <h2>어떻게 계산되나 (2계층)</h2>
-<p>이 도구는 두 계층으로 나뉜다 — <b>AI(에이전트)는 판정을 내리지 않는다.</b> AI는 각 베이스 슬롯에 대해 <b>"이 회사 문서에 답이 있나 / 그 답이 베이스와 같은 뜻인가"</b>만 읽어 <b>원문 인용과 함께</b> 슬롯별로 추출한다. 최종 <b>분류(5종)</b>·인용이 원문에 <b>실재하는지 검증(환각 걸러냄)</b>·required 슬롯 <b>전수 커버리지</b>는 <b>python 엔진</b>이 계산한다.</p>
+<p>이 도구는 두 계층으로 나뉜다 — <b>AI(에이전트)는 판정을 내리지 않는다.</b> AI는 각 표준 슬롯에 대해 <b>"이 회사 문서에 답이 있나 / 그 답이 표준과 같은 뜻인가"</b>만 읽어 <b>원문 인용과 함께</b> 슬롯별로 추출한다. 최종 <b>분류(5종)</b>·인용이 원문에 <b>실재하는지 검증(환각 걸러냄)</b>·required 슬롯 <b>전수 커버리지</b>는 <b>python 엔진</b>이 계산한다.</p>
 <div class="pipe">
-<div class="stage in"><div class="t">입력</div><div class="d">고객사 문서 3종(정책·FAQ·상품)</div></div>
+<div class="stage in"><div class="t">입력</div><div class="d">고객사 문서(정책·FAQ·상품 — 한 파일 또는 여러 파일)</div></div>
 <div class="arr">→</div>
-<div class="stage"><div class="t">① 슬롯별 추출</div><div class="d">AI: 답 유무·베이스와 같은 뜻 판단 + 근거가 되는 원문 문장 채집</div></div>
+<div class="stage"><div class="t">① 슬롯별 추출</div><div class="d">AI: 답 유무·표준과 같은 뜻 판단 + 근거가 되는 원문 문장 채집</div></div>
 <div class="arr">→</div>
 <div class="stage"><div class="t">② 인용 실재성 검증</div><div class="d">코드: 인용이 원문에 실재하는지 대조(없으면 근거불명으로 강등)</div></div>
 <div class="arr">→</div>
 <div class="stage"><div class="t">③ 결정론 분류</div><div class="d">코드: SAME/DIFFERENT/MISSING/CONFLICT/EXTRA 라벨·카운트·커버리지</div></div>
 <div class="arr">→</div>
-<div class="stage out"><div class="t">결과</div><div class="d">델타 리포트 + 질문 목록 + 신규 주제</div></div>
+<div class="stage out"><div class="t">결과</div><div class="d">차이점 리포트 + 질문 목록 + 신규 주제</div></div>
 </div>
-<p>베이스라인 슬롯 <b>20종</b>은 <code>baseline/ecommerce-cs.json</code> 파일에 박혀 있고(AI가 그때그때 정하지 않는다), 각 슬롯 기준값의 출처(전자상거래법·소비자분쟁해결기준 등 공개 조문 / <code>[SYNTH]</code> 업계 관행 자작)는 <code>baseline/sources.md</code>에 정직하게 구분돼 있다.</p>
+<p>표준 매뉴얼 슬롯 <b>20종</b>은 <code>baseline/ecommerce-cs.json</code> 파일에 박혀 있고(AI가 그때그때 정하지 않는다), 각 슬롯 기준값의 출처(전자상거래법·소비자분쟁해결기준 등 공개 조문 / <code>[SYNTH]</code> 업계 관행 자작)는 <code>baseline/sources.md</code>에 정직하게 구분돼 있다.</p>
 
 <h2>무슨 결과가 나오나 (기대 결과)</h2>
-<p>아크메샵 문서를 베이스 20슬롯과 대조하면 다음이 나온다:</p>
+<p>아크메샵 문서를 표준 매뉴얼 20슬롯과 대조하면 다음이 나온다:</p>
 <div class="wrap"><table>
 <tr><th>라벨</th><th>건수</th><th>뜻 — 컨설턴트 액션</th></tr>
-<tr><td><b>SAME</b></td><td><span class="hi">10</span></td><td>베이스 그대로 — 재작성 불필요</td></tr>
-<tr><td><b>DIFFERENT</b></td><td>1</td><td>이 회사만 다름 — 반영</td></tr>
-<tr><td><b>MISSING</b></td><td>2</td><td>문서에 근거 없음 — 고객사에 질문</td></tr>
-<tr><td><b>CONFLICT</b></td><td><span class="lo">1</span></td><td>문서끼리 모순 — 먼저 확인</td></tr>
-<tr><td><b>EXTRA</b></td><td>1</td><td>베이스에 없는 신규 — 슬롯 후보</td></tr>
+<tr><td><b>SAME</b></td><td><span class="hi">10</span></td><td>표준과 동일 — 재작성 불필요</td></tr>
+<tr><td><b>DIFFERENT</b></td><td>1</td><td>이 회사만 다름 — 검수 후 반영</td></tr>
+<tr><td><b>MISSING</b></td><td>2</td><td>문서에 없는 항목 — 고객사에 질문</td></tr>
+<tr><td><b>CONFLICT</b></td><td><span class="lo">1</span></td><td>서로 어긋난 안내 — 먼저 확인</td></tr>
+<tr><td><b>EXTRA</b></td><td>1</td><td>표준에 없는 신규 — 슬롯 후보</td></tr>
 </table></div>
 <div class="calc"><b>대표 예시</b><br>
-· <b>CONFLICT</b> <code>[refund-period]</code> — <code>policy.md:13</code> "7영업일 이내에 처리" ↔ <code>faq.csv:2</code> "3일 이내 처리". 같은 환불 처리기간을 두 문서가 다르게 말한다(컨설턴트가 훑다 놓칠 뻔한 모순).<br>
-· <b>DIFFERENT</b> <code>[return-shipping-fee]</code> — 베이스는 "단순변심 반품은 구매자 부담", 아크메샵은 <code>product.md:7</code> "단순변심의 경우에도 반품 배송비를 무료". 이 회사만의 정책이라 지식에 반영해야 한다.</div>
-<p class="note">공통 20슬롯 중 <b>10개가 SAME</b>이라 재작성 0 — 컨설턴트는 모순1·차이1·공백2·신규1, <b>딱 5개만</b> 확인하면 된다. 지어낸 인용은 코드가 원문 대조로 걸러 <b>근거불명 0</b>.</p>
+· <b>CONFLICT</b> <code>[refund-period]</code> — <code>acme-shop.md:17</code> "7영업일 이내에 처리" ↔ <code>acme-shop.md:29</code> "3일 이내 처리". 같은 문서의 정책 대목과 FAQ 대목이 환불 처리기간을 다르게 말한다(컨설턴트가 훑다 놓칠 뻔한 어긋남).<br>
+· <b>DIFFERENT</b> <code>[return-shipping-fee]</code> — 표준은 "단순변심 반품은 구매자 부담", 아크메샵은 <code>acme-shop.md:43</code> "단순변심의 경우에도 반품 배송비를 무료". 이 회사만의 정책이라 지식에 반영해야 한다.</div>
+<p class="note">공통 20슬롯 중 <b>10개가 SAME</b>이라 재작성 0 — 컨설턴트는 어긋남1·차이1·공백2·신규1, <b>딱 5개만</b> 확인하면 된다. 지어낸 인용은 코드가 원문 대조로 걸러 <b>근거불명 0</b>.</p>
 
 <h2>어떻게 쓰나 (3경로)</h2>
 <ul>
 <li><b>① Codex 앱 "사용해 보기".</b> 설치 후 앱에서 바로 실행한다. 처음이면 <b>"처음 써봐요, 퀵스타트로 안내해줘"</b>라고 치면 이 문서가 다시 열린다.</li>
-<li><b>② 채팅 복붙.</b> 고객사 문서(정책·FAQ·상품)를 채팅에 첨부하고 <b>"이 고객사 문서들을 이커머스 CS 베이스라인과 대조해 델타 리포트를 만들어줘"</b>. 시연만 원하면 <b>"합성 고객사 아크메샵 문서로 온보딩 델타를 시연해줘"</b>.</li>
+<li><b>② 채팅 복붙.</b> 고객사 문서(정책·FAQ·상품)를 채팅에 첨부하고 <b>"이 고객사 문서들을 이커머스 CS 표준 매뉴얼과 대조해 차이점 리포트를 만들어줘"</b>. 시연만 원하면 <b>"합성 고객사 아크메샵 문서로 온보딩 차이점 분석을 시연해줘"</b>.</li>
 <li><b>③ CLI 설치+실행.</b> 로컬 마켓플레이스로 설치:
 <pre>codex plugin marketplace add dist/marketplace
 codex plugin add channeltalk-cs-onboarding-delta@channeltalk-marketplace</pre>
