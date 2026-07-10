@@ -84,6 +84,16 @@ h2,footer{border-color:#2a2a2a}
 </table></div>
 <p class="note">넷 다 실존 인물이 아니라 공개 검증된 한국 뷰티 생태계의 대표 아키타입으로 재구성한 가상 후보다(실제 발언 인용 아님 — 날조 방지, 상세 출처는 <code>sample/EXPECTED.md</code>). 채팅 요약에서는 위 호칭으로 부르고, 리포트 파일에서는 순서대로 <code>mega_glam_lifestyle</code>·<code>mega_haul_unboxing</code>·<code>mid_review_creator</code>·<code>derma_micro_expert</code> ID를 쓴다. 질문은 하나 — <b>"레티놀 세럼을 사게 만드는 콘텐츠는 누구 것인가?"</b> 팔로워 수 순서와 답이 같을까?</p>
 
+<h2>시연 시나리오 3종 — 무엇부터 돌려볼까</h2>
+<p>번들 <code>sample/</code> 폴더에는 시연 입력 3종과, 대표 시연의 기대 결과 문서 1개(<code>sample/EXPECTED.md</code>)가 들어 있다. 셋은 각각 스크리너가 하는 일의 다른 면을 보여준다. 채팅에 아래 "돌려보는 말"을 붙이고 해당 파일을 첨부하면 그 자리에서 채점이 돈다:</p>
+<div class="wrap"><table>
+<tr><th>파일</th><th>무엇을 보여주나</th><th>돌려보는 말</th></tr>
+<tr><td><code>input.kr.json</code></td><td>레티놀 세럼 × 후보 4인 — 팔로워 수가 아니라 콘텐츠 결로 후보를 고르는 대표 랭킹</td><td>"이 후보들 스크리닝해줘 — 레티놀 세럼을 누구에게 보내야 할까?"</td></tr>
+<tr><td><code>input.low.json</code></td><td>스킨케어와 결이 먼 후보 12인 — 관계없는 후보를 후하게 주지 않는지(과대평가·오탐 방지) 보는 대조군</td><td>"이 후보들도 채점해줘 — 결이 먼 후보를 후하게 주지 않는지 보고 싶어"</td></tr>
+<tr><td><code>input.rescan.json</code></td><td>채점 기준이 v0.1→v0.2로 바뀐 상황 — 이미 채점한 후보를 소급 재채점하고 순위 변화를 추적</td><td>"채점 기준이 v0.2로 바뀌었어 — 이 후보들 소급 재채점해줘"</td></tr>
+</table></div>
+<p class="note"><code>sample/EXPECTED.md</code>는 <code>input.kr.json</code> 시연의 <b>기대 결과가 박제된 정답지</b>(심사·검증용)다 — 채점 에이전트는 실행 중 열지 않고, 사용자가 나온 결과를 눈으로 대조하는 용도다. 각 파일의 상세 설명은 <code>sample/README.md</code>에 있다.</p>
+
 <h2>무슨 결과가 나오나</h2>
 <p>랭킹 리포트 한 장: <b>적합도 순위표 + 후보별 상세(차원 점수·원문 인용·출처 논문) + 보완 제안 + 선정 사유 메모</b>. 위 후보 4인 데모의 기대 결과 — 팔로워 순위가 뒤집힌다:</p>
 <div class="wrap"><table>
