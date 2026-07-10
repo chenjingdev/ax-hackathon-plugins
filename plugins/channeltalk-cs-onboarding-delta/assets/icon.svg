@@ -1,6 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Channeltalk CS onboarding delta icon">
-  <rect x="0" y="0" width="512" height="512" rx="115" ry="115" fill="#4F46E5"/>
-  <path d="M136 118 H376 A40 40 0 0 1 416 158 V282 A40 40 0 0 1 376 322 H246 L196 386 L168 322 H136 A40 40 0 0 1 96 282 V158 A40 40 0 0 1 136 118 Z"
-        fill="none" stroke="#FFFFFF" stroke-width="30" stroke-linejoin="round" stroke-linecap="round"/>
-  <path d="M256 150 L314 288 L198 288 Z" fill="#FFFFFF"/>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4647E6"/>
+      <stop offset="1" stop-color="#3D3FD8"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="512" height="512" rx="118" ry="118" fill="url(#bg)"/>
+  <circle cx="252" cy="242" r="146" fill="#FFFFFF"/>
+  <path d="M162 356 L252 388 L188 442 Z" fill="#FFFFFF"/>
+  <path d="M253 130 L338 314 L168 314 Z" fill="#3D3FD8"/>
 </svg>
