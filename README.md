@@ -1,12 +1,13 @@
 # AX 인재전쟁 — Codex Plugins
 
-AX 인재전쟁 해커톤 예선 제출물. 참여 기업의 공개·검증 가능한 실무 문제를 푸는 OpenAI Codex 플러그인 3종을 하나의 마켓플레이스로 배포합니다.
+AX 인재전쟁 해커톤 예선 제출물. 참여 기업의 공개·검증 가능한 실무 문제를 푸는 OpenAI Codex 플러그인 4종을 하나의 마켓플레이스로 배포합니다.
 
 | 플러그인 | 대상 기업 | 하는 일 |
 |---|---|---|
 | `musinsa-listing-compliance` | 무신사 | 상품 표시정보(소재·혼용률·친환경 표현·시험성적서)를 표시광고법·그린워싱 가이드에 대조해 변경 이벤트마다 위반 탐지·재판정, 정정·반려 사유서 생성 |
 | `myrealtrip-listing-factcheck` | 마이리얼트립 | T&A 상품의 요일·시즌·연령 조건을 명소 공식 운영사실과 대조해 현지 사실 불일치 탐지, 정정·파트너 반려·고객 안내문 생성 |
 | `meditherapy-seeding-screener` | 메디테라피 | 인플루언서 시딩 후보 콘텐츠를 한국 동료심사 근거 가중 5차원 온톨로지로 스코어링, 근거 원문 인용 glass-box 랭킹 숏리스트 산출 |
+| `channeltalk-cs-onboarding-delta` | 채널톡 | 표준 CS 매뉴얼과 신규 고객사의 정책·FAQ·상품 안내를 대조해 회사별 차이·누락·서로 어긋난 안내·신규 주제만 원문 근거와 함께 추출, AI 상담원 알프 온보딩 검수 지원 |
 
 ## 설치 (Codex CLI)
 
@@ -17,6 +18,7 @@ codex plugin marketplace add https://github.com/chenjingdev/ax-hackathon-plugins
 codex plugin add musinsa-listing-compliance@ax-hackathon-plugins      # 필요한 것만 골라 설치
 codex plugin add myrealtrip-listing-factcheck@ax-hackathon-plugins
 codex plugin add meditherapy-seeding-screener@ax-hackathon-plugins
+codex plugin add channeltalk-cs-onboarding-delta@ax-hackathon-plugins
 ```
 
 ## 구조
